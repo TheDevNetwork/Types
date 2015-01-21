@@ -1,0 +1,31 @@
+{
+    "name": "tdn/php-types",
+    "description": "Php primitive wrappers lib.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Victor Passapera",
+            "email": "vpassapera@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "danielstjules/stringy": ">=1.5.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tdn\\PhpTypes\\Type\\": "Type",
+            "Tdn\\PhpTypes\\Tests\\": "Tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
