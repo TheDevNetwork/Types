@@ -22,6 +22,10 @@
             "Tdn\\PhpTypes\\Type\\": "Type",
             "Tdn\\PhpTypes\\Tests\\": "Tests"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "stable"
+        }
     }
 }
-
