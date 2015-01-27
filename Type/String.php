@@ -6,7 +6,7 @@ use Stringy\Stringy;
 
 /**
  * Class String
- * @package TheDevNetwork\CodeTools\Type
+ * @package Tdn\SfProjectGeneratorBundle\Type
  */
 class String extends Stringy
 {
@@ -16,7 +16,7 @@ class String extends Stringy
      *
      * @param mixed $str
      * @param string $encoding
-     * @return \TheDevNetwork\CodeTools\Type\String
+     * @return \Tdn\PhpTypes\Type\String
      */
     public static function create($str, $encoding = 'UTF-8')
     {
@@ -323,7 +323,7 @@ class String extends Stringy
      * @param bool $excluding
      * @param bool $caseSensitive
      *
-     * @return \TheDevNetwork\CodeTools\Type\String
+     * @return \Tdn\PhpTypes\Type\String
      */
     public function subStrUntil($subStr, $excluding = false, $caseSensitive = false)
     {
@@ -337,7 +337,7 @@ class String extends Stringy
      * @param bool $excluding
      * @param bool $caseSensitive
      *
-     * @return \TheDevNetwork\CodeTools\Type\String
+     * @return \Tdn\PhpTypes\Type\String
      */
     public function subStrAfter($subStr, $excluding = false, $caseSensitive = false)
     {
@@ -420,7 +420,6 @@ class String extends Stringy
             return self::create(implode("\n", $lines));
         }
 
-        ladybug_dump((string) String::create($this->lineStrPad($str, $padType, $spaces)));
         return String::create($this->lineStrPad($str, $padType, $spaces));
     }
 
