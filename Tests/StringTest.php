@@ -73,18 +73,18 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, String::create($this->loremIpsum)->strpos('ipsum'));
     }
 
-    public function testAddSpaces()
+    public function testAddIndent()
     {
         $str = "    Hello world!" . "\n" . "    Foo bar!";
-        $this->assertEquals($str, (string) String::create("Hello world!\nFoo bar!")->addSpaces(4, null, true));
+        $this->assertEquals($str, (string) String::create("Hello world!\nFoo bar!")->addIndent(4, null, true));
         $str = "    Foo Test.";
-        $this->assertEquals($str, (string) String::create("Foo Test.")->addSpaces());
+        $this->assertEquals($str, (string) String::create("Foo Test.")->addIndent());
     }
 
-    public function testGetSpaceSize()
+    public function testIndentSize()
     {
         $str = "\n" . '    $test';
-        $this->assertEquals(4, (int) String::create($str)->getSpaceSize());
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
     }
 }
 

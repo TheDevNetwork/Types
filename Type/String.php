@@ -398,7 +398,7 @@ class String extends Stringy
     }
 
     /**
-     * Adds a predefined number of spaces to string.
+     * Adds a predefined number of identation indentation spaces to string.
      * If newlines are found, it will add number of spaces before each newline.
      *
      * @param int $numSpaces
@@ -407,7 +407,7 @@ class String extends Stringy
      *
      * @return self
      */
-    public function addSpaces($numSpaces = null, $padType = STR_PAD_LEFT, $perNewline = false)
+    public function addIndent($numSpaces = null, $padType = STR_PAD_LEFT, $perNewline = false)
     {
         $numSpaces = ($numSpaces) ? $numSpaces : 4;
         $str = self::create($this->str);
@@ -430,12 +430,12 @@ class String extends Stringy
      * @param null $str
      * @return int
      */
-    public function getSpaceSize($str = null)
+    public function getIdentSize($str = null)
     {
         $str = ($str) ? $str : self::create($this->str);
         if ((string) $str[0] == "\n") {
             $str = $str->substr(1);
-            $this->getSpaceSize($str);
+            $this->getIdentSize($str);
         }
         $counter = 0;
         foreach ($str as $letter) {
