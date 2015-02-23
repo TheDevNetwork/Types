@@ -17,8 +17,8 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 * [subStrAfter](#subStrAfter)
 * [subStrFromTo](#subStrFromTo)
 * [strpos](#strpos)
-* [addSpaces / addIndent *](#addSpaces)
-* [getSpaceSize / getIndentSize *](#getSpaceSize)
+* [addIndent](#addIndent)
+* [getIndentSize](#getIndentSize)
 
 #### pluralize
 $string->pluralize()
@@ -102,17 +102,15 @@ $position = String::create($sentence)->strpos('ipsum');
 echo $position; //6
 ```
 
-#### addSpaces / addIndent*
-This function will be renamed in the next API.
-
-$string->addSpaces([int $numSpaces = 4[, STR_PAD_LEFT|STR_PAD_RIGHT|STR_PAD_BOTH $padType = STR_PAD_LEFT[, bool $perNewLine = false]]]) 
+#### addIndent
+$string->addIdent([int $numSpaces = 4[, STR_PAD_LEFT|STR_PAD_RIGHT|STR_PAD_BOTH $padType = STR_PAD_LEFT[, bool $perNewLine = false]]]) 
 
 Adds indentation to given string. Optionally change the padding type. Optionally add padding per new line.
 
 ```php
 $str = "Hello world!";
 
-$indented = String::create($str)->addSpaces(4);
+$indented = String::create($str)->addIdent(4);
 echo $indented;
 //Output
 //    Hello World!
@@ -122,22 +120,20 @@ Hello world
 This is foo bar
 TEST>>>;
 
-$indented = String::create($multiLineStr)->addSpaces(4, STR_PAD_LEFT, true);
+$indented = String::create($multiLineStr)->addIdent(4, STR_PAD_LEFT, true);
 echo $indented;
 //Output:
 //    Hello world
 //    This is foo bar
 ```
 
-#### getSpaceSize / getIndentSize*
-This function will be renamed in the next API.
+#### getIndentSize
+$string->getIndentSize();
 
-$string->getSpaceSize();
-
-Returns the current indentation size (number of spaces/tabs).
+Returns the current indentation size (number of spaces).
 
 ```php
 $var = '    pie';
-$indent = String::create($var)->getSpaceSize();
+$indent = String::create($var)->getIndentSize();
 echo $indent; //4
 ```
