@@ -354,7 +354,7 @@ class String extends Stringy
      * @param bool $caseSensitive
      * @return self
      */
-    public function subStrFromTo($fromSubStr, $toSubStr = null, $excludeFromSubStr = false, $excludeToSubStr = false, $caseSensitive = false)
+    public function subStrFromTo($fromSubStr, $toSubStr = '', $excludeFromSubStr = false, $excludeToSubStr = false, $caseSensitive = false)
     {
         $fromIndex = 0;
         $toIndex = mb_strlen($this->str);
@@ -369,7 +369,7 @@ class String extends Stringy
                 throw new \LogicException('To cannot be before from.');
             }
 
-            if ($toSubStr && $str->contains($toSubStr)) {
+            if (!empty($toSubStr) && $str->contains($toSubStr)) {
                 $toIndex = ($caseSensitive) ?
                     mb_stripos($this->str, $toSubStr, $fromIndex, $this->encoding) :
                     mb_strpos($this->str, $toSubStr, $fromIndex, $this->encoding);
