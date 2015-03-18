@@ -328,7 +328,7 @@ class String extends Stringy
     public function subStrUntil($subStr, $excluding = false, $caseSensitive = false)
     {
         $fromSubStr = $this->str[0];
-        return $this->subStrFromTo($fromSubStr, $subStr, false, $excluding, $caseSensitive);
+        return $this->subStrBetween($fromSubStr, $subStr, false, $excluding, $caseSensitive);
     }
 
     /**
@@ -341,20 +341,20 @@ class String extends Stringy
      */
     public function subStrAfter($subStr, $excluding = false, $caseSensitive = false)
     {
-        return $this->subStrFromTo($subStr, null, $excluding, false, $caseSensitive);
+        return $this->subStrBetween($subStr, null, $excluding, false, $caseSensitive);
     }
 
     /**
      * Returns substring between fromSubStr to toSubStr. End of string if toSubStr is not set.
      *
      * @param string $fromSubStr
-     * @param null $toSubStr
+     * @param string $toSubStr
      * @param bool $excludeFromSubStr
      * @param bool $excludeToSubStr
      * @param bool $caseSensitive
      * @return self
      */
-    public function subStrFromTo($fromSubStr, $toSubStr = '', $excludeFromSubStr = false, $excludeToSubStr = false, $caseSensitive = false)
+    public function subStrBetween($fromSubStr, $toSubStr = '', $excludeFromSubStr = false, $excludeToSubStr = false, $caseSensitive = false)
     {
         $fromIndex = 0;
         $toIndex = mb_strlen($this->str);
@@ -430,12 +430,12 @@ class String extends Stringy
      * @param null $str
      * @return int
      */
-    public function getIdentSize($str = null)
+    public function getIndentSize($str = null)
     {
         $str = ($str) ? $str : self::create($this->str);
         if ((string) $str[0] == "\n") {
             $str = $str->substr(1);
-            $this->getIdentSize($str);
+            $this->getIndentSize($str);
         }
         $counter = 0;
         foreach ($str as $letter) {
