@@ -52,19 +52,19 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'consectetur adipiscing elit',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', true, true)
+            (string) String::create($this->loremIpsum)->subStrBetween('amet, ', ', sed', true, true)
         );
         $this->assertEquals(
             'amet, consectetur adipiscing elit',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', false, true)
+            (string) String::create($this->loremIpsum)->subStrBetween('amet, ', ', sed', false, true)
         );
         $this->assertEquals(
             'consectetur adipiscing elit, sed',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', true, false)
+            (string) String::create($this->loremIpsum)->subStrBetween('amet, ', ', sed', true, false)
         );
         $this->assertEquals(
             'amet, consectetur adipiscing elit, sed',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed')
+            (string) String::create($this->loremIpsum)->subStrBetween('amet, ', ', sed')
         );
     }
 

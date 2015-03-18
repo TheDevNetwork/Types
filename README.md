@@ -17,7 +17,7 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 * [singularize](#singularize)
 * [subStrUntil](#substruntil)
 * [subStrAfter](#substrafter)
-* [subStrFromTo](#substrfromto)
+* [subStrBetween](#substrfromto)
 * [strpos](#strpos)
 * [addIndent](#addindent)
 * [getIndentSize](#getindentsize)
@@ -72,24 +72,24 @@ $subSentence = String::create($sentence)->subStrAfter('elit, ');
 echo $subSentence; //elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 ```
 
-#### subStrFromTo
-$string->subStrFromTo(string $fromSubStr[, string $toSubStr = null[, bool $excludeFromSubStr = false[, bool $excludeToSubStr = false[, bool $caseSensitive = false]]]])
+#### subStrBetween
+$string->subStrBetween(string $fromSubStr[, string $toSubStr = null[, bool $excludeFromSubStr = false[, bool $excludeToSubStr = false[, bool $caseSensitive = false]]]])
 
-Returns substring between first instance of fromSubStr to toSubStr or end of string if toSubStr is not set. Optionally excludes fromSubStr. Optionally exclude toSubStr. Optionally case sensitive.
+Returns substring between first instance of fromSubStr to first instance of toSubStr or end of string if toSubStr is not set. Optionally excludes fromSubStr. Optionally exclude toSubStr. Optionally case sensitive.
 
 ```php
 $sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-$subSentence = String::create($sentence)->subStrFromTo('amet, ', ', sed', true, true);
+$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', true, true);
 echo $subSentence; //consectetur adipiscing elit
 
-$subSentence = String::create($sentence)->subStrFromTo('amet, ', ', sed', false, true);
+$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', false, true);
 echo $subSentence; //amet, consectetur adipiscing elit
 
-$subSentence = String::create($sentence)->subStrFromTo('amet, ', ', sed', true, false);
+$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', true, false);
 echo $subSentence; //consectetur adipiscing elit, sed
 
-$subSentence = String::create($sentence)->subStrFromTo('amet, ', ', sed');
+$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed');
 echo $subSentence; //amet, consectetur adipiscing elit, sed
 ```
 #### strpos
