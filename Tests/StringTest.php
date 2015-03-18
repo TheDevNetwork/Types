@@ -28,11 +28,11 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'Lorem ipsum dolor sit amet',
-            (string) String::create($this->loremIpsum)->subStrUntil(',', true)
+            (string) String::create(self::LOREM_IPSUM)->subStrUntil(',', true)
         );
         $this->assertEquals(
             'Lorem ipsum dolor sit amet,',
-            (string) String::create($this->loremIpsum)->subStrUntil(',')
+            (string) String::create(self::LOREM_IPSUM)->subStrUntil(',')
         );
     }
 
@@ -40,37 +40,37 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-            (string) String::create($this->loremIpsum)->subStrAfter('elit, ', true)
+            (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ', true)
         );
         $this->assertEquals(
             'elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-            (string) String::create($this->loremIpsum)->subStrAfter('elit, ')
+            (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ')
         );
     }
 
-    public function testSubStrFromTo()
+    public function testSubStrBetween()
     {
         $this->assertEquals(
             'consectetur adipiscing elit',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', true, true)
+            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', true, true)
         );
         $this->assertEquals(
             'amet, consectetur adipiscing elit',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', false, true)
+            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', false, true)
         );
         $this->assertEquals(
             'consectetur adipiscing elit, sed',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed', true, false)
+            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', true, false)
         );
         $this->assertEquals(
             'amet, consectetur adipiscing elit, sed',
-            (string) String::create($this->loremIpsum)->subStrFromTo('amet, ', ', sed')
+            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed')
         );
     }
 
     public function testStrpos()
     {
-        $this->assertEquals(6, String::create($this->loremIpsum)->strpos('ipsum'));
+        $this->assertEquals(6, String::create(self::LOREM_IPSUM)->strpos('ipsum'));
     }
 
     public function testAddIndent()
