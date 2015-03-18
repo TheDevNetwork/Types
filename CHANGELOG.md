@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.1.0 - 2015-03-18
 
 * Changed method name from `subStrFromTo` to more logical `subStrBetween`.
 * Fixed getIndentSize to proper method name.
