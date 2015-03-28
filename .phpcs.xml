@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="PhpTypes Coding Standard">
+    <description>Coding standard for PhpTypes</description>
+    <file>Type</file>
+    <file>Tests</file>
+    <arg name="extensions" value="php" />
+    <arg value="sp" />
+    <rule ref="PSR2" />
+</ruleset>
