@@ -24,6 +24,11 @@ Please checkout the [main documentation file] located in
 
     docs/index.md
 
+
+Requests
+--------
+For ideas or requests, you can propose an enhancement through the issues system.
+
 Contributing
 ------------
 
