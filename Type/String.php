@@ -11,7 +11,6 @@ use Stringy\Stringy;
  */
 class String extends Stringy
 {
-
     /**
      * Mainly here for type hinting purposes...
      *

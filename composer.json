@@ -13,8 +13,9 @@
     "prefer-stable": true,
     "require": {
         "php": ">=5.4.0",
-        "danielstjules/stringy": ">=1.5.2",
-        "doctrine/inflector": "dev-master"
+        "danielstjules/stringy": "~1.5",
+        "nesbot/carbon": "~1.18",
+        "doctrine/inflector": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5",
