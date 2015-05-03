@@ -1,141 +1,44 @@
-# PhpTypes
-A primitive wrappers library for PHP.
+PhpTypes
+========
+A primitive wrappers library for PHP. Uses the best* libs available in the PHP landscape and neatly wraps them
+in a single repo, providing aliased classes and some extra features not available in the base classes.
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/big.png)](https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f)
+<sub>`*` Based purely on opinion, but download statistics for the respective libs definitely support the bias ;)</sub>
 
-## Roadmap
+[![SensioLabsInsight]](https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f)
+
+Roadmap
+-------
+
 - [x] String
 - [ ] Bool
 - [ ] Int
 - [ ] Float
-- [ ] Enum
+- [x] DateTime
 
-### String
-Currently this class extends [danielstjules/Stringy](https://github.com/danielstjules/Stringy) and provides the following additional methods
+Long term goal is to create something similar to java lang for php.
 
-* [pluralize](#pluralize)
-* [singularize](#singularize)
-* [subStrUntil](#substruntil)
-* [subStrAfter](#substrafter)
-* [subStrBetween](#substrfromto)
-* [strpos](#strpos)
-* [addIndent](#addindent)
-* [getIndentSize](#getindentsize)
+Documentation
+-------------
 
-#### pluralize
-$string->pluralize()
+Please checkout the [main documentation file] located in
 
-Returns the word in plural form.
+    docs/index.md
 
-```php
-$word = String::create('syllabus')->pluralize();
-echo $word; //syllabi
-```
 
-#### singularize
-$string->singularize()
+Requests
+--------
+For ideas or requests, you can propose an enhancement through the issues system.
 
-Returns the word in singular form.
+Contributing
+------------
 
-```php
-$word = String::create('walruses')->singularize();
-echo $word; //walrus
-```
+If you are contributing or otherwise developing in this bundle, please read the [CONTRIBUTING](CONTRIBUTING.md).
 
-#### subStrUntil
-$string->subStrUntil(string $subString[, bool $excluding = false[, bool $caseSensitive = false]])
+License
+-------
 
-Returns the string until the first instance of subString indicated. Optionally excludes substring. Optionally case sensitive.
+This bundle is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
 
-```php
-$sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-$subSentence = String::create($sentence)->subStrUntil(',', true);
-echo $subSentence; //Lorem ipsum dolor sit amet
-
-$subSentence = String::create($sentence)->subStrUntil(',');
-echo $subSentence; //Lorem ipsum dolor sit amet,
-```
-
-#### subStrAfter
-$string->subStrAfter(string $subString[, bool $excluding = false[, bool $caseSensitive = false]])
-
-Returns the string after the first instance of subString indicated. Optionally excludes substring. Optionally case sensitive.
-
-```php
-$sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-$subSentence = String::create($sentence)->subStrAfter('elit, ', true);
-echo $subSentence; //sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-$subSentence = String::create($sentence)->subStrAfter('elit, ');
-echo $subSentence; //elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-```
-
-#### subStrBetween
-$string->subStrBetween(string $fromSubStr[, string $toSubStr = null[, bool $excludeFromSubStr = false[, bool $excludeToSubStr = false[, bool $caseSensitive = false]]]])
-
-Returns substring between first instance of fromSubStr to first instance of toSubStr or end of string if toSubStr is not set. Optionally excludes fromSubStr. Optionally exclude toSubStr. Optionally case sensitive.
-
-```php
-$sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', true, true);
-echo $subSentence; //consectetur adipiscing elit
-
-$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', false, true);
-echo $subSentence; //amet, consectetur adipiscing elit
-
-$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed', true, false);
-echo $subSentence; //consectetur adipiscing elit, sed
-
-$subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed');
-echo $subSentence; //amet, consectetur adipiscing elit, sed
-```
-#### strpos
-$string->strpos(string $subStr[, int $start = 0[, bool $caseSensitive = false]])
-
-Returns position of the first occurance of subStr null if not present. Optional start index. Optionally case sensitive.
-
-```php
-$sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-$position = String::create($sentence)->strpos('ipsum');
-echo $position; //6
-```
-
-#### addIndent
-$string->addIndent([int $numSpaces = 4[, STR_PAD_LEFT|STR_PAD_RIGHT|STR_PAD_BOTH $padType = STR_PAD_LEFT[, bool $perNewLine = false]]]) 
-
-Adds indentation to given string. Optionally change the padding type. Optionally add padding per new line.
-
-```php
-$str = "Hello world!";
-
-$indented = String::create($str)->addIndent(4);
-echo $indented;
-//Output
-//    Hello World!
-
-$multiLineStr = <<<TEST
-Hello world
-This is foo bar
-TEST>>>;
-
-$indented = String::create($multiLineStr)->addIndent(4, STR_PAD_LEFT, true);
-echo $indented;
-//Output:
-//    Hello world
-//    This is foo bar
-```
-
-#### getIndentSize
-$string->getIndentSize();
-
-Returns the current indentation size (number of spaces).
-
-```php
-$var = '    pie';
-$indent = String::create($var)->getIndentSize();
-echo $indent; //4
-```
+[SensioLabsInsight]:https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/big.png
+[main documentation file]: docs/index.md

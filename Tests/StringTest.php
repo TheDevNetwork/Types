@@ -12,7 +12,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
 {
     const STRING_SINGULAR = "syllabus";
     const STRING_PLURAL   = "syllabi";
-    const LOREM_IPSUM     = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+    const LOREM_IPSUM     =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.';
 
     public function testSingular()
     {
@@ -39,11 +40,11 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testSubStrAfter()
     {
         $this->assertEquals(
-            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'sed do eiusmod tempor incididunt.',
             (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ', true)
         );
         $this->assertEquals(
-            'elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'elit, sed do eiusmod tempor incididunt.',
             (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ')
         );
     }
@@ -83,7 +84,32 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testIndentSize()
     {
-        $str = "\n" . '    $test';
+        $str = "\n" . '    test';
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+
+        $str = "\n" . '    test' . "\n";
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+
+        $str = "\n" .
+            "    test2L1\n" .
+            "    test2L2\n" .
+            "    test3L3\n"
+        ;
+
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testIndentSizeFail()
+    {
+        $str = "\n" .
+            "   test2L1\n" .
+            "    test2L2\n" .
+            "    test3L3\n"
+        ;
+
         $this->assertEquals(4, (int) String::create($str)->getIndentSize());
     }
 }
