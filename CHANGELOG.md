@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.1 - 2015-05-02
+
+* Fixed indentSize implementation.
+* Added more tests, CS file and phpunit config.
+
 ## 1.1.0 - 2015-03-18
 
 * Changed method name from `subStrFromTo` to more logical `subStrBetween`.
