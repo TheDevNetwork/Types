@@ -16,10 +16,23 @@ class String extends Stringy
      *
      * @param mixed $str
      * @param string $encoding
+     *
+     * @throws \InvalidArgumentException when $str is not a string.
+     *
      * @return \Tdn\PhpTypes\Type\String
      */
     public static function create($str, $encoding = 'UTF-8')
     {
+        $type = gettype($str);
+        if ($type !== 'string') {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Expected string got %s instead.',
+                    $type
+                )
+            );
+        }
+
         return new static($str, $encoding);
     }
 
@@ -92,9 +105,7 @@ class String extends Stringy
         $toIndex = mb_strlen($this->str);
         $str = self::create($this->str);
         if ($str->contains($fromSubStr)) {
-            $fromIndex = ($caseSensitive) ?
-                mb_strpos($this->str, $fromSubStr, 0, $this->encoding) :
-                mb_stripos($this->str, $fromSubStr, 0, $this->encoding);
+            $fromIndex = $this->strpos($fromSubStr, 0, $caseSensitive);
             $fromIndex = ($excludeFromSubStr) ? $fromIndex + mb_strlen($fromSubStr, $this->encoding) : $fromIndex;
 
             if ($fromIndex < 0) {
@@ -102,9 +113,7 @@ class String extends Stringy
             }
 
             if (!empty($toSubStr) && $str->contains($toSubStr)) {
-                $toIndex = ($caseSensitive) ?
-                    mb_stripos($this->str, $toSubStr, $fromIndex, $this->encoding) :
-                    mb_strpos($this->str, $toSubStr, $fromIndex, $this->encoding);
+                $toIndex = $this->strpos($toSubStr, $fromIndex, $caseSensitive);
                 $toIndex = ($excludeToSubStr) ?
                     $toIndex - $fromIndex :  ($toIndex - $fromIndex) + mb_strlen($toSubStr, $this->encoding);
             }
@@ -131,7 +140,7 @@ class String extends Stringy
     }
 
     /**
-     * Adds a predefined number of identation indentation spaces to string.
+     * Adds a predefined number of indentation indentation spaces to string.
      * If newlines are found, it will add number of spaces before each newline.
      *
      * @param int $numSpaces
@@ -158,7 +167,8 @@ class String extends Stringy
 
     /**
      * Gets current indentation length. Skips newlines.
-     * Stops as soon as a nonspace is detected. Per line.
+     * Ensures that all lines passed are indented equally, otherwise fails.
+     * Returns the number of indentation.
      *
      * @param null $str
      * @return int
@@ -166,20 +176,35 @@ class String extends Stringy
     public function getIndentSize($str = null)
     {
         $str = ($str) ? $str : self::create($this->str);
-        if ((string) $str[0] == "\n") {
-            $str = $str->substr(1);
-            $this->getIndentSize($str);
-        }
-        $counter = 0;
+        $counters = [];
+        $position = 0;
+        $line     = 0;
+
         foreach ($str as $letter) {
+            //No need to add support for tabs since we want to follow PSR2.
             if ($letter == ' ') {
-                $counter++;
-            } else {
-                break;
+                //If we're in the middle of a string, do not count the space.
+                if (isset($str[$position - 1]) && ($str[$position - 1] != ' ' && $str[$position - 1] != "\n")) {
+                    continue;
+                }
+
+                $counters[$line]++;
             }
+
+            //Make sure not to initiate a new array
+            if ($letter == "\n" && isset($str[$position + 1])) {
+                $line++;
+                $counters[$line] = 0;
+            }
+
+            $position++;
         }
 
-        return $counter;
+        if (count(array_unique($counters)) > 1) {
+            throw new \RuntimeException('String passed is not correctly indented. Indentation is not consistent.');
+        }
+
+        return array_pop($counters);
     }
 
     /**
