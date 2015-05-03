@@ -84,7 +84,32 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testIndentSize()
     {
-        $str = "\n" . '    $test';
+        $str = "\n" . '    test';
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+
+        $str = "\n" . '    test' . "\n";
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+
+        $str = "\n" .
+            "    test2L1\n" .
+            "    test2L2\n" .
+            "    test3L3\n"
+        ;
+
+        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testIndentSizeFail()
+    {
+        $str = "\n" .
+            "   test2L1\n" .
+            "    test2L2\n" .
+            "    test3L3\n"
+        ;
+
         $this->assertEquals(4, (int) String::create($str)->getIndentSize());
     }
 }

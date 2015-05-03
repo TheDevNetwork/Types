@@ -14,8 +14,9 @@ Roadmap
 - [ ] Bool
 - [ ] Int
 - [ ] Float
-- [ ] Enum
 - [x] DateTime
+
+Long term goal is to create something similar to java lang for php.
 
 Documentation
 -------------
