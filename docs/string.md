@@ -5,12 +5,9 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 
 * [pluralize](#pluralize)
 * [singularize](#singularize)
-* [subStrUntil](#substruntil)
-* [subStrAfter](#substrafter)
-* [subStrBetween](#substrfromto)
 * [strpos](#strpos)
-* [addIndent](#addindent)
-* [getIndentSize](#getindentsize)
+* [strrpos](#strrpos)
+* [valueOf](#valueof)
 
 #### pluralize
 $string->pluralize()
@@ -84,7 +81,7 @@ $subSentence = String::create($sentence)->subStrBetween('amet, ', ', sed');
 echo $subSentence; //amet, consectetur adipiscing elit, sed
 ```
 #### strpos
-$string->strpos(string $subStr[, int $start = 0[, bool $caseSensitive = false]])
+$string->strpos(string $subStr[, int $offset = null[, bool $caseSensitive = false]])
 
 Returns position of the first occurance of subStr null if not present. Optional start index. Optionally case sensitive.
 
@@ -95,38 +92,27 @@ $position = String::create($sentence)->strpos('ipsum');
 echo $position; //6
 ```
 
-#### addIndent
-$string->addIndent([int $numSpaces = 4[, STR_PAD_LEFT|STR_PAD_RIGHT|STR_PAD_BOTH $padType = STR_PAD_LEFT[, bool $perNewLine = false]]]) 
 
-Adds indentation to given string. Optionally change the padding type. Optionally add padding per new line.
+#### strrpos
+$string->strrpos(string $subStr[, int $offset = null[, bool $caseSensitive = false]])
 
-```php
-$str = "Hello world!";
-
-$indented = String::create($str)->addIndent(4);
-echo $indented;
-//Output
-//    Hello World!
-
-$multiLineStr = <<<TEST
-Hello world
-This is foo bar
-TEST>>>;
-
-$indented = String::create($multiLineStr)->addIndent(4, STR_PAD_LEFT, true);
-echo $indented;
-//Output:
-//    Hello world
-//    This is foo bar
-```
-
-#### getIndentSize
-$string->getIndentSize();
-
-Returns the current indentation size (number of spaces).
+Returns position of the last occurrence of subStr null if not present.
 
 ```php
-$var = '    pie';
-$indent = String::create($var)->getIndentSize();
-echo $indent; //4
+$sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+$position = String::create($sentence)->strrpos('ipsum');
+echo $position; //6
 ```
+
+#### valueOf
+$newString = String::valueOf(false);
+echo $newString //"false"
+
+$newString = String::valueOf($myObj);
+echo $newString //"foo" aka whatever __toString is
+
+$newString = String::valueOf(1.895);
+echo $newString //"1.895"
+
+etc.

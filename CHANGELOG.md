@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* Upgraded libs
+* Removed indent functions. Fringe case.
+* Removed subStrBetween, subStrAfter, subStrUntil as they are available upstream now through alternative methods.
+* Added valueOf to String. Allows transformation of other types to string.
+
 ## 1.1.1 - 2015-05-02
 
 * Fixed indentSize implementation.
@@ -8,7 +15,7 @@
 ## 1.1.0 - 2015-03-18
 
 * Changed method name from `subStrFromTo` to more logical `subStrBetween`.
-* Fixed getIndentSize to proper method name.
+* Fixed getPadSize to proper method name.
 
 ## 1.0.1 - 2015.02.25
 
