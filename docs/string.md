@@ -10,7 +10,7 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 * [subStrBetween](#substrfromto)
 * [strpos](#strpos)
 * [addIndent](#addindent)
-* [getIndentSize](#getindentsize)
+* [getPadSize](#getindentsize)
 
 #### pluralize
 $string->pluralize()
@@ -120,13 +120,13 @@ echo $indented;
 //    This is foo bar
 ```
 
-#### getIndentSize
-$string->getIndentSize();
+#### getPadSize
+$string->getPadSize();
 
 Returns the current indentation size (number of spaces).
 
 ```php
 $var = '    pie';
-$indent = String::create($var)->getIndentSize();
+$indent = String::create($var)->getPadSize();
 echo $indent; //4
 ```

@@ -85,10 +85,10 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testIndentSize()
     {
         $str = "\n" . '    test';
-        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+        $this->assertEquals(4, (int) String::create($str)->getPadSize());
 
         $str = "\n" . '    test' . "\n";
-        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+        $this->assertEquals(4, (int) String::create($str)->getPadSize());
 
         $str = "\n" .
             "    test2L1\n" .
@@ -96,7 +96,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
             "    test3L3\n"
         ;
 
-        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+        $this->assertEquals(4, (int) String::create($str)->getPadSize());
     }
 
     /**
@@ -110,6 +110,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
             "    test3L3\n"
         ;
 
-        $this->assertEquals(4, (int) String::create($str)->getIndentSize());
+        $this->assertEquals(4, (int) String::create($str)->getPadSize());
     }
 }

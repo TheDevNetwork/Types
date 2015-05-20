@@ -8,7 +8,7 @@
 ## 1.1.0 - 2015-03-18
 
 * Changed method name from `subStrFromTo` to more logical `subStrBetween`.
-* Fixed getIndentSize to proper method name.
+* Fixed getPadSize to proper method name.
 
 ## 1.0.1 - 2015.02.25
 

@@ -123,7 +123,7 @@ class String extends Stringy
     }
 
     /**
-     * Returns position of the first occurance of subStr null if not present.
+     * Returns position of the first occurrence of subStr null if not present.
      * @param $subStr
      * @param int $start
      * @param bool $caseSensitive
@@ -132,59 +132,46 @@ class String extends Stringy
      */
     public function strpos($subStr, $start = 0, $caseSensitive = false)
     {
-        $res = ($caseSensitive) ?
-            mb_strpos($this->str, addslashes($subStr), $start, $this->encoding) :
-            mb_stripos($this->str, addslashes($subStr), $start, $this->encoding);
-
-        return $res;
+        return ($caseSensitive) ?
+            mb_strpos($this->str, $subStr, $start, $this->encoding) :
+            mb_stripos($this->str, $subStr, $start, $this->encoding);
     }
 
     /**
-     * Adds a predefined number of indentation indentation spaces to string.
-     * If newlines are found, it will add number of spaces before each newline.
+     * Returns position of the last occurrence of subStr null if not present.
+     * @param $subStr
+     * @param int $offset
+     * @param bool $caseSensitive
      *
-     * @param int $numSpaces
-     * @param int $padType
-     * @param bool $perNewline
-     *
-     * @return self
-     */
-    public function addIndent($numSpaces = null, $padType = STR_PAD_LEFT, $perNewline = false)
-    {
-        $numSpaces = ($numSpaces) ? $numSpaces : 4;
-        $str = self::create($this->str);
-        $spaces = str_repeat(' ', $numSpaces);
-        if ($str->contains("\n") !== false && $perNewline) {
-            $lines = explode("\n", trim($this->str));
-            foreach ($lines as &$line) {
-                $line = $this->lineStrPad($line, $padType, $spaces);
-            }
-            return self::create(implode("\n", $lines));
-        }
-
-        return String::create($this->lineStrPad($str, $padType, $spaces));
-    }
-
-    /**
-     * Gets current indentation length. Skips newlines.
-     * Ensures that all lines passed are indented equally, otherwise fails.
-     * Returns the number of indentation.
-     *
-     * @param null $str
      * @return int
      */
-    public function getIndentSize($str = null)
+    public function strrpos($subStr, $offset = null, $caseSensitive = false)
     {
-        $str = ($str) ? $str : self::create($this->str);
+        return ($caseSensitive) ?
+            mb_strrpos($this->str, $subStr, $offset, $this->encoding) :
+            mb_strripos($this->str, $subStr, $offset, $this->encoding);
+    }
+
+    /**
+     * Gets current pad length. Skips newlines.
+     * Ensures that all lines passed are indented equally, otherwise fails.
+     * Returns the number instances that $padStr occurs.
+     *
+     * @param string $padStr
+     * @return int
+     */
+    public function getPadSize($padStr = ' ')
+    {
+        $str = self::create($this->str);
         $counters = [];
         $position = 0;
         $line     = 0;
 
         foreach ($str as $letter) {
             //No need to add support for tabs since we want to follow PSR2.
-            if ($letter == ' ') {
+            if ($letter == $padStr) {
                 //If we're in the middle of a string, do not count the space.
-                if (isset($str[$position - 1]) && ($str[$position - 1] != ' ' && $str[$position - 1] != "\n")) {
+                if (isset($str[$position - 1]) && ($str[$position - 1] != $padStr && $str[$position - 1] != "\n")) {
                     continue;
                 }
 
@@ -205,28 +192,6 @@ class String extends Stringy
         }
 
         return array_pop($counters);
-    }
-
-    /**
-     * @param $line
-     * @param $padType
-     * @param $spaces
-     * @return string
-     */
-    private function lineStrPad($line, $padType, $spaces)
-    {
-        switch($padType) {
-            case STR_PAD_LEFT:
-                $line = $spaces . $line;
-                break;
-            case STR_PAD_BOTH:
-                $line = $spaces . $line . $spaces;
-                break;
-            case STR_PAD_RIGHT:
-                $line = $line . $spaces;
-        }
-
-        return $line;
     }
 
     /**
