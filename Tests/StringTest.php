@@ -2,10 +2,11 @@
 
 namespace Tdn\PhpTypes\Tests;
 
+use Tdn\PhpTypes\Tests\Fixtures\StringableObject;
 use Tdn\PhpTypes\Type\String;
 
 /**
- * Class String
+ * Class StringTest
  * @package Tdn\PhpTypes\Tests
  */
 class StringTest extends \PHPUnit_Framework_TestCase
@@ -13,103 +14,51 @@ class StringTest extends \PHPUnit_Framework_TestCase
     const STRING_SINGULAR = "syllabus";
     const STRING_PLURAL   = "syllabi";
     const LOREM_IPSUM     =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.';
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Ipsum.';
 
     public function testSingular()
     {
-        $this->assertEquals((string) (new String(self::STRING_PLURAL))->singularize(), self::STRING_SINGULAR);
+        $this->assertEquals(self::STRING_SINGULAR, String::create(self::STRING_PLURAL)->singularize());
     }
 
     public function testPluralize()
     {
-        $this->assertEquals((string) (new String(self::STRING_SINGULAR))->pluralize(), self::STRING_PLURAL);
-    }
-
-    public function testSubStrUntil()
-    {
-        $this->assertEquals(
-            'Lorem ipsum dolor sit amet',
-            (string) String::create(self::LOREM_IPSUM)->subStrUntil(',', true)
-        );
-        $this->assertEquals(
-            'Lorem ipsum dolor sit amet,',
-            (string) String::create(self::LOREM_IPSUM)->subStrUntil(',')
-        );
-    }
-
-    public function testSubStrAfter()
-    {
-        $this->assertEquals(
-            'sed do eiusmod tempor incididunt.',
-            (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ', true)
-        );
-        $this->assertEquals(
-            'elit, sed do eiusmod tempor incididunt.',
-            (string) String::create(self::LOREM_IPSUM)->subStrAfter('elit, ')
-        );
-    }
-
-    public function testSubStrBetween()
-    {
-        $this->assertEquals(
-            'consectetur adipiscing elit',
-            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', true, true)
-        );
-        $this->assertEquals(
-            'amet, consectetur adipiscing elit',
-            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', false, true)
-        );
-        $this->assertEquals(
-            'consectetur adipiscing elit, sed',
-            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed', true, false)
-        );
-        $this->assertEquals(
-            'amet, consectetur adipiscing elit, sed',
-            (string) String::create(self::LOREM_IPSUM)->subStrBetween('amet, ', ', sed')
-        );
+        $this->assertEquals(self::STRING_PLURAL, String::create(self::STRING_SINGULAR)->pluralize());
     }
 
     public function testStrpos()
     {
         $this->assertEquals(6, String::create(self::LOREM_IPSUM)->strpos('ipsum'));
+        $this->assertEquals(91, String::create(self::LOREM_IPSUM)->strpos('ipsum', 12));
+        $this->assertEquals(91, String::create(self::LOREM_IPSUM)->strpos('Ipsum', 0, true));
     }
 
-    public function testAddIndent()
+    public function testStrrpos()
     {
-        $str = "    Hello world!" . "\n" . "    Foo bar!";
-        $this->assertEquals($str, (string) String::create("Hello world!\nFoo bar!")->addIndent(4, null, true));
-        $str = "    Foo Test.";
-        $this->assertEquals($str, (string) String::create("Foo Test.")->addIndent());
+        $this->assertEquals(91, String::create(self::LOREM_IPSUM)->strrpos('Ipsum'));
+        $this->assertEquals(91, String::create(self::LOREM_IPSUM)->strrpos('ipsum', 46));
+        $this->assertEquals(6, String::create(self::LOREM_IPSUM)->strrpos('ipsum', 0, true));
     }
 
-    public function testIndentSize()
+    public function testValueOf()
     {
-        $str = "\n" . '    test';
-        $this->assertEquals(4, (int) String::create($str)->getPadSize());
-
-        $str = "\n" . '    test' . "\n";
-        $this->assertEquals(4, (int) String::create($str)->getPadSize());
-
-        $str = "\n" .
-            "    test2L1\n" .
-            "    test2L2\n" .
-            "    test3L3\n"
-        ;
-
-        $this->assertEquals(4, (int) String::create($str)->getPadSize());
+        $this->assertEquals('false', String::valueOf(false));
+        $this->assertEquals('99', String::valueOf(99));
+        $this->assertEquals('1.49', String::valueOf(1.49));
+        $this->assertEquals('3E-5', String::valueOf(3E-5));
+        $this->assertEquals('bar', String::valueOf('bar'));
+        $this->assertEquals('1, 2, 3, 4', String::valueOf([1, 2, 3, 4]));
+        $this->assertEquals('foo', String::valueOf(new StringableObject()));
+        $this->assertEquals('stream', String::valueOf(tmpfile()));
+        $this->assertEquals('', String::valueOf(null));
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
+     * @expectedExceptionMessage Could not transform stdClass to string.
      */
-    public function testIndentSizeFail()
+    public function testBadValueOfObject()
     {
-        $str = "\n" .
-            "   test2L1\n" .
-            "    test2L2\n" .
-            "    test3L3\n"
-        ;
-
-        $this->assertEquals(4, (int) String::create($str)->getPadSize());
+        String::valueOf(new \StdClass());
     }
 }

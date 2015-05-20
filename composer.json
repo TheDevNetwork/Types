@@ -14,22 +14,23 @@
     "require": {
         "php": ">=5.4.0",
         "danielstjules/stringy": "~2",
-        "nesbot/carbon": "~1.19",
-        "doctrine/inflector": "~1.0"
+        "nesbot/carbon": "~1",
+        "doctrine/inflector": "~1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.5",
+        "phpunit/phpunit": "~4.7",
+        "satooshi/php-coveralls": "~0.6",
+        "bruli/php-git-hooks": "~1.3",
         "squizlabs/php_codesniffer": "~2.2"
     },
     "autoload": {
         "psr-4": {
-            "Tdn\\PhpTypes\\Type\\": "Type",
-            "Tdn\\PhpTypes\\Tests\\": "Tests"
+            "Tdn\\PhpTypes\\": ""
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-develop": "2.0.x-dev"
         }
     }
 }
