@@ -5,10 +5,9 @@ namespace Tdn\PhpTypes\Type;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 
 /**
- * Class Boolean
- * @package Tdn\PhpTypes\Type
+ * Class BooleanType.
  */
-class Boolean implements TypeInterface
+class BooleanType implements TypeInterface
 {
     /**
      * @var bool

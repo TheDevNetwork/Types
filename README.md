@@ -18,8 +18,8 @@ in a single repo, providing aliased classes and some extra features not availabl
 Roadmap
 -------
 
-- [x] String
-- [x] Boolean
+- [x] StringType
+- [x] BooleanType
 - [ ] Int
 - [ ] Float
 - [x] DateTime

@@ -6,7 +6,6 @@ use Tdn\PhpTypes\Type\DateTime;
 
 /**
  * Class DateTimeTest
- * @package Tdn\PhpTypes\Tests
  */
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {
