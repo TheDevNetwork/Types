@@ -7,10 +7,9 @@ use Stringy\Stringy;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 
 /**
- * Class String
- * @package Tdn\PhpTypes\Type
+ * Class StringType.
  */
-class String extends Stringy implements TypeInterface
+class StringType extends Stringy implements TypeInterface
 {
     /**
      * Mainly here for type hinting purposes...

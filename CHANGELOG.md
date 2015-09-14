@@ -1,12 +1,17 @@
 # CHANGELOG
 
+## Unreleased
+
+* Creating aliases for classes to avoid collisions with upcoming 7.1.
+* Deprecating old names.
+
 ## 2.0.0 - 2015-09-08
 
 * Upgraded libs
 * Removed indent functions. Fringe case.
 * Removed subStrBetween, subStrAfter, subStrUntil as they are available upstream now through alternative methods.
-* Added valueOf to String. Allows transformation of other types to string.
-* Added Boolean type. Added valueOf to boolean. Added tests for Boolean type.
+* Added valueOf to StringType. Allows transformation of other types to string.
+* Added BooleanType type. Added valueOf to boolean. Added tests for BooleanType type.
 
 ## 1.1.1 - 2015-05-02
 
