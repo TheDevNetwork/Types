@@ -17,17 +17,17 @@ class BooleanTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(new BooleanType(false) == new BooleanType(true));
     }
 
-    public function testValueOf()
+    public function testFrom()
     {
-        $this->assertEquals(new BooleanType(false), BooleanType::valueOf(false));
-        $this->assertEquals(new BooleanType(false), BooleanType::valueOf('false'));
-        $this->assertEquals(new BooleanType(false), BooleanType::valueOf(null));
-        $this->assertEquals(new BooleanType(true), BooleanType::valueOf('true'));
-        $this->assertEquals(new BooleanType(true), BooleanType::valueOf(new \StdClass()));
-        $this->assertEquals(new BooleanType(true), BooleanType::valueOf(tmpfile()));
+        $this->assertEquals(new BooleanType(false), BooleanType::from(false));
+        $this->assertEquals(new BooleanType(false), BooleanType::from('false'));
+        $this->assertEquals(new BooleanType(false), BooleanType::from(null));
+        $this->assertEquals(new BooleanType(true), BooleanType::from('true'));
+        $this->assertEquals(new BooleanType(true), BooleanType::from(new \StdClass()));
+        $this->assertEquals(new BooleanType(true), BooleanType::from(tmpfile()));
         $this->assertEquals(
             new BooleanType(false),
-            BooleanType::valueOf('any string that is not "true" evalutes to false')
+            BooleanType::from('any string that is not "true" evalutes to false')
         );
     }
 
@@ -37,7 +37,7 @@ class BooleanTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testArray()
     {
-        BooleanType::valueOf([]);
+        BooleanType::from([]);
     }
 
     /**
@@ -46,7 +46,7 @@ class BooleanTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInteger()
     {
-        BooleanType::valueOf(99);
+        BooleanType::from(99);
     }
 
     /**
@@ -55,6 +55,6 @@ class BooleanTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testDouble()
     {
-        BooleanType::valueOf(3E-5);
+        BooleanType::from(3E-5);
     }
 }

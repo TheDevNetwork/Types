@@ -15,7 +15,7 @@ class BooleanType implements TypeInterface
     private $value;
 
     /**
-     * @param $bool
+     * @param mixed $bool
      */
     public function __construct($bool)
     {
@@ -35,10 +35,19 @@ class BooleanType implements TypeInterface
     }
 
     /**
+     * @deprecated
+     * @see BooleanType::from
+     */
+    public static function valueOf($mixed)
+    {
+        return static::from($mixed);
+    }
+
+    /**
      * @param mixed $mixed
      * @return static
      */
-    public static function valueOf($mixed)
+    public static function from($mixed)
     {
         return new static(self::asBool($mixed));
     }
@@ -72,5 +81,13 @@ class BooleanType implements TypeInterface
                     )
                 );
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function __invoke()
+    {
+        return $this->getValue();
     }
 }

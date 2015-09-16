@@ -2,8 +2,10 @@
 
 ## Unreleased
 
-* Creating aliases for classes to avoid collisions with upcoming 7.1.
-* Deprecating old names.
+* Added `invoke` to Boolean.
+* Creating aliases for classes to avoid collisions with upcoming PHP 7.0 by deprecating future keywords.
+* Updated tests.
+* Updated documentation.
 
 ## 2.0.0 - 2015-09-08
 

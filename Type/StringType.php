@@ -93,11 +93,19 @@ class StringType extends Stringy implements TypeInterface
     }
 
     /**
+     * @see StringType::from
+     */
+    public static function valueOf($mixed)
+    {
+        return static::from($mixed);
+    }
+
+    /**
      * @param mixed $mixed
      *
      * @return static
      */
-    public static function valueOf($mixed)
+    public static function from($mixed)
     {
         switch (strtolower(gettype($mixed))) {
             case 'boolean':

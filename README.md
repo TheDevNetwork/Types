@@ -13,13 +13,15 @@ PhpTypes
 A primitive wrappers library for PHP. Uses the best* libs available in the PHP landscape and neatly wraps them
 in a single repo, providing aliased classes and some extra features not available in the base classes.
 
+If you find any cool libs that wrap around primitives, go ahead and suggest them in the issues section!
+
 <sub>`*` Based purely on opinion, but download statistics for the respective libs definitely support the bias ;)</sub>
 
 Roadmap
 -------
 
-- [x] StringType
-- [x] BooleanType
+- [x] String
+- [x] Boolean
 - [ ] Int
 - [ ] Float
 - [x] DateTime

@@ -8,6 +8,14 @@ namespace Tdn\PhpTypes\Type;
 interface TypeInterface
 {
     /**
+     * Alias for TypeInterface::from
+     *
+     * @deprecated
+     * @see TypeInterface::from
+     */
+    public static function valueOf($mixed);
+
+    /**
      * A little bit of java goodness. Should be useful in the upcoming php7.
      *
      * Returns an instance of the implementing class with it's value evaluated from the argument.
@@ -17,5 +25,5 @@ interface TypeInterface
      *
      * @return static
      */
-    public static function valueOf($mixed);
+    public static function from($mixed);
 }

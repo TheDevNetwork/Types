@@ -7,7 +7,7 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 * [singularize](#singularize)
 * [strpos](#strpos)
 * [strrpos](#strrpos)
-* [valueOf](#valueof)
+* [from](#from)
 
 #### pluralize
 $string->pluralize()
@@ -54,15 +54,17 @@ $position = StringType::create($sentence)->strrpos('ipsum');
 echo $position; //6
 ```
 
-#### valueOf
-StringType::valueOf($mixed)
+#### from
+StringType::from($mixed)
 
 Returns the evaluated value of $mixed as a string.
 
 ```php
-$newString = StringType::valueOf($myObj);
+$newString = StringType::from($myObj);
 echo $newString //"foo" aka whatever __toString is
 
-$newString = StringType::valueOf(1.895);
+$newString = StringType::from(1.895);
 echo $newString //"1.895"
 ```php
+
+See tests for other usages.
