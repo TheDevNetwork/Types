@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.0.1 - 2015-09-22
 
 * Added `invoke` to Boolean.
 * Creating aliases for classes to avoid collisions with upcoming PHP 7.0 by deprecating future keywords.
