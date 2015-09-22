@@ -5,12 +5,14 @@ Use docs
 --------
 Please refer to the appropriate class to read it's documentation
 
-- [String]
+- [BooleanType]
+- [StringType]
 - [DateTime]
 
 API docs
 --------
 [ reserved ]
 
-[String]: string.md
+[BooleanType]: boolean.md
+[StringType]: string.md
 [DateTime]: datetime.md

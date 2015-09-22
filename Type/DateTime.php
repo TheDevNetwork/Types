@@ -9,8 +9,7 @@ use Carbon\Carbon;
  *
  * Same effect as doing class_alias('Carbon\\Carbon', 'DateTime')
  *
- * Class DateTime
- * @package Tdn\PhpTypes\Type
+ * Class DateTime.
  */
 class DateTime extends Carbon
 {

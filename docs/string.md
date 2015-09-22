@@ -1,4 +1,4 @@
-String
+StringType
 ======
 Currently this class extends [danielstjules/Stringy](https://github.com/danielstjules/Stringy) and provides
  the following additional methods:
@@ -7,7 +7,7 @@ Currently this class extends [danielstjules/Stringy](https://github.com/danielst
 * [singularize](#singularize)
 * [strpos](#strpos)
 * [strrpos](#strrpos)
-* [valueOf](#valueof)
+* [from](#from)
 
 #### pluralize
 $string->pluralize()
@@ -15,7 +15,7 @@ $string->pluralize()
 Returns the word in plural form.
 
 ```php
-$word = String::create('syllabus')->pluralize();
+$word = StringType::create('syllabus')->pluralize();
 echo $word; //syllabi
 ```
 
@@ -25,7 +25,7 @@ $string->singularize()
 Returns the word in singular form.
 
 ```php
-$word = String::create('walruses')->singularize();
+$word = StringType::create('walruses')->singularize();
 echo $word; //walrus
 ```
 
@@ -37,7 +37,7 @@ Returns position of the first occurance of subStr null if not present. Optional 
 ```php
 $sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-$position = String::create($sentence)->strpos('ipsum');
+$position = StringType::create($sentence)->strpos('ipsum');
 echo $position; //6
 ```
 
@@ -50,19 +50,21 @@ Returns position of the last occurrence of subStr null if not present.
 ```php
 $sentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-$position = String::create($sentence)->strrpos('ipsum');
+$position = StringType::create($sentence)->strrpos('ipsum');
 echo $position; //6
 ```
 
-#### valueOf
-String::valueOf($mixed)
+#### from
+StringType::from($mixed)
 
 Returns the evaluated value of $mixed as a string.
 
 ```php
-$newString = String::valueOf($myObj);
+$newString = StringType::from($myObj);
 echo $newString //"foo" aka whatever __toString is
 
-$newString = String::valueOf(1.895);
+$newString = StringType::from(1.895);
 echo $newString //"1.895"
 ```php
+
+See tests for other usages.
