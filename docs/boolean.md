@@ -1,21 +1,23 @@
 BooleanType
-=======
+===========
 Class provides the following methods.
 
-* [valueOf](#valueof)
+* [from](#from)
 
-#### valueOf
+#### from
 BooleanType::valueOf($mixed)
 
 Returns the boolean (if applicable) of the evaluated variable.
 
 ```php
-$boolean = BooleanType::valueOf(false);
+$boolean = BooleanType::from(false);
 var_dump($boolean->getValue()) //false
 
-$boolean = BooleanType::valueOf(new \StdClass());
+$boolean = BooleanType::from(new \StdClass());
 var_dump($boolean->getValue()) //true
 
-$boolean = BooleanType::valueOf("true");
+$boolean = BooleanType::from("true");
 var_dump($boolean->getValue()) //true
 ```
+
+See tests for other uses.
