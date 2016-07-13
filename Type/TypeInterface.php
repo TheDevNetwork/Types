@@ -1,29 +1,55 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tdn\PhpTypes\Type;
+
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 
 /**
  * Interface TypeInterface.
+ *
+ * Warning: Using (un-)serialize() on a TypeInterface instance is not a supported use-case
+ * and may break when we change the internals in the future. If you need to
+ * serialize a TypeInterface use __invoke and reconstruct the TypeInterface
+ * manually.
  */
 interface TypeInterface
 {
     /**
-     * Alias for TypeInterface::from
+     * Boxes a variable to a specific type, including future reassignment as a primitive.
+     * Optionally takes value or instance of the variable.
+     * If more than one argument should be passed to constructor, then an instance should be passed explicitly instead
+     * of a primitive for $value argument.
      *
-     * @deprecated
-     * @see TypeInterface::from
+     * For examples please view the example.php file.
+     *
+     * @param null  &$pointer Anmpty variable to box (the pointer)
+     * @param mixed $value    the primitive value to pass the constructor OR an instance of the type
+     *
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer
      */
-    public static function valueOf($mixed);
+    public static function box(&$pointer, $value = null);
 
     /**
-     * A little bit of java goodness. Should be useful in the upcoming php7.
+     * Cast object to primitive type. Casts to logical primitive by default. (E.g. BooleanType -> bool).
      *
-     * Returns an instance of the implementing class with it's value evaluated from the argument.
-     * E.g. BooleanType->valueOf("false") returns new BooleanType(false).
+     * @param int|null $toType Type to cast to. Default: varies.
      *
-     * @param mixed $mixed
+     * @throws InvalidTypeCastException when casted to an unsupported type
      *
-     * @return static
+     * @return bool|float|int|string|array|DateTimeType
      */
-    public static function from($mixed);
+    public function __invoke(int $toType = null);
+
+    /**
+     * Returns an instance of TypeInterface from a mixed scalar/type.
+     *
+     * @param $mixed value to transform to TypeInterface instance
+     *
+     * @return TypeInterface
+     */
+    public static function valueOf($mixed);
 }

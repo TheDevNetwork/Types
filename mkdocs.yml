@@ -1,0 +1,11 @@
+site_name: TdnForgeBundle
+docs_dir: docs
+site_dir: build/doc/
+repo_url: https://github.com/TheDevNetwork/PhpTypes.git
+use_directory_urls: false
+theme: readthedocs
+pages:
+- Home: 'index.md'
+- Contributing:
+  - Guidelines: 'contributing/guidelines.md'
+  - Test Checks: 'contributing/test-checks.md'

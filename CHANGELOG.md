@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Unreleased
+
+* Backwards incompatible changes introduced
+  * Removed old aliases (PHP 7 is here!)
+  * API Changes for all types
+    * Removed `getValue` from TypeInterface.
+    * Changed API of `__invoke` to resemble that of auto unboxing (although explicitly).
+    * Removed `static::from` favoring `static::valueFrom` instead.
+    * Other miscellaneous changes to types.
+    * Renamed DateTime to DateTimeType to prevent confusion with internal PHP type.
+  * Moved traits to different namespace.
+  * Newer dependencies
+  * PHP 7 code base
+  * Renamed some objects to prevent confusion / clashes.
+* Added new types
+  * Collections from Doctrine/Collections
+  * Float
+  * Int
+* Added box/unbox feature.
+  * BOX: Type::box($pointer, <value>);
+  * UNBOX: $pointer(Type::INT) * $pointer(Type::INT);
+* Added efficient memory management for pointers.
+
 ## 2.0.1 - 2015-09-22
 
 * Added `invoke` to Boolean.
