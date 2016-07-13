@@ -1,13 +1,26 @@
 StringType
 ======
-Currently this class extends [danielstjules/Stringy](https://github.com/danielstjules/Stringy) and provides
- the following additional methods:
+Currently this class extends [danielstjules/Stringy](https://github.com/danielstjules/Stringy) while leveraging [doctrine/inflector](https://github.com/doctrine/inflector)
+ and provides the following additional methods:
 
 * [pluralize](#pluralize)
 * [singularize](#singularize)
 * [strpos](#strpos)
 * [strrpos](#strrpos)
+* [toDateTime]($toDateTime)
+* [getValue](#getValue)
 * [from](#from)
+
+Inherited from Boxable
+* [box](#box)
+* [__destruct](#__destruct)
+
+Inherited from Transmutable:
+* [toString](#toString)
+* [toBool](#toBool)
+* [toInt](#toInt)
+* [toFloat](#toFloat)
+* [toCollection](#toCollection)
 
 #### pluralize
 $string->pluralize()

@@ -1,29 +1,20 @@
 <?php
 
+declare (strict_types = 1);
+
 namespace Tdn\PhpTypes\Type;
 
 /**
  * Interface TypeInterface.
  */
-interface TypeInterface
+interface TypeInterface extends BoxedTypeInterface
 {
     /**
-     * Alias for TypeInterface::from
+     * Returns a TypeInterface from a mixed scalar/type.
      *
-     * @deprecated
-     * @see TypeInterface::from
+     * @param $mixed
+     *
+     * @return TypeInterface
      */
     public static function valueOf($mixed);
-
-    /**
-     * A little bit of java goodness. Should be useful in the upcoming php7.
-     *
-     * Returns an instance of the implementing class with it's value evaluated from the argument.
-     * E.g. BooleanType->valueOf("false") returns new BooleanType(false).
-     *
-     * @param mixed $mixed
-     *
-     * @return static
-     */
-    public static function from($mixed);
 }

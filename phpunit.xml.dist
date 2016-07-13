@@ -23,6 +23,10 @@
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
                 <directory>./build</directory>
+                <file>RoboFile.php</file>
+                <file>sami.php</file>
+                <file>simple-benchmark.php</file>
+                <file>example.php</file>
             </exclude>
         </whitelist>
     </filter>

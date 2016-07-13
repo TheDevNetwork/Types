@@ -1,0 +1,178 @@
+<?php
+
+declare (strict_types = 1);
+
+namespace Tdn\PhpTypes\Math;
+
+/**
+ * Interface MathLibraryAdapterInterface.
+ */
+interface MathAdapterInterface
+{
+    /**
+     * Add two arbitrary precision numbers.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function add(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Subtract two arbitrary precision numbers.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function subtract(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Multiply two arbitrary precision numbers.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function multiply(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Divide two arbitrary precision numbers.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function divide(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Compare two arbitrary precision numbers.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function compare(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Get modulus of an arbitrary precision number.
+     *
+     * @param string $leftOperand
+     * @param string $modulus
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function modulus(string $leftOperand, string $modulus, int $precision) : string;
+
+    /**
+     * Raise an arbitrary precision number to another.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function power(string $leftOperand, string $rightOperand, int $precision) : string;
+
+    /**
+     * Get the square root of an arbitrary precision number.
+     *
+     * @param string $operand
+     * @param int    $precision
+     *
+     * @return string
+     */
+    public function squareRoot(string $operand, int $precision) : string;
+
+    /**
+     * Returns absolute value of operand.
+     *
+     * @param string $operand
+     *
+     * @return string
+     */
+    public function absolute(string $operand) : string;
+
+    /**
+     * Negates a number. Opposite of absolute/abs.
+     *
+     * @param string $operand
+     *
+     * @return string
+     */
+    public function negate(string $operand) : string;
+
+    /**
+     * Returns the factorial of operand.
+     *
+     * @param string $operand
+     *
+     * @return string
+     */
+    public function factorial(string $operand) : string;
+
+    /**
+     * Greatest common divisor.
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     *
+     * @return string
+     */
+    public function gcd(string $leftOperand, string $rightOperand) : string;
+
+    /**
+     * Calculates to the nth root.
+     *
+     * @param string $operand
+     * @param int    $nth
+     *
+     * @return string
+     */
+    public function root(string $operand, int $nth) : string;
+
+    /**
+     * Gets the next prime after operand.
+     *
+     * @param string $operand
+     *
+     * @return string
+     */
+    public function nextPrime(string $operand) : string;
+
+    /**
+     * @param string $operand
+     * @param int    $reps
+     *
+     * @return bool
+     */
+    public function isPrime(string $operand, int $reps = 10) : bool;
+
+    /**
+     * Checks if operand is perfect square.
+     *
+     * @param string $operand
+     *
+     * @return bool
+     */
+    public function isPerfectSquare(string $operand) : bool;
+
+    /**
+     * @param number $number
+     *
+     * @return int
+     */
+    public function getPrecision($number) : int;
+}

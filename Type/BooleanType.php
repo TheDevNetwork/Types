@@ -1,93 +1,150 @@
 <?php
 
+declare (strict_types = 1);
+
 namespace Tdn\PhpTypes\Type;
 
+use Tdn\PhpTypes\Type\Traits\BaseType;
+use Tdn\PhpTypes\Type\Traits\Boxable;
+use Tdn\PhpTypes\Type\Traits\Transmutable;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 
 /**
  * Class BooleanType.
+ *
+ * Boolean wrapper class. Provides additional features over using a scalar, such as boxing.
  */
-class BooleanType implements TypeInterface
+class BooleanType implements TransmutableTypeInterface, ValueInterface
 {
-    /**
-     * @var bool
-     */
-    private $value;
+    use BaseType;
+    use Transmutable;
+    use Boxable;
 
     /**
-     * @param mixed $bool
+     * @param bool $bool
      */
-    public function __construct($bool)
+    public function __construct(bool $bool)
     {
-        if (!is_bool($bool)) {
-            $bool = self::asBool($bool);
-        }
-
         $this->value = $bool;
     }
 
     /**
-     * @return bool
+     * Returns the primitive value of current instance casted to specified type.
+     *
+     * @param int $toType Default: Type::BOOL. Options: Type::BOOL, Type::STRING
+     *
+     * @throws InvalidTransformationException when casted to an unsupported type.
+     *
+     * @return string|bool
      */
-    public function getValue()
+    public function __invoke(int $toType = Type::BOOL)
     {
+        if ($toType === Type::STRING) {
+            return ($this->value) ? 'true' : 'false';
+        }
+
+        if ($toType !== Type::BOOL) {
+            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+        }
+
         return $this->value;
     }
 
     /**
-     * @deprecated
-     * @see BooleanType::from
+     * Returns true if boolean is true.
+     *
+     * @return bool
      */
-    public static function valueOf($mixed)
+    public function isTrue() : bool
     {
-        return static::from($mixed);
+        return $this();
     }
 
     /**
-     * @param mixed $mixed
-     * @return static
+     * Returns true if boolean is false.
+     *
+     * @return bool
      */
-    public static function from($mixed)
+    public function isFalse() : bool
+    {
+        return !$this();
+    }
+
+    /**
+     * Returns a BooleanType from a mixed type/scalar.
+     *
+     * @param mixed $mixed
+     *
+     * @return BooleanType
+     */
+    public static function valueOf($mixed) : BooleanType
     {
         return new static(self::asBool($mixed));
     }
 
     /**
-     * @param $mixed
+     * Returns a mixed variable as a bool.
+     *
+     * @param mixed $mixed
      *
      * @return bool
      */
-    private static function asBool($mixed)
+    private static function asBool($mixed) : bool
     {
-        switch (strtolower(gettype($mixed))) {
+        if ($mixed instanceof static) {
+            return $mixed();
+        }
+
+        if ($mixed instanceof StringType) {
+            /** @var StringType $mixed */
+            $mixed = $mixed->toLowerCase();
+
+            return static::getFromStringMap((string) $mixed);
+        }
+
+        $type = strtolower(gettype($mixed));
+        switch ($type) {
             case 'boolean':
-                return $mixed;
+                return (bool) $mixed;
             case 'string':
-                return (strtolower($mixed) == 'true') ? true : false;
-            case 'null':
-            case 'object':
+                return self::getFromStringMap($mixed);
             case 'resource':
+                // Don't really care for this, and might go away soon unless someone actually ends up using it.
                 return ($mixed === null || $mixed === false) ? false : true;
             //Use booleans, do not use any of these if the variable should be a boolean...
+            case 'null':
+            case 'object':
             case 'array':
             case 'integer':
             case 'float':
             case 'double':
             default:
-                throw new InvalidTransformationException(
-                    sprintf(
-                        'Could not transform %s to boolean.',
-                        gettype($mixed)
-                    )
-                );
+                throw new InvalidTransformationException($type, static::class);
         }
     }
 
     /**
+     * Maps specific strings to a boolean value.
+     *
+     * @param $key
+     *
      * @return bool
      */
-    public function __invoke()
+    protected static function getFromStringMap($key) : bool
     {
-        return $this->getValue();
+        $map = array(
+            'true' => true,
+            'on' => true,
+            'yes' => true,
+            'false' => false,
+            'off' => false,
+            'no' => false,
+        );
+
+        if (array_key_exists($key, $map)) {
+            return $map[$key];
+        }
+
+        return false;
     }
 }
