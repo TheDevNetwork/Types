@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
 <ruleset name="PhpTypes Coding Standard">
     <description>Coding standard for PhpTypes</description>
+    <file>Exception</file>
+    <file>Math</file>
     <file>Type</file>
     <file>Tests</file>
+    <exclude-pattern>RoboFile.php</exclude-pattern>
+    <exclude-pattern>sami.php</exclude-pattern>
+    <exclude-pattern>simple-benchmark.php</exclude-pattern>
+    <exclude-pattern>example.php</exclude-pattern>
     <arg name="extensions" value="php" />
     <arg value="sp" />
     <rule ref="PSR2" />

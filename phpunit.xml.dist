@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit
-        bootstrap="./vendor/autoload.php"
-        convertWarningsToExceptions="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        colors="true">
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.7/phpunit.xsd"
+    backupGlobals="false"
+    colors="true"
+    bootstrap="./vendor/autoload.php"
+    convertWarningsToExceptions="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true">
     <php>
         <ini name="error_reporting" value="-16385"/>
     </php>
@@ -23,6 +24,10 @@
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
                 <directory>./build</directory>
+                <file>RoboFile.php</file>
+                <file>sami.php</file>
+                <file>simple-benchmark.php</file>
+                <file>example.php</file>
             </exclude>
         </whitelist>
     </filter>
