@@ -4,6 +4,8 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
+use Tdn\PhpTypes\Exception\InvalidTransformationException;
+
 /**
  * Interface BoxedTypeInterface.
  */
@@ -24,8 +26,8 @@ interface BoxedTypeInterface
      * If more than one argument should be passed to constructor, then an instance should be passed explicitly instead
      * of a primitive for $value argument.
      *
-     * @param &$pointer An empty variable to box (the pointer).
-     * @param null|mixed $value The primitive value to pass the constructor OR an instance of the type.
+     * @param null       &$pointer Anmpty variable to box (the pointer).
+     * @param null|mixed $value    The primitive value to pass the constructor OR an instance of the type.
      *
      * @throws \TypeError when an invalid value is passed as second argument.
      */
@@ -33,13 +35,13 @@ interface BoxedTypeInterface
 
     /**
      * Returns the primitive value of current instance casted to specified type.
-     * If null, returns the primitive value, no casting.
+     * Defaults to logical primitive based on type.
      *
-     * @param int|null $toType
+     * @param int|null $toType Type to cast to. Default: varies.
      *
      * @throws InvalidTransformationException when casted to an unsupported type.
      *
-     * @return mixed
+     * @return bool|float|int|string|DateTimeType
      */
     public function __invoke(int $toType = null);
 }

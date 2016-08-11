@@ -19,14 +19,7 @@ trait Boxable
      *
      * @var string
      */
-    private $memoryAddress;
-
-    /**
-     * @param null|int $toType
-     *
-     * @return bool|float|int|null|string
-     */
-    abstract public function __invoke(int $toType = null);
+    private $memoryAddress = null;
 
     /**
      * Boxes a variable to a specific type, including future primitive reassignment.
@@ -49,8 +42,8 @@ trait Boxable
      *
      * Credit for this function goes to https://github.com/alquerci/php-types-autoboxing
      *
-     * @param mixed $pointer empty variable to box.
-     * @param mixed $value   The primitive value to pass the constructor OR an instance of the type.
+     * @param null  &$pointer Anmpty variable to box (the pointer).
+     * @param mixed $value    The primitive value to pass the constructor OR an instance of the type.
      *
      * @throws \TypeError when an invalid value is passed as second argument.
      */

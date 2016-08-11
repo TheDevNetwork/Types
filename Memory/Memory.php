@@ -130,7 +130,7 @@ class Memory
      *
      * @param string $id
      *
-     * @return pointer via reference.
+     * @return mixed pointer via reference.
      */
     public static function &getPointer(string $id)
     {

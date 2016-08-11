@@ -32,6 +32,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     {
         $this->str = $str;
         $this->encoding = $encoding ?: \mb_internal_encoding();
+        //Explicitly not calling parent construct.
     }
 
     /**

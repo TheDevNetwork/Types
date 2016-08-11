@@ -210,7 +210,16 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
             return $this->getNonPrecisionResult('gmp_pow', $leftOperand, intval($rightOperand));
         }
 
-        return strval(round(pow($leftOperand, $rightOperand), ($precision ?? 0), $this->getRoundingStrategy()));
+        return strval(
+            round(
+                pow(
+                    floatval($leftOperand),
+                    floatval($rightOperand)
+                ),
+                ($precision ?? 0),
+                $this->getRoundingStrategy()
+            )
+        );
     }
 
     /**
