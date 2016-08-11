@@ -7,7 +7,7 @@ namespace Tdn\PhpTypes\Type;
 /**
  * Interface NumberTypeInterface.
  */
-interface NumberTypeInterface extends TransmutableTypeInterface, ValueInterface
+interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterface
 {
     /**
      * Increases current NunmberType by the number passed.

@@ -47,6 +47,8 @@ trait Boxable
      * If more than one argument should be passed to constructor, then an instance should be passed explicitly instead
      * of a primitive for $value argument.
      *
+     * Credit for this function goes to https://github.com/alquerci/php-types-autoboxing
+     *
      * @param mixed $pointer empty variable to box.
      * @param mixed $value   The primitive value to pass the constructor OR an instance of the type.
      *
@@ -96,6 +98,9 @@ trait Boxable
 
     /**
      * Runs when a variable is reassigned or destroyed with $pointer = null;.
+     * Basically overloads the assignment operator when a specific pointer has been boxed.
+     *
+     * Credit for this function goes to https://github.com/alquerci/php-types-autoboxing
      */
     final public function __destruct()
     {

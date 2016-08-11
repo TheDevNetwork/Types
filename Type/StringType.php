@@ -16,7 +16,7 @@ use Tdn\PhpTypes\Exception\InvalidTransformationException;
  *
  * Extends Stringy (https://github.com/danielstjules/Stringy)
  */
-class StringType extends Stringy implements TransmutableTypeInterface, ValueInterface
+class StringType extends Stringy implements TransmutableTypeInterface, ValueTypeInterface
 {
     use Transmutable;
     use Boxable;
@@ -204,12 +204,8 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueInte
      */
     private static function asString($mixed) : string
     {
-        if ($mixed instanceof self || $mixed instanceof NumberTypeInterface) {
-            return (string) $mixed();
-        }
-
-        if ($mixed instanceof BooleanType) {
-            return ($mixed->isTrue()) ? 'true' : 'false';
+        if ($mixed instanceof ValueTypeInterface) {
+            $mixed = $mixed->get();
         }
 
         if ($mixed instanceof Collection) {

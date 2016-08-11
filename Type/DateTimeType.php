@@ -13,7 +13,7 @@ use Carbon\Carbon;
  *
  * Extends carbon. (https://github.com/briannesbitt/Carbon)
  */
-class DateTimeType extends Carbon implements TypeInterface
+class DateTimeType extends Carbon implements PhpTypeInterface
 {
     use Boxable;
 

@@ -89,7 +89,6 @@ class CollectionType extends ArrayCollection implements TransmutableTypeInterfac
                 return [$mixed];
             case 'array':
                 return $mixed;
-            case 'null':
             default:
                 throw new InvalidTransformationException($type, static::class);
         }

@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Tdn\PhpTypes\Type\Traits\BaseType;
+use Tdn\PhpTypes\Type\Traits\ValueType;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Tdn\PhpTypes\Type\Traits\Transmutable;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
@@ -14,9 +14,9 @@ use Tdn\PhpTypes\Exception\InvalidTransformationException;
  *
  * Boolean wrapper class. Provides additional features over using a scalar, such as boxing.
  */
-class BooleanType implements TransmutableTypeInterface, ValueInterface
+class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
 {
-    use BaseType;
+    use ValueType;
     use Transmutable;
     use Boxable;
 
@@ -91,15 +91,8 @@ class BooleanType implements TransmutableTypeInterface, ValueInterface
      */
     private static function asBool($mixed) : bool
     {
-        if ($mixed instanceof static) {
-            return $mixed();
-        }
-
-        if ($mixed instanceof StringType) {
-            /** @var StringType $mixed */
-            $mixed = $mixed->toLowerCase();
-
-            return static::getFromStringMap((string) $mixed);
+        if ($mixed instanceof static || $mixed instanceof StringType) {
+            $mixed = $mixed->get();
         }
 
         $type = strtolower(gettype($mixed));
@@ -111,13 +104,6 @@ class BooleanType implements TransmutableTypeInterface, ValueInterface
             case 'resource':
                 // Don't really care for this, and might go away soon unless someone actually ends up using it.
                 return ($mixed === null || $mixed === false) ? false : true;
-            //Use booleans, do not use any of these if the variable should be a boolean...
-            case 'null':
-            case 'object':
-            case 'array':
-            case 'integer':
-            case 'float':
-            case 'double':
             default:
                 throw new InvalidTransformationException($type, static::class);
         }

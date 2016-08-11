@@ -7,7 +7,7 @@ namespace Tdn\PhpTypes\Type;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Math\DefaultMathAdapter;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
-use Tdn\PhpTypes\Type\Traits\BaseType;
+use Tdn\PhpTypes\Type\Traits\ValueType;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Tdn\PhpTypes\Type\Traits\Transmutable;
 
@@ -16,7 +16,7 @@ use Tdn\PhpTypes\Type\Traits\Transmutable;
  */
 abstract class AbstractNumberType implements NumberTypeInterface
 {
-    use BaseType;
+    use ValueType;
     use Transmutable;
     use Boxable;
 
@@ -284,7 +284,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     protected static function asSubType(callable $converterFunction, $mixed)
     {
         if ($mixed instanceof StringType || $mixed instanceof self) {
-            return $converterFunction($mixed->get());
+            $mixed = $mixed->get(); //Continue as primitive.
         }
 
         $type = strtolower(gettype($mixed));
@@ -292,14 +292,13 @@ abstract class AbstractNumberType implements NumberTypeInterface
             case 'integer':
             case 'double':
             case 'float':
-            case 'string':
                 return $converterFunction($mixed);
-            //do not use any of these if the variable should be a integer...
-            case 'null':
-            case 'object':
-            case 'resource':
-            case 'array':
-            case 'boolean':
+            case 'string':
+                if (!is_numeric($mixed)) {
+                    throw new InvalidTransformationException($type, static::class);
+                }
+
+                return $converterFunction($mixed);
             default:
                 throw new InvalidTransformationException($type, static::class);
         }

@@ -13,6 +13,17 @@ use Tdn\PhpTypes\Type\StringType;
 class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInterface
 {
     /**
+     * @param string   $type
+     * @param int|null $precision
+     *
+     * @return bool
+     */
+    private function isIntOperation(string $type, int $precision = null) : bool
+    {
+        return $type === self::TYPE_INT || ($precision === null || $precision === 0);
+    }
+
+    /**
      * Add two arbitrary precision numbers.
      *
      * @param string   $leftOperand
@@ -34,8 +45,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         }
 
         return strval(
-            $type === self::TYPE_INT || ($precision === null || $precision === 0) ?
-                (intval($leftOperand) + intval($rightOperand)) :
+            $this->isIntOperation($type, $precision) ? (intval($leftOperand) + intval($rightOperand)) :
                 round(floatval($leftOperand) + floatval($rightOperand), $precision, $this->getRoundingStrategy())
         );
     }
@@ -62,8 +72,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         }
 
         return strval(
-            $type === self::TYPE_INT || ($precision === null || $precision === 0) ?
-                (intval($leftOperand) - intval($rightOperand)) :
+            $this->isIntOperation($type, $precision) ? (intval($leftOperand) - intval($rightOperand)) :
                 round($leftOperand - $rightOperand, $precision, $this->getRoundingStrategy())
         );
     }
@@ -90,8 +99,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         }
 
         return strval(
-            $type === self::TYPE_INT || ($precision === null || $precision === 0) ?
-                (intval($leftOperand) * intval($rightOperand)) :
+            $this->isIntOperation($type, $precision) ? (intval($leftOperand) * intval($rightOperand)) :
                 round($leftOperand * $rightOperand, ($precision ?? 0), $this->getRoundingStrategy())
         );
     }
@@ -118,8 +126,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         }
 
         return strval(
-            $type === self::TYPE_INT || ($precision === null || $precision === 0) ?
-                (intval($leftOperand) / intval($rightOperand)) :
+            $this->isIntOperation($type, $precision) ? (intval($leftOperand) / intval($rightOperand)) :
                 round($leftOperand / $rightOperand, $precision, $this->getRoundingStrategy())
         );
     }
@@ -395,11 +402,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
             throw new \RuntimeException('Not a valid operator for isPrime.');
         }
 
-        if ($this->getPrecision($operand) > 0) {
-            return false;
-        }
-
-        if ($operand == '1') {
+        if ($this->getPrecision($operand) > 0 || $operand == '1') {
             return false;
         }
 

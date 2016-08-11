@@ -246,6 +246,17 @@ class IntTypeTest extends AbstractTypeTest
     }
 
     /**
+     * Non-numeric string fails.
+     *
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
+     * @expectedExceptionMessage Could not transform string to IntType.
+     */
+    public function testBadFromString()
+    {
+        IntType::valueOf('Foo');
+    }
+
+    /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
      * @expectedExceptionMessage Could not transform object to BooleanType.
      */

@@ -125,9 +125,9 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     /**
      * Return supported PHP extensions. (SPL for no extension).
      *
-     * @return array
+     * @return array<string,string>
      */
-    protected static function getSupportedExtensions()
+    protected static function getSupportedExtensions() : array
     {
         return [
             self::EXT_BCMATH => self::EXT_BCMATH,
@@ -141,7 +141,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return array<int>
      */
-    protected static function getSupportedRoundingStrategies()
+    protected static function getSupportedRoundingStrategies() : array
     {
         return [
             PHP_ROUND_HALF_UP,

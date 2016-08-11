@@ -5,7 +5,7 @@ namespace Tdn\PhpTypes\Type;
 /**
  * Interface ValueInterface.
  */
-interface ValueInterface
+interface ValueTypeInterface
 {
     /**
      * @return mixed

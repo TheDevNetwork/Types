@@ -250,6 +250,17 @@ class FloatTypeTest extends AbstractTypeTest
     }
 
     /**
+     * Non-numeric string fails.
+     *
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
+     * @expectedExceptionMessage Could not transform string to FloatType.
+     */
+    public function testBadFromString()
+    {
+        FloatType::valueOf('Foo');
+    }
+
+    /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
      * @expectedExceptionMessage Could not transform object to BooleanType.
      */

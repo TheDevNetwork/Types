@@ -2,7 +2,7 @@
 
 namespace Tdn\PhpTypes\Type\Traits;
 
-trait BaseType
+trait ValueType
 {
     /**
      * @var mixed
