@@ -4,8 +4,6 @@ namespace Tdn\PhpTypes\Memory;
 
 /**
  * Class Memory.
- *
- * Credit for original class goes to https://github.com/alquerci/php-types-autoboxing
  */
 class Memory
 {

@@ -9,8 +9,6 @@ use Tdn\PhpTypes\Type\Type;
 
 /**
  * Trait Boxable.
- *
- * Credit goes to https://github.com/alquerci/php-types-autoboxing
  */
 trait Boxable
 {
@@ -39,8 +37,6 @@ trait Boxable
      *
      * If more than one argument should be passed to constructor, then an instance should be passed explicitly instead
      * of a primitive for $value argument.
-     *
-     * Credit for this function goes to https://github.com/alquerci/php-types-autoboxing
      *
      * @param null  &$pointer Anmpty variable to box (the pointer).
      * @param mixed $value    The primitive value to pass the constructor OR an instance of the type.
@@ -92,8 +88,6 @@ trait Boxable
     /**
      * Runs when a variable is reassigned or destroyed with $pointer = null;.
      * Basically overloads the assignment operator when a specific pointer has been boxed.
-     *
-     * Credit for this function goes to https://github.com/alquerci/php-types-autoboxing
      */
     final public function __destruct()
     {

@@ -10,6 +10,7 @@
 
 PhpTypes
 ========
+
 ##### What?
 
 An immutable primitive wrapper library for PHP with explicit boxing/unboxing.
@@ -26,6 +27,30 @@ Long term goal is to create something like Java core libs for PHP
 
 <sub>** RFCs for boxing and type casting methods [[1](https://wiki.php.net/rfc/boxingandunboxing), 
 [2](https://wiki.php.net/rfc/object_cast_to_types)]</sub>
+
+###### Types
+
+<sub>Updated list of reserved words for PHP 7 includes: int, float, bool, string.  It is why library appends `Type` to class names. Read the list [here](https://secure.php.net/manual/en/reserved.other-reserved-words.php).</sub>
+
+- StringType
+- BooleanType
+- IntType*
+- FloatType*
+- DateTimeType
+- CollectionType
+
+<sub>* Smart use of [bcmath] or [gmp] if they are installed.</sub>
+
+###### Credits
+
+<a href="https://github.com/doctrine"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/doctrine-logo.png" alt="Doctrine Collections & Doctrine Inflector" width="160px" /></a> 
+ <a href="https://github.com/briannesbitt/carbon"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/carbon-logo.png" alt="Doctrine" width="160px"  /></a>
+  <a href="https://github.com/danielstjules/Stringy"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/stringy.png" alt="Stringy" width="160px" /></a>
+
+<sub>For further credits look at the [license](#license) section.</sub>
+
+Example
+-------
 
 ```php
 //This is a caveat for IDE completion if you box instead of new instance.
@@ -101,9 +126,12 @@ Many reasons!
 * **Consistency**: PHP's api is known to be inconsistent in certain areas, such as array functions, string functions, math functions, etc.
 * **Stricter Typing**: Even with PHP 7 strict types, PHP remains very loosely typed. With this you have a much stricter landscape.
 * **Lack of core scalar wrappers**: Most modern languages include an object version of primitives to use, PHP does not.
+* **Usability**: The underlying libraries (carbon, stringy, doctrine collections & inflector) are all 
+ extremely popular. Rather than reinventing the wheel, it's best to leverage those.
 * **Less bugs**
 * **Less bugs** (yes, I know I put that twice)
-* **Performance concerns?** Check out this [link][performance-doc] testing instances over scalars. Sure objects are heavier, but it's negligible.
+
+Performance concerns? Check out this [link][performance-doc] testing instances over scalars. Sure objects are heavier, but it's negligible.
 
 Documentation
 -------------
@@ -128,19 +156,6 @@ In the `composer.json` file:
     }
 }
 ```
-
-##### Types
-
-- StringType + [Stringy](stringy-repo) + [Doctrine Inflector][doctrine-inflector]
-- BooleanType
-- IntType*
-- FloatType*
-- DateTimeType + [Carbon](carbon)
-- CollectionType + [Doctrine Collections][doctrine-collections]
-
-<sub>* Smart use of [bcmath] or [gmp] if they are installed.</sub>
-
-<sub>Notes: Updated list of reserved words for PHP 7 includes: int, float, bool, string.  It is why library appends `Type` to class names. Read the list [here](https://secure.php.net/manual/en/reserved.other-reserved-words.php).</sub>
 
 ##### In-Depth
 Please checkout the [online documentation] or [main documentation file] located at
@@ -176,26 +191,12 @@ License
 
 This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
 
-Credits
--------
-
-* Boxing:
-  * Based on: [instinct/types-autoboxing][autoboxing-repo]
-* String:
-  * Stringy Base: [danielstjules/Stringy][stringy-repo]
-  * Doctrine Inflector: [doctrine/inflector][doctrine-inflector]
-* DateTime:
-  * Carbon Base: [briannesbitt/Carbon](https://github.com/briannesbitt/Carbon)
 
 [online documentation]: http://todo
 [online API]: http://todo
 [performance-doc]: docs/performance.md
 [bcmath]: https://secure.php.net/manual/en/book.bc.php
 [gmp]: https://secure.php.net/manual/en/book.gmp.php
-[autoboxing-repo]: https://github.com/alquerci/php-types-autoboxing
-[doctrine-inflector]: https://github.com/doctrine/inflector
-[doctrine-collections]: https://github.com/doctrine/collections
-[stringy-repo]: https://github.com/danielstjules/Stringy
 [main documentation file]: docs/index.md
 
 [SensioLabsInsight]:https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/big.png

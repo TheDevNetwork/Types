@@ -41,7 +41,7 @@ interface BoxedTypeInterface
      *
      * @throws InvalidTransformationException when casted to an unsupported type.
      *
-     * @return bool|float|int|string|DateTimeType
+     * @return bool|float|int|string|array|DateTimeType
      */
     public function __invoke(int $toType = null);
 }
