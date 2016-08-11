@@ -53,10 +53,16 @@ class IntType extends AbstractNumberType
      * @param mixed    $mixed
      * @param int|null $precision Always 0 in int...
      *
+     * @throws \RuntimeException If value is number and number is bigger than PHP_INT_MAX.
+     *
      * @return IntType
      */
     public static function valueOf($mixed, int $precision = null) : IntType
     {
+        if (is_numeric($mixed) && $mixed >= PHP_INT_MAX) {
+            throw new \RuntimeException('Incorrect type used. Use float instead.');
+        }
+
         return new static(self::asInt($mixed));
     }
 

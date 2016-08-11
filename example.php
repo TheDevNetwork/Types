@@ -3,38 +3,16 @@
 require_once 'vendor/autoload.php';
 
 use Tdn\PhpTypes\Type\StringType;
+use Tdn\PhpTypes\Type\IntType;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Type\Type;
 
-//This is a caveat for IDE completion if you box instead of new instance.
-//Box your variable. Then use throughout application.
+//Box your variable. Use PHPDoc to get auto-completion since this is a hack.
 /** @var StringType $string */
 StringType::box($string, 'foo');
-/**
- * var_dump($string);
-class Tdn\PhpTypes\Type\StringType#2 (3) {
-    protected $str =>
-    string(3) "foo"
-    protected $encoding =>
-    string(5) "UTF-8"
-    private $memoryAddress =>
-    string(1) "1"
-}
- */
-
-$string = 'bar'; //Reassignment still has box wrapper.
-
-/**
- * var_dump($string);
-class Tdn\PhpTypes\Type\StringType#4 (3) {
-    protected $str =>
-    string(3) "bar"
-    protected $encoding =>
-    string(5) "UTF-8"
-    private $memoryAddress =>
-    string(1) "2"
-}
- */
+echo $string; // foo
+$string = 'bar is fun'; //Reassignment still has box wrapper.
+echo $string->dasherize(); // bar-is-fun
 
 try {
     $string = false; //Throws "TypeError" exception. This is a hard fail and you will have to box variable again.
@@ -45,7 +23,6 @@ try {
 }
 
 ## UNBOXING to other types
-
 /** @var StringType $otherString */
 StringType::box($otherString, 'baz');
 
@@ -54,11 +31,12 @@ try {
 } catch (InvalidTransformationException $e) {
     // Throws InvalidTransformationException because it's not numeric string. Let's make it one.
     $otherString = '5';
-    echo $otherString(Type::INT), PHP_EOL;
+    echo $otherString(Type::INT) * 10, PHP_EOL; // 50
 }
 
 //Immutable objects with useful interfaces.
 echo (new StringType('syllabus'))->pluralize(); // syllabi
+
 $string = 'This is my string.'; //Object was declared as StringType earlier. Returns new intance.
 echo $string->append('It is an immutable string.'); // This is my string. It is an immutable string.
 // Chain methods together.
@@ -66,3 +44,16 @@ echo $string
         ->append('It is a nice string.')
         ->camelize(),
 PHP_EOL; //thisIsMyString.ItIsANiceString.
+
+echo $string, PHP_EOL; //This is my string.
+
+/** @var IntType $int */
+IntType::box($int, 100);
+echo $int
+        ->plus(1000)
+        ->divideBy(200)
+        ->multiplyBy(20)
+        ->squareRoot()
+        ->factorial()
+        ->toString()
+, PHP_EOL; // 3628800
