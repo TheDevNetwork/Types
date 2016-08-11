@@ -182,17 +182,23 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     protected function getOperationType(string $a, string $b = null) : string
     {
         if (!$this->validator->isValid($a)) {
-            throw new InvalidNumberException(sprintf('Invalid number: %s', ($a ?: gettype($a))));
+            throw $this->createNewInvalidNumberException($a);
         }
 
-        $type = (strpos($a, '.') !== false) ? self::TYPE_FLOAT : self::TYPE_INT;
+        $getType = function ($v, $firstType = null) {
+            $firstType = $firstType ?? self::TYPE_INT;
+
+            return (strpos($v, '.') !== false) ? self::TYPE_FLOAT : $firstType;
+        };
+
+        $type = $getType($a);
 
         if ($b !== null) {
             if (!$this->validator->isValid($b)) {
-                throw new InvalidNumberException(sprintf('Invalid number: %s', ($b ?: gettype($b))));
+                throw $this->createNewInvalidNumberException($b);
             }
 
-            $type = ((strpos($b, '.') !== false)) ? self::TYPE_FLOAT : $type;
+            $type = $getType($b, $type);
         }
 
         return $type;
@@ -296,5 +302,15 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
         }
 
         return gmp_strval($operator($leftOperand));
+    }
+
+    /**
+     * @param $num
+     *
+     * @return InvalidNumberException
+     */
+    private function createNewInvalidNumberException($num)
+    {
+        return new InvalidNumberException(sprintf('Invalid number: %s', ($num ?: gettype($num))));
     }
 }
