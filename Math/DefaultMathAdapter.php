@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Math;
 
+use Tdn\PhpTypes\Exception\DivisionByZeroException;
 use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Type\StringType;
 
@@ -111,10 +112,16 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      * @param string   $rightOperand
      * @param int|null $precision
      *
+     * @throws DivisionByZeroException when dividing by zero.
+     *
      * @return string
      */
     public function divide(string $leftOperand, string $rightOperand, int $precision = null) : string
     {
+        if ($rightOperand == '0') {
+            throw new DivisionByZeroException('Cannot divide by zero.');
+        }
+
         $type = $this->getOperationType($leftOperand, $rightOperand);
 
         if ($this->isPrecisionLibraryOperation()) {

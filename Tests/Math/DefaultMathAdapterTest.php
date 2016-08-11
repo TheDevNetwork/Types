@@ -2,6 +2,7 @@
 
 namespace Tdn\PhpTypes\Tests\Math;
 
+use Tdn\PhpTypes\Exception\DivisionByZeroException;
 use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\DefaultMathAdapter;
 use Tdn\PhpTypes\Math\NumberValidatorInterface;
@@ -176,6 +177,13 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
                 'gmp_div(): Unable to convert variable to GMP - string is not an integer',
                 $e->getMessage()
             );
+        }
+
+        try {
+            $this->splAdapter->divide(10, 0);
+            $this->fail('Should create DivisionByZeroException');
+        } catch (DivisionByZeroException $e) {
+            $this->assertEquals('Cannot divide by zero.', $e->getMessage());
         }
     }
 
