@@ -44,21 +44,27 @@ class StringTypeTest extends AbstractTypeTest
     public function testUnbox()
     {
         /* @var StringType $string */
-        StringType::box($string, 'false');
-        $this->assertEquals('false', $string(Type::STRING));
-        $this->assertEquals('false', $string());
+        StringType::box($string, 'Foo');
+        $this->assertEquals('Foo', $string(Type::STRING));
+        $this->assertEquals('Foo', $string());
+
         $string = 'true';
         $this->assertTrue($string(Type::BOOL));
+
         $string = '5';
         $this->assertEquals(5, $string(Type::INT));
         $this->assertFalse($string(Type::BOOL));
+
         $string = '5.5';
         $this->assertEquals(5.5, $string(Type::FLOAT));
+
+        $string = 'some, arbitrary, list';
+        $this->assertEquals(['some', 'arbitrary', 'list'], $string(Type::ARRAY));
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform StringType to array.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast StringType to array.
      */
     public function testUnboxArrayFail()
     {
@@ -68,8 +74,8 @@ class StringTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform StringType to int.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast StringType to int.
      */
     public function testUnboxIntFail()
     {
@@ -79,8 +85,8 @@ class StringTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform StringType to float.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast StringType to float.
      */
     public function testUnboxFloatFail()
     {
@@ -131,6 +137,14 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(new IntType(91), StringType::create(self::LOREM_IPSUM)->strrpos('Ipsum'));
         $this->assertEquals(new IntType(91), StringType::create(self::LOREM_IPSUM)->strrpos('ipsum', 46));
         $this->assertEquals(new IntType(6), StringType::create(self::LOREM_IPSUM)->strrpos('ipsum', 0, true));
+    }
+
+    public function testExplode()
+    {
+        $this->assertEquals(
+            new Collection(['this', 'is', 'my', 'list']),
+            StringType::create('this, is, my, list')->explode(',')
+        );
     }
 
     public function testFrom()

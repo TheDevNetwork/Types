@@ -88,10 +88,10 @@ class FloatTypeTest extends AbstractTypeTest
 
     public function testMultiply()
     {
-        $this->assertEquals(new FloatType(38.4), (new FloatType(6.4))->multiplyBy(new IntType(6)));
-        $this->assertEquals(new FloatType(38.1, 2), (new FloatType(6.35))->multiplyBy(6));
-        $this->assertEquals(34.036, (new FloatType(5.36, 3))->multiplyBy(new FloatType(6.35))->get());
-        $this->assertEquals(34.036, (new FloatType(5.36, 3))->multiplyBy(6.35)->get());
+        $this->assertEquals(new FloatType(38.4), (new FloatType(6.4))->multipliedBy(new IntType(6)));
+        $this->assertEquals(new FloatType(38.1, 2), (new FloatType(6.35))->multipliedBy(6));
+        $this->assertEquals(34.036, (new FloatType(5.36, 3))->multipliedBy(new FloatType(6.35))->get());
+        $this->assertEquals(34.036, (new FloatType(5.36, 3))->multipliedBy(6.35)->get());
     }
 
     public function testAdd()
@@ -110,9 +110,9 @@ class FloatTypeTest extends AbstractTypeTest
 
     public function testDivideBy()
     {
-        $this->assertEquals(229.78, (new FloatType(459.56))->divideBy(new IntType(2))->get());
-        $this->assertEquals(229.78, (new FloatType(919.12))->divideBy(4)->get());
-        $this->assertEquals(8.843, (new FloatType(66.32, 3))->divideBy(7.5)->get());
+        $this->assertEquals(229.78, (new FloatType(459.56))->dividedBy(new IntType(2))->get());
+        $this->assertEquals(229.78, (new FloatType(919.12))->dividedBy(4)->get());
+        $this->assertEquals(8.843, (new FloatType(66.32, 3))->dividedBy(7.5)->get());
     }
 
     public function testAbsolute()

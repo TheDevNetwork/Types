@@ -33,7 +33,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
      *
      * @return NumberTypeInterface
      */
-    public function multiplyBy($num) : NumberTypeInterface;
+    public function multipliedBy($num) : NumberTypeInterface;
 
     /**
      * Divides current NunmberType by the number passed.
@@ -42,7 +42,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
      *
      * @return NumberTypeInterface
      */
-    public function divideBy($num) : NumberTypeInterface;
+    public function dividedBy($num) : NumberTypeInterface;
 
     /**
      * Compares current NumberType to value passed.

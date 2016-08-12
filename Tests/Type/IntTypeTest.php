@@ -87,10 +87,10 @@ class IntTypeTest extends AbstractTypeTest
 
     public function testMultiply()
     {
-        $this->assertEquals(new IntType(15), (new IntType(3))->multiplyBy(new IntType(5)));
-        $this->assertEquals(new IntType(15), (new IntType(3))->multiplyBy(5));
-        $this->assertEquals(new IntType(30), (new IntType(2))->multiplyBy(new IntType(15)));
-        $this->assertEquals(new IntType(30), (new IntType(2))->multiplyBy(15));
+        $this->assertEquals(new IntType(15), (new IntType(3))->multipliedBy(new IntType(5)));
+        $this->assertEquals(new IntType(15), (new IntType(3))->multipliedBy(5));
+        $this->assertEquals(new IntType(30), (new IntType(2))->multipliedBy(new IntType(15)));
+        $this->assertEquals(new IntType(30), (new IntType(2))->multipliedBy(15));
     }
 
     public function testAdd()
@@ -111,8 +111,8 @@ class IntTypeTest extends AbstractTypeTest
 
     public function testDivideBy()
     {
-        $this->assertEquals(new IntType(15), (new IntType(30))->divideBy(new IntType(2)));
-        $this->assertEquals(new IntType(15), (new IntType(30))->divideBy(2));
+        $this->assertEquals(new IntType(15), (new IntType(30))->dividedBy(new IntType(2)));
+        $this->assertEquals(new IntType(15), (new IntType(30))->dividedBy(2));
     }
 
     public function testAbsolute()

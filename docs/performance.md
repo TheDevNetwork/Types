@@ -3,7 +3,8 @@ What about performance?
 
 **Ok, so having strict types is nice and all, but how badly will it bog down my application??**
 
-Of course since we're now using objects instead of scalar types, it does make our application slightly heavier on memory.
+Of course since we're now using objects instead of scalar types, it does make our application slightly heavier
+ on memory.
 
 Simple benchmark file: `simple-benchmark.php`
 
@@ -31,6 +32,7 @@ ObjectTypes total time: 7.877584496483E-6/var
 ObjectTypes memory: 354.44MB
 ```
 
-So if you're building an extremely high performance API, it's probably best to keep using primitives, although the performance gain is negligable.
-While primitives are still faster and use less memory than objects, it may still be worth having strict types... if not for syntactic  sugar the
- object type APIs provide, then mainly for making your application stricter and less prone to bugs.
+So if you're building an extremely high performance API, it's probably best to keep using primitives.
+Otherwise this library makes an attractive choice, if not for syntactic  sugar the object type APIs 
+provide, then mainly for making your application stricter and less prone to bugs. If anything you 
+could always use a combination of the two =]

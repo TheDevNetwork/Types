@@ -4,9 +4,11 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\Common\Inflector\Inflector;
 use Stringy\Stringy;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
+use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Tdn\PhpTypes\Type\Traits\Transmutable;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
@@ -58,8 +60,12 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
             return FloatType::valueOf($this)->get();
         }
 
+        if ($toType === Type::ARRAY && $this->contains(',')) {
+
+        }
+
         if ($toType !== Type::STRING) {
-            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
         return $this->str;
@@ -86,6 +92,18 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     public static function create($str = '', $encoding = 'UTF-8') : StringType
     {
         return new static($str, $encoding);
+    }
+
+    /**
+     * Explodes current instance into a collection object.
+     * @param $delimiter
+     * @param int $limit default 0
+     *
+     * @return Collection
+     */
+    public function explode($delimiter, int $limit = 0) : Collection
+    {
+        return new Collection(explode($delimiter, $this->str, $limit));
     }
 
     /**

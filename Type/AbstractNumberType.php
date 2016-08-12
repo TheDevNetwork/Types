@@ -87,7 +87,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function multiplyBy($num) : NumberTypeInterface
+    public function multipliedBy($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->multiply(
@@ -104,7 +104,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function divideBy($num) : NumberTypeInterface
+    public function dividedBy($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->divide(

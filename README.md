@@ -54,23 +54,34 @@ Example
 File located at `example.php`
 
 ```php
+/**
+ * BOXING EXAMPLE
+ *
+ * Use PHPDoc to get auto-completion.
+ */
 
-//Box your variable. Use PHPDoc to get auto-completion.
 /** @var StringType $string */
 StringType::box($string, 'foo');
 echo $string; // foo
-$string = 'bar is fun'; //Reassignment still has box wrapper.
+
+//Reassignment will remain boxed.
+$string = 'bar is fun';
 echo $string->dasherize(); // bar-is-fun
 
 try {
-    $string = false; //Throws "TypeError" exception. This is a hard fail and you will have to box variable again.
+    //Throws "TypeError" exception. This is a hard fail and you will have to box variable again. PHPism to solve.
+    $string = false;
 } catch (\TypeError $e) {
-    StringType::box($string, 'bar'); //You will have to box again. We've lost the pointer.
+    //You will have to box again. We've lost the pointer.
+    StringType::box($string, 'bar');
     echo $string(), PHP_EOL; // bar
     echo $string(Type::STRING), PHP_EOL; // bar
 }
 
-## UNBOXING to other types
+/**
+ * UNBOXING EXAMPLE
+ */
+
 /** @var StringType $otherString */
 StringType::box($otherString, 'baz');
 
@@ -82,30 +93,44 @@ try {
     echo $otherString(Type::INT) * 10, PHP_EOL; // 50
 }
 
-//Immutable objects with useful interfaces.
-echo (new StringType('syllabus'))->pluralize(); // syllabi
+/**
+ * USEFUL INTERFACES...
+ */
 
-$string = 'This is my string.'; //Object was declared as StringType earlier. Returns new intance.
-echo $string->append('It is an immutable string.'); // This is my string. It is an immutable string.
-// Chain methods together.
+// syllabi
+echo (new StringType('syllabus'))->pluralize();
+
+// Object is still instance of StringType.
+$string = 'This is my string.';
+
+// This is my string. It is an immutable string.
+echo $string->append('It is an immutable string.');
+
+// This is my string.
+echo $string, PHP_EOL;
+
+/**
+ * THAT YOU CAN CHAIN TOGETHER
+ */
+
+//thisIsMyString.ItIsANiceString.
 echo $string
         ->append('It is a nice string.')
         ->camelize(),
-PHP_EOL; //thisIsMyString.ItIsANiceString.
-
-echo $string, PHP_EOL; //This is my string.
+PHP_EOL;
 
 /** @var IntType $int */
 IntType::box($int, 100);
-echo $int
-        ->plus(1000)
-        ->divideBy(200)
-        ->multiplyBy(20)
-        ->squareRoot()
-        ->factorial()
-        ->toString()
-, PHP_EOL; // 3628800
 
+// 3628800
+echo $int
+    ->plus(1000)
+    ->dividedBy(200)
+    ->multipliedBy(20)
+    ->squareRoot()
+    ->factorial()
+    ->toString()
+, PHP_EOL;
 ```
 
 ##### Ok, but why?
@@ -119,7 +144,9 @@ Many reasons!
 * **Less bugs**
 * **Less bugs** (yes, I know I put that twice)
 
-Performance concerns? Check out this [link][performance-doc] testing instances over scalars. Sure objects are heavier, but it's negligible.
+For performance questions check out the [documentation file][performance-doc] located at
+
+    docs/performance.md
 
 Documentation
 -------------
@@ -149,10 +176,6 @@ In the `composer.json` file:
 Please checkout the [online documentation] or [main documentation file] located at
 
     docs/index.md
-
-For performance questions check out the [documentation file][performance-doc] located at
-
-    docs/performance.md
 
 ##### API
 
@@ -184,7 +207,7 @@ If you want to contribute, please read the [CONTRIBUTING](CONTRIBUTING.md).
 License
 -------
 
-This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
+This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE) file.
 
 [online documentation]: http://todo
 [online API]: http://todo
