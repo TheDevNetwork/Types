@@ -51,13 +51,14 @@ class DateTime extends Carbon implements TypeInterface
      */
     public function __invoke(int $toType = null)
     {
-        switch ($toType) {
-            case null:
-                return $this;
-            case Type::STRING:
-                return $this->format('Y-m-d H:i:s');
-            default:
-                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
+        if ($toType === Type::STRING) {
+            return $this->format('Y-m-d H:i:s');
         }
+
+        if ($toType === null) {
+            return $this;
+        }
+
+        throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
     }
 }
