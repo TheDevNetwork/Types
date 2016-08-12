@@ -9,6 +9,10 @@ use Tdn\PhpTypes\Math\MathAdapterInterface;
 
 /**
  * Class FloatType.
+ *
+ * A FloatType is a TypeInterface implementation that wraps around a regular PHP float / double.
+ *
+ * {@inheritDoc}
  */
 class FloatType extends AbstractNumberType
 {
@@ -23,7 +27,7 @@ class FloatType extends AbstractNumberType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return string|int|float
      */
@@ -42,7 +46,7 @@ class FloatType extends AbstractNumberType
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return FloatType
      */

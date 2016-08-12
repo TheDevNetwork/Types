@@ -20,7 +20,7 @@ trait Boxable
     private $memoryAddress = null;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     final public static function box(&$pointer, $value = null)
     {

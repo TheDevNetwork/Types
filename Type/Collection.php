@@ -12,11 +12,12 @@ use Tdn\PhpTypes\Type\Traits\Transmutable;
 /**
  * Class Collection.
  *
- * Caveats when boxing:
- * Since boxing only boxes that it is a Collection and not the actual collection object, if a specific type
- * collection is needed, extend this object and override appropriate methods to ensure strict type.
+ * A Collection is a TypeInterface implementation that wraps around a regular PHP array.
+ * This object extends Doctrine's ArrayCollection.
  *
- * This can be done by overriding the constructor, set, and add methods.
+ * This object can be extended to create type specific collections. (either primitive or compound)
+ *
+ * {@inheritDoc}
  */
 class Collection extends ArrayCollection implements TransmutableTypeInterface
 {
@@ -24,7 +25,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     use Boxable;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return string|array|int
      */
@@ -51,7 +52,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return Collection
      */

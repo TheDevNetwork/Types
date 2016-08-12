@@ -13,7 +13,7 @@ use Tdn\PhpTypes\Exception\InvalidTransformationException;
 /**
  * Class BooleanType.
  *
- * A BooleanType is a TypeInterface implementation that wraps around a regular bool value.
+ * A BooleanType is a TypeInterface implementation that wraps around a regular PHP bool.
  */
 class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
 {
@@ -30,7 +30,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return string|bool
      */
@@ -67,7 +67,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return BooleanType
      */

@@ -12,7 +12,10 @@ use Carbon\Carbon;
 /**
  * Class DateTime.
  *
- * Extends carbon. (https://github.com/briannesbitt/Carbon)
+ * A DateTime is a TypeInterface implementation that wraps around a regular string value meant to represent a date.
+ * This object extends Carbon, which extends PHP's own \DateTime.
+ *
+ * {@inheritDoc}
  */
 class DateTime extends Carbon implements TypeInterface
 {
@@ -28,7 +31,7 @@ class DateTime extends Carbon implements TypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return DateTime
      */
@@ -42,7 +45,7 @@ class DateTime extends Carbon implements TypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return string|DateTime
      */

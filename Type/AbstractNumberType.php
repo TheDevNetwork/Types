@@ -50,9 +50,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param mixed $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function plus($num) : NumberTypeInterface
     {
@@ -66,9 +64,8 @@ abstract class AbstractNumberType implements NumberTypeInterface
         );
     }
 
-    /***
-     * @param mixed $num
-     * @return NumberTypeInterface
+    /**
+     * {@inheritDoc}
      */
     public function minus($num) : NumberTypeInterface
     {
@@ -83,9 +80,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function multipliedBy($num) : NumberTypeInterface
     {
@@ -100,9 +95,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param mixed $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function dividedBy($num) : NumberTypeInterface
     {
@@ -117,9 +110,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function compare($num) : NumberTypeInterface
     {
@@ -134,9 +125,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function modulus($num) : NumberTypeInterface
     {
@@ -151,9 +140,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function power($num) : NumberTypeInterface
     {
@@ -168,7 +155,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function squareRoot() : NumberTypeInterface
     {
@@ -182,7 +169,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function absolute() : NumberTypeInterface
     {
@@ -193,7 +180,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function negate() : NumberTypeInterface
     {
@@ -204,7 +191,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function factorial() : NumberTypeInterface
     {
@@ -215,9 +202,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function gcd($num) : NumberTypeInterface
     {
@@ -231,9 +216,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @param $num
-     *
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function root(int $num) : NumberTypeInterface
     {
@@ -244,7 +227,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return NumberTypeInterface
+     * {@inheritDoc}
      */
     public function getNextPrime() : NumberTypeInterface
     {
@@ -252,7 +235,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return BooleanType
+     * {@inheritDoc}
      */
     public function isPrime() : BooleanType
     {
@@ -260,7 +243,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return BooleanType
+     * {@inheritDoc}
      */
     public function isPerfectSquare() : BooleanType
     {
@@ -268,7 +251,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * @return int
+     * {@inheritDoc}
      */
     public function getPrecision() : int
     {
