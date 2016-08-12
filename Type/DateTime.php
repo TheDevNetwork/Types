@@ -5,15 +5,16 @@ declare (strict_types = 1);
 namespace Tdn\PhpTypes\Type;
 
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Carbon\Carbon;
 
 /**
- * Class DateTimeType.
+ * Class DateTime.
  *
  * Extends carbon. (https://github.com/briannesbitt/Carbon)
  */
-class DateTimeType extends Carbon implements PhpTypeInterface
+class DateTime extends Carbon implements PhpTypeInterface
 {
     use Boxable;
 
@@ -27,13 +28,13 @@ class DateTimeType extends Carbon implements PhpTypeInterface
     }
 
     /**
-     * Returns a DateTimeType from a mixed type/scalar.
+     * Returns a DateTime from a mixed type/scalar.
      *
      * @param $mixed
      *
-     * @return DateTimeType
+     * @return DateTime
      */
-    public static function valueOf($mixed) : DateTimeType
+    public static function valueOf($mixed) : DateTime
     {
         if ($mixed instanceof StringType || 'string' === $type = strtolower(gettype($mixed))) {
             return new static((string) $mixed);
@@ -49,7 +50,7 @@ class DateTimeType extends Carbon implements PhpTypeInterface
      *
      * @throws InvalidTransformationException when casted to an unsupported type.
      *
-     * @return string|DateTimeType
+     * @return string|DateTime
      */
     public function __invoke(int $toType = null)
     {
@@ -58,7 +59,7 @@ class DateTimeType extends Carbon implements PhpTypeInterface
         }
 
         if ($toType !== null) {
-            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
         return $this;

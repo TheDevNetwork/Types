@@ -128,6 +128,7 @@ trait Boxable
     private function getSupportedTypes() : array
     {
         return [
+            Type::STRING => 'string',
             Type::BOOL => 'bool',
             Type::INT => 'int',
             Type::FLOAT => 'float',

@@ -44,8 +44,8 @@ class BooleanTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform BooleanType to int.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast BooleanType to int.
      */
     public function testUnboxIntFail()
     {
@@ -55,8 +55,8 @@ class BooleanTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform BooleanType to float.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast BooleanType to float.
      */
     public function testUnboxFoatFail()
     {
@@ -66,8 +66,8 @@ class BooleanTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform BooleanType to array.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast BooleanType to array.
      */
     public function testUnboxArrayFail()
     {

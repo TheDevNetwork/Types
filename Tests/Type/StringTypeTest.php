@@ -3,8 +3,8 @@
 namespace Tdn\PhpTypes\Tests\Type;
 
 use Tdn\PhpTypes\Type\BooleanType;
-use Tdn\PhpTypes\Type\CollectionType;
-use Tdn\PhpTypes\Type\DateTimeType;
+use Tdn\PhpTypes\Type\Collection;
+use Tdn\PhpTypes\Type\DateTime;
 use Tdn\PhpTypes\Type\FloatType;
 use Tdn\PhpTypes\Type\IntType;
 use Tdn\PhpTypes\Type\StringType;
@@ -145,7 +145,7 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(StringType::create('5'), StringType::valueOf(new IntType(5)));
         $this->assertEquals(StringType::create('false'), StringType::valueOf(new BooleanType(false)));
         $this->assertEquals(StringType::create('11.36'), StringType::valueOf(new FloatType(11.36)));
-        $this->assertEquals(new StringType('foo, bar'), StringType::valueOf(new CollectionType(['foo', 'bar'])));
+        $this->assertEquals(new StringType('foo, bar'), StringType::valueOf(new Collection(['foo', 'bar'])));
         $this->assertEquals('foo', StringType::valueOf(new class(0)
         {
             public function __toString()
@@ -163,20 +163,12 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(new BooleanType(true), StringType::create('on')->toBool());
         $this->assertEquals(new BooleanType(true), StringType::create('true')->toBool());
         $this->assertEquals(new BooleanType(true), StringType::create('yes')->toBool());
+        $this->assertEquals(new BooleanType(true), StringType::create('true')->toBoolean());
         $this->assertEquals(new IntType(1), StringType::create('1')->toInt());
         $this->assertEquals(new IntType(0), StringType::create('0')->toInt());
         $this->assertEquals(new FloatType(66.547), StringType::create('66.547')->toFloat());
-        $this->assertEquals(new CollectionType(['baz qux pie']), StringType::create('baz qux pie')->toCollection());
-        $this->assertEquals(new DateTimeType('2016-01-01'), StringType::create('2016-01-01')->toDateTimeType());
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Method has been deprecated. Use "toBool" instead.
-     */
-    public function testDeprecatedMethod()
-    {
-        StringType::create('true')->toBoolean();
+        $this->assertEquals(new Collection(['baz qux pie']), StringType::create('baz qux pie')->toCollection());
+        $this->assertEquals(new DateTime('2016-01-01'), StringType::create('2016-01-01')->toDateTime());
     }
 
     /**

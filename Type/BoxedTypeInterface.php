@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Tdn\PhpTypes\Exception\InvalidTransformationException;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 
 /**
  * Interface BoxedTypeInterface.
@@ -39,9 +39,9 @@ interface BoxedTypeInterface
      *
      * @param int|null $toType Type to cast to. Default: varies.
      *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * @throws InvalidTypeCastException when casted to an unsupported type.
      *
-     * @return bool|float|int|string|array|DateTimeType
+     * @return bool|float|int|string|array|DateTime
      */
     public function __invoke(int $toType = null);
 }

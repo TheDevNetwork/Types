@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type\Traits;
 
-use Tdn\PhpTypes\Type\CollectionType;
+use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\BooleanType;
 use Tdn\PhpTypes\Type\IntType;
@@ -48,10 +48,10 @@ trait Transmutable
     }
 
     /**
-     * @return CollectionType
+     * @return Collection
      */
-    public function toCollection() : CollectionType
+    public function toCollection() : Collection
     {
-        return CollectionType::valueOf($this);
+        return Collection::valueOf($this);
     }
 }

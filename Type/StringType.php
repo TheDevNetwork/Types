@@ -163,19 +163,19 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * @throws \RuntimeException
+     * @return BooleanType
      */
-    public function toBoolean()
+    public function toBoolean() : BooleanType
     {
-        throw new \RuntimeException('Method has been deprecated. Use "toBool" instead.');
+        return $this->toBool();
     }
 
     /**
-     * @return DateTimeType
+     * @return DateTime
      */
-    public function toDateTimeType() : DateTimeType
+    public function toDateTime() : DateTime
     {
-        return DateTimeType::valueOf($this);
+        return DateTime::valueOf($this);
     }
 
     /**

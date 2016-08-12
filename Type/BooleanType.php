@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\Traits\ValueType;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Tdn\PhpTypes\Type\Traits\Transmutable;
@@ -33,7 +34,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @param int $toType Default: Type::BOOL. Options: Type::BOOL, Type::STRING
      *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * @throws InvalidTypeCastException when casted to an unsupported type.
      *
      * @return string|bool
      */
@@ -44,7 +45,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
         }
 
         if ($toType !== Type::BOOL) {
-            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
         return $this->value;

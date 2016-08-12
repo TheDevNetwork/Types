@@ -2,44 +2,44 @@
 
 namespace Tdn\PhpTypes\Tests\Type;
 
-use Tdn\PhpTypes\Type\CollectionType;
+use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\Type;
 
 /**
- * Class CollectionTypeTest.
+ * Class CollectionTest.
  */
-class CollectionTypeTest extends AbstractTypeTest
+class CollectionTest extends AbstractTypeTest
 {
     public function testType()
     {
-        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', new CollectionType());
-        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', new CollectionType());
+        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', new Collection());
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', new Collection());
     }
 
     public function testBox()
     {
-        /* @var CollectionType $myCollection */
-        CollectionType::box($myCollection, new CollectionType());
-        /* @var CollectionType $myOtherCollection */
-        CollectionType::box($myOtherCollection, []);
+        /* @var Collection $myCollection */
+        Collection::box($myCollection, new Collection());
+        /* @var Collection $myOtherCollection */
+        Collection::box($myOtherCollection, []);
 
-        $this->assertInstanceOf(CollectionType::class, $myCollection);
-        $this->assertInstanceOf(CollectionType::class, $myOtherCollection);
+        $this->assertInstanceOf(Collection::class, $myCollection);
+        $this->assertInstanceOf(Collection::class, $myOtherCollection);
 
         $myCollection = [1, 2, 3, 4, 5];
-        $myOtherCollection = new CollectionType(['1', '2', '3', '4', '5']);
+        $myOtherCollection = new Collection(['1', '2', '3', '4', '5']);
 
-        $this->assertInstanceOf(CollectionType::class, $myCollection);
-        $this->assertInstanceOf(CollectionType::class, $myOtherCollection);
+        $this->assertInstanceOf(Collection::class, $myCollection);
+        $this->assertInstanceOf(Collection::class, $myOtherCollection);
         $this->assertEquals([1, 2, 3, 4, 5], $myCollection->toArray());
         $this->assertEquals(['1', '2', '3', '4', '5'], $myOtherCollection->toArray());
     }
 
     public function testUnbox()
     {
-        /* @var CollectionType $collection */
-        CollectionType::box($collection, ['foo', 'bar']);
+        /* @var Collection $collection */
+        Collection::box($collection, ['foo', 'bar']);
         $this->assertEquals('foo, bar', $collection(Type::STRING));
         $collection = ['baz', 'qux'];
         $this->assertEquals('baz, qux', $collection(Type::STRING));
@@ -50,24 +50,35 @@ class CollectionTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform CollectionType to float.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast Collection to string.
+     */
+    public function testBadUnboxString()
+    {
+        /* @var Collection $collection */
+        Collection::box($collection, [tmpfile(), new \stdClass()]);
+        $collection(Type::STRING);
+    }
+
+    /**
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast Collection to float.
      */
     public function testUnboxFoatFail()
     {
-        /* @var CollectionType $collection */
-        CollectionType::box($collection, []);
+        /* @var Collection $collection */
+        Collection::box($collection, []);
         $collection(Type::FLOAT);
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform CollectionType to bool.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast Collection to bool.
      */
     public function testUnboxBoolFail()
     {
-        /* @var CollectionType $collection */
-        CollectionType::box($collection, []);
+        /* @var Collection $collection */
+        Collection::box($collection, []);
         $collection(Type::BOOL);
     }
 
@@ -77,15 +88,15 @@ class CollectionTypeTest extends AbstractTypeTest
      */
     public function testBoxBreak()
     {
-        CollectionType::box($myCollection, []);
+        Collection::box($myCollection, []);
         $myCollection = 'foo';
         $this->fail($myCollection);
     }
 
     public function testValue()
     {
-        /* @var CollectionType $myCollection */
-        CollectionType::box($myCollection, ['foo']);
+        /* @var Collection $myCollection */
+        Collection::box($myCollection, ['foo']);
         $this->assertEquals(['foo'], $myCollection());
     }
 
@@ -93,30 +104,30 @@ class CollectionTypeTest extends AbstractTypeTest
     {
         $resource = tmpfile();
 
-        $this->assertEquals([10.0], (CollectionType::valueOf(10.0))());
-        $this->assertEquals([100], (CollectionType::valueOf(100))());
-        $this->assertEquals(['bar'], (CollectionType::valueOf('bar'))());
-        $this->assertEquals([false], (CollectionType::valueOf(false))());
-        $this->assertEquals([new \stdClass()], (CollectionType::valueOf(new \stdClass()))());
-        $this->assertEquals([$resource], (CollectionType::valueOf($resource))());
-        $this->assertEquals(['qux'], (CollectionType::valueOf(['qux']))());
-        $this->assertEquals(['foo'], (CollectionType::valueOf(new StringType('foo')))());
-        $this->assertEquals(['xxyy'], (CollectionType::valueOf(new CollectionType(['xxyy'])))());
+        $this->assertEquals([10.0], (Collection::valueOf(10.0))());
+        $this->assertEquals([100], (Collection::valueOf(100))());
+        $this->assertEquals(['bar'], (Collection::valueOf('bar'))());
+        $this->assertEquals([false], (Collection::valueOf(false))());
+        $this->assertEquals([new \stdClass()], (Collection::valueOf(new \stdClass()))());
+        $this->assertEquals([$resource], (Collection::valueOf($resource))());
+        $this->assertEquals(['qux'], (Collection::valueOf(['qux']))());
+        $this->assertEquals(['foo'], (Collection::valueOf(new StringType('foo')))());
+        $this->assertEquals(['xxyy'], (Collection::valueOf(new Collection(['xxyy'])))());
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform null to CollectionType.
+     * @expectedExceptionMessage Could not transform null to Collection.
      */
     public function testBadFrom()
     {
-        CollectionType::valueOf(null);
+        Collection::valueOf(null);
     }
 
     public function testTransmutable()
     {
-        $this->assertEquals(new StringType('bar, baz'), (new CollectionType(['bar', 'baz']))->toString());
-        $this->assertEquals(new CollectionType(['bar', 'baz']), (new CollectionType(['bar', 'baz']))->toCollection());
+        $this->assertEquals(new StringType('bar, baz'), (new Collection(['bar', 'baz']))->toString());
+        $this->assertEquals(new Collection(['bar', 'baz']), (new Collection(['bar', 'baz']))->toCollection());
     }
 
     /**
@@ -125,7 +136,7 @@ class CollectionTypeTest extends AbstractTypeTest
      */
     public function testBadTransmutableBool()
     {
-        (new CollectionType(['bar', 'baz']))->toBool();
+        (new Collection(['bar', 'baz']))->toBool();
     }
 
     /**
@@ -134,7 +145,7 @@ class CollectionTypeTest extends AbstractTypeTest
      */
     public function testBadTransmutableInt()
     {
-        (new CollectionType(['bar', 'baz']))->toInt();
+        (new Collection(['bar', 'baz']))->toInt();
     }
 
     /**
@@ -143,6 +154,6 @@ class CollectionTypeTest extends AbstractTypeTest
      */
     public function testBadTransmutableFloat()
     {
-        (new CollectionType(['bar', 'baz']))->toFloat();
+        (new Collection(['bar', 'baz']))->toFloat();
     }
 }

@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Tdn\PhpTypes\Type;
 
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
 
 /**
@@ -41,7 +42,7 @@ class IntType extends AbstractNumberType
         }
 
         if ($toType !== Type::INT) {
-            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
         return $this->get();
@@ -59,8 +60,9 @@ class IntType extends AbstractNumberType
      */
     public static function valueOf($mixed, int $precision = null) : IntType
     {
-        if (is_numeric($mixed) && $mixed >= PHP_INT_MAX) {
-            throw new \RuntimeException('Incorrect type used. Use float instead.');
+        //Dealing with big integers. Best to use FloatType.
+        if (is_numeric($mixed) && ($mixed >= PHP_INT_MAX && !ctype_digit($mixed))) {
+            throw new \RuntimeException('Incorrect type used. Use FloatType instead.');
         }
 
         return new static(self::asInt($mixed));

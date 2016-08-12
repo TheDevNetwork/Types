@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Tdn\PhpTypes\Type;
 
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
 
 /**
@@ -42,7 +43,7 @@ class FloatType extends AbstractNumberType
         }
 
         if ($toType !== Type::FLOAT) {
-            throw new InvalidTransformationException(static::class, $this->getTranslatedType($toType));
+            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
         return $this->value;

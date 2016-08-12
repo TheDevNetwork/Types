@@ -46,8 +46,8 @@ function getObjectTypeTime($limit) : float {
         \Tdn\PhpTypes\Type\StringType::box($$string, 'foo');
         \Tdn\PhpTypes\Type\IntType::box($$int, 1);
         \Tdn\PhpTypes\Type\FloatType::box($$float, 1.0);
-        \Tdn\PhpTypes\Type\CollectionType::box($$array, []);
-        \Tdn\PhpTypes\Type\DateTimeType::box($$datetime, new \Tdn\PhpTypes\Type\DateTimeType());
+        \Tdn\PhpTypes\Type\Collection::box($$array, []);
+        \Tdn\PhpTypes\Type\DateTime::box($$datetime, new \Tdn\PhpTypes\Type\DateTime());
     }
 
     $objectEnd = microtime(true);

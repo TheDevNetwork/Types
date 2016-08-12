@@ -36,8 +36,8 @@ Long term goal is to create something like Java core libs for PHP
 - BooleanType
 - IntType*
 - FloatType*
-- DateTimeType
-- CollectionType
+- DateTime
+- Collection
 
 <sub>* Smart use of [bcmath] or [gmp] if they are installed.</sub>
 
@@ -161,13 +161,20 @@ Please checkout the [online API] or run `vendor/bin/robo documentation:build` to
 Milestones
 ----------
 
-- [ ] 3.x
+- [ ] x.x
   - [ ] PHP Extension?
-- [x] 3.0.0 (PHP 7)
+- [ ] 3.0.1
+  - [ ] FileSystem (Symfony FileSystem Component)
+  - [ ] Finder (Symfony Finder Component)
+  - [ ] File (Symfony Finder Component)
+- [x] 3.0.0
+  - [x] Updated codebase to PHP 7. (BC Incompatible)
+  - [x] Removed invalid class names. (BC incompatible)
+  - [x] Cleaner API (BC incompatible)
   - [x] Boxing/Unboxing
-  - [x] Cleaner API
-  - [x] Expanded types
-- [x] 2.x (OLD branch, no longer maintained)
+  - [x] Added Collection
+- [X] 2.0 (Last supported release: 2.0.1)
+  - [x] Prepared APIs for PHP 7 compatibility.
 
 Contributing
 ------------
@@ -178,7 +185,6 @@ License
 -------
 
 This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
-
 
 [online documentation]: http://todo
 [online API]: http://todo

@@ -44,8 +44,8 @@ class IntTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform IntType to array.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast IntType to array.
      */
     public function testUnboxArrayFail()
     {
@@ -55,8 +55,8 @@ class IntTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform IntType to bool.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast IntType to bool.
      */
     public function testUnboxBoolFail()
     {
@@ -254,6 +254,17 @@ class IntTypeTest extends AbstractTypeTest
     public function testBadFromString()
     {
         IntType::valueOf('Foo');
+    }
+
+    /**
+     * Int's bigger than max won't work.
+     *
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Incorrect type used. Use FloatType instead.
+     */
+    public function testBadBigInt()
+    {
+        IntType::valueOf(PHP_INT_MAX + 1);
     }
 
     /**

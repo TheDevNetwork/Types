@@ -22,8 +22,8 @@ class InvalidTransformationException extends \RuntimeException
         \Exception $previous = null
     ) {
         $typeFrom = ($typeFrom === 'double') ? 'float' : $typeFrom;
-        $message = $message ?? sprintf(
-            'Could not transform %s to %s.',
+        $message = sprintf(
+            $message ?? 'Could not transform %s to %s.',
             $this->getWithoutNamespace($typeFrom),
             $this->getWithoutNamespace($typeTo)
         );

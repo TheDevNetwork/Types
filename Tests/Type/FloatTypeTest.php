@@ -45,8 +45,8 @@ class FloatTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform FloatType to array.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast FloatType to array.
      */
     public function testUnboxArrayFail()
     {
@@ -56,8 +56,8 @@ class FloatTypeTest extends AbstractTypeTest
     }
 
     /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform FloatType to bool.
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
+     * @expectedExceptionMessage Could not cast FloatType to bool.
      */
     public function testUnboxBoolFail()
     {

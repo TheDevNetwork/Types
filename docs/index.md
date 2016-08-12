@@ -6,8 +6,8 @@ Please refer to the appropriate class to read it's documentation
 - [BooleanType]
 - [IntType]
 - [FloatType]
-- [DateTimeType] + [Carbon](carbon)
-- [CollectionType] + [Doctrine Collections][doctrine-collections]
+- [DateTime] + [Carbon](carbon)
+- [Collection] + [Doctrine Collections][doctrine-collections]
 
 Requirements
 ------------
@@ -58,8 +58,8 @@ Credits
   * Carbon Base: [briannesbitt/Carbon](https://github.com/briannesbitt/Carbon)
 
 [BooleanType]: classes/boolean.md
-[CollectionType]: classes/collection.md
-[DateTimeType]: classes/datetime.md
+[Collection]: classes/collection.md
+[DateTime]: classes/datetime.md
 [FloatType]: classes/float.md
 [IntType]: classes/int.md
 [StringType]: classes/string.md
