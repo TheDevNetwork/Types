@@ -45,7 +45,7 @@ class IntType extends AbstractNumberType
             throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
 
-        return $this->get();
+        return $this->value;
     }
 
     /**
