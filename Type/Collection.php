@@ -3,6 +3,7 @@
 namespace Tdn\PhpTypes\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\Traits\Boxable;
@@ -73,7 +74,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
      */
     private static function asArray($mixed) : array
     {
-        if ($mixed instanceof Collection) {
+        if ($mixed instanceof CollectionInterface) {
             return $mixed->toArray();
         }
 
