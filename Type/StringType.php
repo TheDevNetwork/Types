@@ -4,11 +4,9 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\Common\Inflector\Inflector;
 use Stringy\Stringy;
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
-use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\Traits\Boxable;
 use Tdn\PhpTypes\Type\Traits\Transmutable;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
@@ -61,7 +59,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
         }
 
         if ($toType === Type::ARRAY && $this->contains(',')) {
-
+            return $this->explode(',')->toArray();
         }
 
         if ($toType !== Type::STRING) {
@@ -96,14 +94,15 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
 
     /**
      * Explodes current instance into a collection object.
-     * @param $delimiter
-     * @param int $limit default 0
+     *
+     * @param string $delimiter
+     * @param int    $limit     default PHP_INT_MAX
      *
      * @return Collection
      */
-    public function explode($delimiter, int $limit = 0) : Collection
+    public function explode(string $delimiter, int $limit = PHP_INT_MAX) : Collection
     {
-        return new Collection(explode($delimiter, $this->str, $limit));
+        return new Collection(explode($delimiter, $this->regexReplace('[[:space:]]', '')->str, $limit));
     }
 
     /**
