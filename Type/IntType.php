@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
 
@@ -23,38 +22,26 @@ class IntType extends AbstractNumberType
     }
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
-     *
-     * @param int $toType Default: Type::INT. Options: Type::FLOAT, Type::STRING, Type::INT
-     *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * {@inheritdoc}
      *
      * @return string|float|int
      */
     public function __invoke(int $toType = Type::INT)
     {
-        if ($toType === Type::STRING) {
-            return (string) $this->get();
+        switch ($toType) {
+            case Type::INT:
+                return $this->value;
+            case Type::FLOAT:
+                return (float) $this->get();
+            case Type::STRING:
+                return (string) $this->get();
+            default:
+                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
-
-        if ($toType === Type::FLOAT) {
-            return (float) $this->get();
-        }
-
-        if ($toType !== Type::INT) {
-            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
-        }
-
-        return $this->value;
     }
 
     /**
-     * Returns a IntType from a mixed type/scalar.
-     *
-     * @param mixed    $mixed
-     * @param int|null $precision Always 0 in int...
-     *
-     * @throws \RuntimeException If value is number and number is bigger than PHP_INT_MAX.
+     * {@inheritdoc}
      *
      * @return IntType
      */

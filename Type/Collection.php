@@ -24,39 +24,34 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     use Boxable;
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
-     *
-     * @param int $toType Default: Type::ARRAY. Options: Type::INT, Type::STRING, Type::ARRAY
-     *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * {@inheritdoc}
      *
      * @return string|array|int
      */
     public function __invoke(int $toType = Type::ARRAY)
     {
-        if ($toType === Type::INT) {
-            return $this->count();
+        switch ($toType) {
+            case Type::INT:
+                return $this->count();
+            case Type::ARRAY:
+                return $this->toArray();
+            case Type::STRING:
+                try {
+                    return (StringType::valueOf($this->toArray()))(Type::STRING);
+                } catch (\Throwable $e) {
+                    //throwing exception below
+                }
+
+                break;
+            default:
         }
 
-        if ($toType === Type::ARRAY) {
-            return $this->toArray();
-        }
-
-        if ($toType === Type::STRING) {
-            try {
-                return (StringType::valueOf($this->toArray()))(Type::STRING);
-            } catch (\Throwable $e) {
-                //continue to exception below.
-            }
-        }
-
-        throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
+        $e = ($e ?? null);
+        throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType), null, 0, $e);
     }
 
     /**
-     * Returns a Collection from a mixed type/scalar.
-     *
-     * @param $mixed
+     * {@inheritdoc}
      *
      * @return Collection
      */
@@ -78,7 +73,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
             return $mixed->toArray();
         }
 
-        if ($mixed instanceof BoxedTypeInterface) {
+        if ($mixed instanceof TypeInterface) {
             return [$mixed()];
         }
 

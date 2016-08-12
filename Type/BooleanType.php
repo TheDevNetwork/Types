@@ -13,7 +13,7 @@ use Tdn\PhpTypes\Exception\InvalidTransformationException;
 /**
  * Class BooleanType.
  *
- * Boolean wrapper class. Provides additional features over using a scalar, such as boxing.
+ * A BooleanType is a TypeInterface implementation that wraps around a regular bool value.
  */
 class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
 {
@@ -30,25 +30,20 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
     }
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
-     *
-     * @param int $toType Default: Type::BOOL. Options: Type::BOOL, Type::STRING
-     *
-     * @throws InvalidTypeCastException when casted to an unsupported type.
+     * {@inheritdoc}
      *
      * @return string|bool
      */
     public function __invoke(int $toType = Type::BOOL)
     {
-        if ($toType === Type::STRING) {
-            return ($this->value) ? 'true' : 'false';
+        switch ($toType) {
+            case Type::STRING:
+                return ($this->value) ? 'true' : 'false';
+            case Type::BOOL:
+                return $this->value;
+            default:
+                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
-
-        if ($toType !== Type::BOOL) {
-            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
-        }
-
-        return $this->value;
     }
 
     /**
@@ -58,7 +53,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      */
     public function isTrue() : bool
     {
-        return $this();
+        return $this->value;
     }
 
     /**
@@ -68,13 +63,11 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      */
     public function isFalse() : bool
     {
-        return !$this();
+        return !$this->value;
     }
 
     /**
-     * Returns a BooleanType from a mixed type/scalar.
-     *
-     * @param mixed $mixed
+     * {@inheritdoc}
      *
      * @return BooleanType
      */
@@ -119,19 +112,17 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      */
     protected static function getFromStringMap($key) : bool
     {
-        $map = array(
+        $map = [
             'true' => true,
             'on' => true,
             'yes' => true,
-            'false' => false,
-            'off' => false,
-            'no' => false,
-        );
+        ];
 
         if (array_key_exists($key, $map)) {
             return $map[$key];
         }
 
+        // All other strings will always be false.
         return false;
     }
 }

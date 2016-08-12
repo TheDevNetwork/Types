@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type;
 
-use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
 
@@ -24,36 +23,26 @@ class FloatType extends AbstractNumberType
     }
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
-     *
-     * @param int $toType Default: Type::FLOAT. Options: Type::FLOAT, Type::STRING, Type::INT
-     *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * {@inheritdoc}
      *
      * @return string|int|float
      */
     public function __invoke(int $toType = Type::FLOAT)
     {
-        if ($toType === Type::STRING) {
-            return (string) $this->get();
+        switch ($toType) {
+            case Type::FLOAT:
+                return $this->value;
+            case Type::INT:
+                return (int) $this->get();
+            case Type::STRING:
+                return (string) $this->get();
+            default:
+                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
-
-        if ($toType === Type::INT) {
-            return intval($this->get());
-        }
-
-        if ($toType !== Type::FLOAT) {
-            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
-        }
-
-        return $this->value;
     }
 
     /**
-     * Returns a FloatType from a mixed type/scalar.
-     *
-     * @param $mixed
-     * @param int|null $precision
+     * {@inheritdoc}
      *
      * @return FloatType
      */

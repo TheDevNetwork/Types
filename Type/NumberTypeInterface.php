@@ -10,7 +10,7 @@ namespace Tdn\PhpTypes\Type;
 interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterface
 {
     /**
-     * Increases current NunmberType by the number passed.
+     * Sums current NumberTypeInterface and number passed.
      *
      * @param mixed $num
      *
@@ -19,7 +19,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function plus($num) : NumberTypeInterface;
 
     /***
-     * Decreases current NunmberType by the number passed.
+     * Subtracts number passed from current NumberTypeInterface.
      *
      * @param mixed $num
      * @return NumberTypeInterface
@@ -27,7 +27,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function minus($num) : NumberTypeInterface;
 
     /**
-     * Multiplies current NunmberType by the number passed.
+     * Multiplies current NumberTypeInterface by the number passed.
      *
      * @param $num
      *
@@ -36,7 +36,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function multipliedBy($num) : NumberTypeInterface;
 
     /**
-     * Divides current NunmberType by the number passed.
+     * Divides current NumberTypeInterface by the number passed.
      *
      * @param mixed $num
      *
@@ -45,11 +45,11 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function dividedBy($num) : NumberTypeInterface;
 
     /**
-     * Compares current NumberType to value passed.
+     * Compares current NumberTypeInterface to value passed.
      * Returns as follows:
-     * NumberType > num = 1
-     * NumberType = num = 0
-     * NumberType < num = -1.
+     * NumberTypeInterface > num = 1
+     * NumberTypeInterface = num = 0
+     * NumberTypeInterface < num = -1.
      *
      * @param $num
      *
@@ -58,7 +58,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function compare($num) : NumberTypeInterface;
 
     /**
-     * Returns value of NumberType modulus num.
+     * Returns value of NumberTypeInterface modulus num.
      *
      * @param $num
      *
@@ -67,7 +67,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function modulus($num) : NumberTypeInterface;
 
     /**
-     * Returns NumberType to the power of num.
+     * Returns NumberTypeInterface to the power of num.
      *
      * @param $num
      *
@@ -76,35 +76,35 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function power($num) : NumberTypeInterface;
 
     /**
-     * Returns the square root of NumberType.
+     * Returns the square root of NumberTypeInterface.
      *
      * @return NumberTypeInterface
      */
     public function squareRoot() : NumberTypeInterface;
 
     /**
-     * Returns the absolute value of NumberType.
+     * Returns the absolute value of NumberTypeInterface.
      *
      * @return NumberTypeInterface
      */
     public function absolute() : NumberTypeInterface;
 
     /**
-     * Returns the negated version of NumberType. (Similar to ABS, but will always return the opposite).
+     * Returns the negated version of NumberTypeInterface. (Similar to ABS, but will always return the opposite).
      *
      * @return NumberTypeInterface
      */
     public function negate() : NumberTypeInterface;
 
     /**
-     * Returns NumberType factorial.
+     * Returns NumberTypeInterface factorial.
      *
      * @return NumberTypeInterface
      */
     public function factorial() : NumberTypeInterface;
 
     /**
-     * Returns the greatest common divider between NumberType and num.
+     * Returns the greatest common divider between NumberTypeInterface and num.
      *
      * @param $num
      *
@@ -113,7 +113,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function gcd($num) : NumberTypeInterface;
 
     /**
-     * Returns the root of NumberType to the num.
+     * Returns the root of NumberTypeInterface to the num.
      *
      * @param $num
      *
@@ -122,21 +122,21 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function root(int $num) : NumberTypeInterface;
 
     /**
-     * Return the next prime number after NumberType.
+     * Return the next prime number after NumberTypeInterface.
      *
      * @return NumberTypeInterface
      */
     public function getNextPrime() : NumberTypeInterface;
 
     /**
-     * Returns true of NumberType is prime. False otherwise.
+     * Returns true of NumberTypeInterface is prime. False otherwise.
      *
      * @return BooleanType
      */
     public function isPrime() : BooleanType;
 
     /**
-     * Returns true if NumberType is a perfect square. False otherwise.
+     * Returns true if NumberTypeInterface is a perfect square. False otherwise.
      *
      * @return BooleanType
      */

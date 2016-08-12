@@ -7,7 +7,7 @@ namespace Tdn\PhpTypes\Type;
 /**
  * Interface TransmutableTypeInterface.
  */
-interface TransmutableTypeInterface extends PhpTypeInterface
+interface TransmutableTypeInterface extends TypeInterface
 {
     /**
      * Converts current type to StringType.

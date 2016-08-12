@@ -14,7 +14,7 @@ use Carbon\Carbon;
  *
  * Extends carbon. (https://github.com/briannesbitt/Carbon)
  */
-class DateTime extends Carbon implements PhpTypeInterface
+class DateTime extends Carbon implements TypeInterface
 {
     use Boxable;
 
@@ -28,9 +28,7 @@ class DateTime extends Carbon implements PhpTypeInterface
     }
 
     /**
-     * Returns a DateTime from a mixed type/scalar.
-     *
-     * @param $mixed
+     * {@inheritdoc}
      *
      * @return DateTime
      */
@@ -44,24 +42,19 @@ class DateTime extends Carbon implements PhpTypeInterface
     }
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
-     *
-     * @param int|null $toType Default: null. Options: null|Type::STRING
-     *
-     * @throws InvalidTransformationException when casted to an unsupported type.
+     * {@inheritdoc}
      *
      * @return string|DateTime
      */
     public function __invoke(int $toType = null)
     {
-        if ($toType === Type::STRING) {
-            return $this->format('Y-m-d H:i:s');
+        switch ($toType) {
+            case null:
+                return $this;
+            case Type::STRING:
+                return $this->format('Y-m-d H:i:s');
+            default:
+                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
         }
-
-        if ($toType !== null) {
-            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
-        }
-
-        return $this;
     }
 }

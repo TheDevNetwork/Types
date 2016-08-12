@@ -36,37 +36,38 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * Returns the primitive value of current instance casted to specified type.
+     * {@inheritdoc}
      *
-     * @param int $toType Default: Type::STRING. Options: Type::BOOL, Type::INT, Type::FLOAT, Type::STRING
-     *
-     * @throws InvalidTransformationException when casted to an unsupported type or casting to number and not numeric.
-     *
-     * @return mixed
+     * @return string|int|float|bool|array
      */
     public function __invoke(int $toType = Type::STRING)
     {
-        if ($toType === Type::BOOL) {
-            return BooleanType::valueOf($this)->get();
+        switch ($toType) {
+            case Type::STRING:
+                return $this->str;
+            case Type::INT:
+                if (is_numeric((string) $this)) {
+                    return IntType::valueOf($this)->get();
+                }
+
+                break;
+            case Type::FLOAT:
+                if (is_numeric((string) $this)) {
+                    return FloatType::valueOf($this)->get();
+                }
+
+                break;
+            case Type::ARRAY:
+                if ($this->contains(',')) {
+                    return $this->explode(',')->toArray();
+                }
+
+                break;
+            case Type::BOOL:
+                return BooleanType::valueOf($this)->get();
         }
 
-        if ($toType === Type::INT && is_numeric((string) $this)) {
-            return IntType::valueOf($this)->get();
-        }
-
-        if ($toType === Type::FLOAT && is_numeric((string) $this)) {
-            return FloatType::valueOf($this)->get();
-        }
-
-        if ($toType === Type::ARRAY && $this->contains(',')) {
-            return $this->explode(',')->toArray();
-        }
-
-        if ($toType !== Type::STRING) {
-            throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
-        }
-
-        return $this->str;
+        throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType));
     }
 
     /**
@@ -196,7 +197,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * @param mixed $mixed
+     * {@inheritdoc}
      *
      * @return StringType
      */
