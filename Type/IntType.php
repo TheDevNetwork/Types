@@ -12,7 +12,7 @@ use Tdn\PhpTypes\Math\MathAdapterInterface;
  *
  * A IntType is a TypeInterface implementation that wraps around a regular PHP int.
  *
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class IntType extends AbstractNumberType
 {
@@ -26,7 +26,7 @@ class IntType extends AbstractNumberType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return string|float|int
      */
@@ -45,7 +45,7 @@ class IntType extends AbstractNumberType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return IntType
      */

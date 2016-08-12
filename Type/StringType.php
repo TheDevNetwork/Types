@@ -17,7 +17,7 @@ use Tdn\PhpTypes\Exception\InvalidTransformationException;
  * A StringType is a TypeInterface implementation that wraps around a regular PHP string.
  * This object extends Stringy.
  *
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class StringType extends Stringy implements TransmutableTypeInterface, ValueTypeInterface
 {
@@ -39,7 +39,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return string|int|float|bool|array
      */
@@ -200,7 +200,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return StringType
      */

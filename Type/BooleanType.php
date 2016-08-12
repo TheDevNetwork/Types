@@ -30,7 +30,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return string|bool
      */
@@ -67,7 +67,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return BooleanType
      */

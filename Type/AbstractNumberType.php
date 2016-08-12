@@ -50,7 +50,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function plus($num) : NumberTypeInterface
     {
@@ -65,7 +65,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function minus($num) : NumberTypeInterface
     {
@@ -80,7 +80,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function multipliedBy($num) : NumberTypeInterface
     {
@@ -95,7 +95,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function dividedBy($num) : NumberTypeInterface
     {
@@ -110,7 +110,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function compare($num) : NumberTypeInterface
     {
@@ -125,7 +125,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function modulus($num) : NumberTypeInterface
     {
@@ -140,7 +140,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function power($num) : NumberTypeInterface
     {
@@ -155,7 +155,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function squareRoot() : NumberTypeInterface
     {
@@ -169,7 +169,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function absolute() : NumberTypeInterface
     {
@@ -180,7 +180,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function negate() : NumberTypeInterface
     {
@@ -191,7 +191,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function factorial() : NumberTypeInterface
     {
@@ -202,7 +202,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function gcd($num) : NumberTypeInterface
     {
@@ -216,7 +216,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function root(int $num) : NumberTypeInterface
     {
@@ -227,7 +227,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getNextPrime() : NumberTypeInterface
     {
@@ -235,7 +235,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isPrime() : BooleanType
     {
@@ -243,7 +243,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isPerfectSquare() : BooleanType
     {
@@ -251,7 +251,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPrecision() : int
     {

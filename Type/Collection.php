@@ -17,7 +17,7 @@ use Tdn\PhpTypes\Type\Traits\Transmutable;
  *
  * This object can be extended to create type specific collections. (either primitive or compound)
  *
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class Collection extends ArrayCollection implements TransmutableTypeInterface
 {
@@ -25,7 +25,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     use Boxable;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return string|array|int
      */
@@ -52,7 +52,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return Collection
      */
