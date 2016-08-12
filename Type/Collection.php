@@ -31,6 +31,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
      */
     public function __invoke(int $toType = Type::ARRAY)
     {
+        $e = null;
         switch ($toType) {
             case Type::INT:
                 return $this->count();
