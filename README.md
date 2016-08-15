@@ -190,6 +190,7 @@ Milestones
   - [ ] FileSystem (Symfony FileSystem Component)
   - [ ] Finder (Symfony Finder Component)
   - [ ] File (Symfony Finder Component)
+  - [ ] Money (MoneyPHP)
 - [x] 3.0.0
   - [x] Updated codebase to PHP 7. (BC Incompatible)
   - [x] Removed invalid class names. (BC incompatible)

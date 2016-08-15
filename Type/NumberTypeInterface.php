@@ -46,10 +46,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
 
     /**
      * Compares current NumberTypeInterface to value passed.
-     * Returns as follows:
-     * NumberTypeInterface > num = 1
-     * NumberTypeInterface = num = 0
-     * NumberTypeInterface < num = -1.
+     * Same rules as spaceship or
      *
      * @param $num
      *
@@ -90,7 +87,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     public function absolute() : NumberTypeInterface;
 
     /**
-     * Returns the negated version of NumberTypeInterface. (Similar to ABS, but will always return the opposite).
+     * Returns the negated/opposite of NumberTypeInterface value.
      *
      * @return NumberTypeInterface
      */
