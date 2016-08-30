@@ -7,32 +7,21 @@ use Tdn\PhpTypes\Type\IntType;
 use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Type\Type;
 
-/**
- * BOXING EXAMPLE
- *
- * Use PHPDoc to get auto-completion.
- */
-
 /** @var StringType $string */
 StringType::box($string, 'foo');
-echo $string, PHP_EOL; // foo
+echo $string; // foo
 
 //Reassignment will remain boxed.
 $string = 'bar is fun';
-echo $string->dasherize(), PHP_EOL; // bar-is-fun
+echo $string->dasherize(); // bar-is-fun
 
 try {
-    //Throws "TypeError" exception. This is a hard fail.
+    //Throws "TypeError" exception.
     $string = false;
 } catch (\TypeError $e) {
-    $string = 'bar';
-    echo $string, PHP_EOL; // bar
+    echo $string(), PHP_EOL; // bar
     echo $string(Type::STRING), PHP_EOL; // bar
 }
-
-/**
- * UNBOXING EXAMPLE
- */
 
 /** @var StringType $otherString */
 StringType::box($otherString, 'baz');
@@ -45,29 +34,23 @@ try {
     echo $otherString(Type::INT) * 10, PHP_EOL; // 50
 }
 
-/**
- * USEFUL INTERFACES...
- */
-
 // syllabi
-echo (new StringType('syllabus'))->pluralize(), PHP_EOL;
+echo (new StringType('syllabus'))->pluralize();
 
 // Object is still instance of StringType.
 $string = 'This is my string.';
 
 // This is my string. It is an immutable string.
-echo $string->append('It is an immutable string.'), PHP_EOL;
+echo $string->append('It is an immutable string.');
 
 // This is my string.
 echo $string, PHP_EOL;
 
-/**
- * THAT YOU CAN CHAIN TOGETHER
- */
+//thisIsMyString.ItIsANiceString.
 echo $string
-        ->append('It is a nice string.')
-        ->camelize(),
-PHP_EOL; //thisIsMyString.ItIsANiceString.
+    ->append('It is a nice string.')
+    ->camelize(),
+PHP_EOL;
 
 /** @var IntType $int */
 IntType::box($int, 100);
