@@ -2,6 +2,7 @@
 
 namespace Tdn\PhpTypes\Tests\Type;
 
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\BooleanType;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\Type;
@@ -41,39 +42,51 @@ class BooleanTypeTest extends AbstractTypeTest
         $bool = false;
         $this->assertEquals('false', $bool(Type::STRING));
         $this->assertEquals(false, $bool());
-    }
 
-    /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast BooleanType to int.
-     */
-    public function testUnboxIntFail()
-    {
-        /* @var BooleanType $bool */
-        BooleanType::box($bool, true);
-        $bool(Type::INT);
-    }
+        $this->assertEquals('false', $bool->toString());
+        $this->assertEquals(false, $bool->toBool());
 
-    /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast BooleanType to float.
-     */
-    public function testUnboxFoatFail()
-    {
-        /* @var BooleanType $bool */
-        BooleanType::box($bool, true);
-        $bool(Type::FLOAT);
-    }
+        try {
+            $bool(Type::INT);
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to int.', $e->getMessage());
+        }
 
-    /**
-     * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast BooleanType to array.
-     */
-    public function testUnboxArrayFail()
-    {
-        /* @var BooleanType $bool */
-        BooleanType::box($bool, true);
-        $bool(Type::ARRAY);
+        try {
+            $bool->toInt();
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to int.', $e->getMessage());
+        }
+
+        try {
+            $bool(Type::FLOAT);
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to float.', $e->getMessage());
+        }
+
+        try {
+            $bool->toFloat();
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to float.', $e->getMessage());
+        }
+
+        try {
+            $bool(Type::ARRAY);
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to array.', $e->getMessage());
+        }
+
+        try {
+            $bool->toArray();
+            $this->fail('should not cast.');
+        } catch (InvalidTypeCastException $e) {
+            $this->assertEquals('Could not cast BooleanType to array.', $e->getMessage());
+        }
     }
 
     /**

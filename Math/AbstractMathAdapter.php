@@ -53,6 +53,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
 
     /**
      * @param $number
+     *
      * @return int
      */
     public static function getNumberPrecision($number) : int
@@ -163,10 +164,10 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      * If the operation fails due to a library error, it will try the next library. If all libraries fail then
      * it will use the last exception thrown.
      *
-     * @param string $operation
-     * @param string $leftOperand
+     * @param string      $operation
+     * @param string      $leftOperand
      * @param string|null $rightOperand
-     * @param int|null $precision
+     * @param int|null    $precision
      *
      * @return mixed
      */
@@ -236,10 +237,10 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      * This method tries to call the operation with the proper number of arguments based on whether they are null.
      *
      * @param MathLibraryInterface $library
-     * @param string $operation
-     * @param string $leftOperand
-     * @param string|null $rightOperand
-     * @param int|null $precision
+     * @param string               $operation
+     * @param string               $leftOperand
+     * @param string|null          $rightOperand
+     * @param int|null             $precision
      *
      * @return mixed
      */

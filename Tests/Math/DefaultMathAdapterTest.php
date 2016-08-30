@@ -2,12 +2,7 @@
 
 namespace Tdn\PhpTypes\Tests\Math;
 
-use Tdn\PhpTypes\Exception\DivisionByZeroException;
-use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\DefaultMathAdapter;
-use Tdn\PhpTypes\Math\Library\BcMath;
-use Tdn\PhpTypes\Math\Library\Gmp;
-use Tdn\PhpTypes\Math\Library\Spl;
 use Tdn\PhpTypes\Math\MathAdapterInterface;
 use Tdn\PhpTypes\Math\NumberValidatorInterface;
 
@@ -40,7 +35,7 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \OutOfBoundsException
-     * @expectedExceptionMessageRegExp /Unsupported rounding strategy. Please refer to PHP's documentation on rounding.$/
+     * @expectedExceptionMessageRegExp /Unsupported rounding strategy. Please refer to PHP's documentation on (.*)$/
      */
     public function testBadRoundingStrategy()
     {

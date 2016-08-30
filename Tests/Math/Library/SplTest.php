@@ -48,6 +48,48 @@ class SplTest extends AbstractPrecisionMathLibraryTest
         parent::testModulus();
     }
 
+    public function testGamma()
+    {
+        $this->assertEquals('1.7724538509055', $this->mathLibrary->gamma('.5'));
+        $this->assertEquals('10.136101851155', $this->mathLibrary->gamma('4.4'));
+        $this->assertEquals('334838609873.69', $this->mathLibrary->gamma('15.5'));
+        $this->assertEquals('5.5620924145341E+305', $this->mathLibrary->gamma('170.5'));
+    }
+
+    /**
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidNumberException
+     * @expectedExceptionMessage Operand must be a positive number.
+     */
+    public function testBadZeroGamma()
+    {
+        $this->mathLibrary->gamma('0');
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Number too large.
+     */
+    public function testBadGamma()
+    {
+        $this->mathLibrary->gamma('172');
+    }
+
+    /**
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidNumberException
+     * @expectedExceptionMessage Operand must be a positive number.
+     */
+    public function testBadZeroLogGamma()
+    {
+        $this->mathLibrary->logGamma('0');
+    }
+
+    public function testLogGamma()
+    {
+        $this->assertEquals('0.57236494292469', $this->mathLibrary->logGamma('.5'));
+        $this->assertEquals('2.3161034914248', $this->mathLibrary->logGamma('4.4'));
+        $this->assertEquals('26.536914491116', $this->mathLibrary->logGamma('15.5'));
+    }
+
     /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Not a valid library for root^n.

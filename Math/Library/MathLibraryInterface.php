@@ -12,7 +12,7 @@ use Tdn\PhpTypes\Math\MathInterface;
 interface MathLibraryInterface extends MathInterface
 {
     /**
-     * Sees if library is enabled
+     * Sees if library is enabled.
      *
      * @return bool
      */

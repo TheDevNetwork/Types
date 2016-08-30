@@ -56,4 +56,9 @@ interface TransmutableTypeInterface extends TypeInterface
      * @return string
      */
     public function toString() : string;
+
+    /**
+     * @return array
+     */
+    public function toArray(): array;
 }

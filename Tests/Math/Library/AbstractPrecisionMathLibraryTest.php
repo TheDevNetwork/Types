@@ -2,7 +2,6 @@
 
 namespace Tdn\PhpTypes\Tests\Math\Library;
 
-use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\Library\MathLibraryInterface;
 
 /**

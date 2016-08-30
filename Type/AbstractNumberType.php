@@ -40,8 +40,8 @@ abstract class AbstractNumberType implements NumberTypeInterface
      * Precision order of priority: Argument != null > $num's precision > null precision.
      * So for an int, 0 should be passed for precision, otherwise it will auto-convert to float (if null or $num > 0).
      *
-     * @param number $num
-     * @param int|null $precision
+     * @param number                    $num
+     * @param int|null                  $precision
      * @param MathAdapterInterface|null $mathAdapter
      */
     public function __construct($num, int $precision = null, MathAdapterInterface $mathAdapter = null)
@@ -102,7 +102,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
 
     /**
      * Compares current NumberTypeInterface to value passed.
-     * Same rules as spaceship or
+     * Same rules as spaceship or version_compare.
      *
      * @param NumberTypeInterface|number|StringType|string $num
      *
@@ -299,6 +299,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
     /**
      * @param string $operation
      * @param $operand
+     *
      * @return NumberTypeInterface
      */
     private function getAdapterOperation(string $operation, $operand) : NumberTypeInterface

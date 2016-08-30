@@ -47,7 +47,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
 
     /**
      * Compares current NumberTypeInterface to value passed.
-     * Same rules as spaceship or
+     * Same rules as spaceship or version_compare.
      *
      * @param NumberTypeInterface|number|StringType|string $num
      *
@@ -150,7 +150,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Creates a new instance of NumberTypeInterface from the variable passed.
      *
-     * @param mixed $mixed
+     * @param mixed    $mixed
      * @param int|null $precision
      *
      * @return NumberTypeInterface

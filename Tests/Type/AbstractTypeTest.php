@@ -3,7 +3,6 @@
 namespace Tdn\PhpTypes\Tests\Type;
 
 use Tdn\PhpTypes\Type\StringType;
-use Tdn\PhpTypes\Type\Traits\Boxable;
 
 /**
  * Class AbstractTypeTest.

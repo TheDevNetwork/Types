@@ -17,7 +17,7 @@ class BcMath implements MathLibraryInterface
     private $roundingStrategy;
 
     /**
-     * @param  int $roundingStrategy
+     * @param int $roundingStrategy
      */
     public function __construct(int $roundingStrategy)
     {
@@ -29,7 +29,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -45,7 +45,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -61,7 +61,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -77,7 +77,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -93,7 +93,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $operand
      * @param string $modulus
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -131,7 +131,7 @@ class BcMath implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -146,7 +146,7 @@ class BcMath implements MathLibraryInterface
      * Get the square root of an arbitrary precision number.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -210,7 +210,7 @@ class BcMath implements MathLibraryInterface
      * Calculates to the nth root.
      *
      * @param string $operand
-     * @param int $nth
+     * @param int    $nth
      *
      * @return string
      */
@@ -233,7 +233,7 @@ class BcMath implements MathLibraryInterface
 
     /**
      * @param string $operand
-     * @param int $reps
+     * @param int    $reps
      *
      * @return bool
      */
@@ -246,7 +246,7 @@ class BcMath implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return bool
      */
@@ -256,9 +256,10 @@ class BcMath implements MathLibraryInterface
     }
 
     /**
-     * The gamma function
+     * The gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function gamma(string $operand) : string
@@ -270,6 +271,7 @@ class BcMath implements MathLibraryInterface
      * The log-gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function logGamma(string $operand) : string

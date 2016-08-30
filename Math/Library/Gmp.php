@@ -14,7 +14,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -42,7 +42,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -56,7 +56,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -70,7 +70,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $operand
      * @param string $modulus
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -98,7 +98,7 @@ class Gmp implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -111,7 +111,7 @@ class Gmp implements MathLibraryInterface
      * Get the square root of an arbitrary precision number.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -173,7 +173,7 @@ class Gmp implements MathLibraryInterface
      * Calculates to the nth root.
      *
      * @param string $operand
-     * @param int $nth
+     * @param int    $nth
      *
      * @return string
      */
@@ -198,7 +198,7 @@ class Gmp implements MathLibraryInterface
 
     /**
      * @param string $operand
-     * @param int $reps
+     * @param int    $reps
      *
      * @return bool
      */
@@ -211,7 +211,7 @@ class Gmp implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return bool
      */
@@ -221,9 +221,10 @@ class Gmp implements MathLibraryInterface
     }
 
     /**
-     * The gamma function
+     * The gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function gamma(string $operand) : string
@@ -235,6 +236,7 @@ class Gmp implements MathLibraryInterface
      * The log-gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function logGamma(string $operand) : string

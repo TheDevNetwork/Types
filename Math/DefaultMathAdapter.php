@@ -265,11 +265,10 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         throw $exception ?? $this->createNewUnknownErrorException();
     }
 
-
     /**
      * Checks if operand is perfect square.
      *
-     * @param string $operand
+     * @param string   $operand
      * @param int|null $precision
      *
      * @return bool
@@ -280,9 +279,10 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
-     * The gamma function
+     * The gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function gamma(string $operand) : string
@@ -294,6 +294,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      * The log-gamma function.
      *
      * @param string $operand
+     *
      * @return string
      */
     public function logGamma(string $operand) : string
@@ -310,7 +311,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         return [
             'bcmath' => new BcMath($this->getRoundingStrategy()),
             'gmp' => new Gmp(),
-            'spl' => new Spl($this->getRoundingStrategy())
+            'spl' => new Spl($this->getRoundingStrategy()),
         ];
     }
 

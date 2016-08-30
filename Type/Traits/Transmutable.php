@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type\Traits;
 
-use Tdn\PhpTypes\Exception\InvalidTransformationException;
+use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\BooleanType;
@@ -107,6 +107,22 @@ trait Transmutable
     }
 
     /**
+     * @return array
+     */
+    public function toArray() : array
+    {
+        if ($this instanceof Collection) {
+            return parent::toArray();
+        }
+
+        if ($this instanceof TransmutableTypeInterface) {
+            return $this(Type::ARRAY);
+        }
+
+        throw $this->createInvalidTransformationException('array');
+    }
+
+    /**
      * @return string
      */
     public function __toString() : string
@@ -116,6 +132,6 @@ trait Transmutable
 
     private function createInvalidTransformationException($type)
     {
-        return new InvalidTransformationException(static::class, $type);
+        return new InvalidTypeCastException(static::class, $type);
     }
 }

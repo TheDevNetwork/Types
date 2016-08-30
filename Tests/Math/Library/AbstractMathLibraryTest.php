@@ -100,4 +100,22 @@ abstract class AbstractMathLibraryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->mathLibrary->isPerfectSquare(5));
         $this->assertFalse($this->mathLibrary->isPerfectSquare(26));
     }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not a valid library for gamma.
+     */
+    public function testGamma()
+    {
+        $this->mathLibrary->gamma(.5);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not a valid library for logGamma.
+     */
+    public function testLogGamma()
+    {
+        $this->mathLibrary->logGamma(.5);
+    }
 }

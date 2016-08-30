@@ -31,13 +31,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
+        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
             round(floatval($leftOperand) + floatval($rightOperand), $precision, $this->roundingStrategy));
     }
 
@@ -46,13 +46,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
+        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
             round($leftOperand - $rightOperand, $precision, $this->roundingStrategy));
     }
 
@@ -61,13 +61,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
+        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
             round($leftOperand * $rightOperand, ($precision ?? 0), $this->roundingStrategy));
     }
 
@@ -76,13 +76,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
+        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
             round($leftOperand / $rightOperand, $precision, $this->roundingStrategy));
     }
 
@@ -91,7 +91,7 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -105,13 +105,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $operand
      * @param string $modulus
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function modulus(string $operand, string $modulus, int $precision = 0) : string
     {
-        return (string)round(
+        return (string) round(
             fmod(
                 floatval($operand),
                 floatval($modulus)
@@ -126,13 +126,13 @@ class Spl implements MathLibraryInterface
      *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string)round(
+        return (string) round(
             pow(
                 floatval($leftOperand),
                 floatval($rightOperand)
@@ -146,13 +146,13 @@ class Spl implements MathLibraryInterface
      * Get the square root of an arbitrary precision number.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
     public function squareRoot(string $operand, int $precision = 0) : string
     {
-        return (string)round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
+        return (string) round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
     }
 
     /**
@@ -164,7 +164,7 @@ class Spl implements MathLibraryInterface
      */
     public function absolute(string $operand) : string
     {
-        return (string)abs($operand);
+        return (string) abs($operand);
     }
 
     /**
@@ -189,7 +189,7 @@ class Spl implements MathLibraryInterface
     public function factorial(string $operand) : string
     {
         if (StringType::create($operand)->contains('.')) {
-            $operand++;
+            ++$operand;
 
             return $this->gamma((string) $operand);
         }
@@ -202,7 +202,7 @@ class Spl implements MathLibraryInterface
             return $factorial(strval($num - 1)) * $num;
         };
 
-        return (string)$factorial($operand);
+        return (string) $factorial($operand);
     }
 
     /**
@@ -221,7 +221,7 @@ class Spl implements MathLibraryInterface
 
         $exponent = $this->getSmallestDecimalPlaceCount($leftOperand, $rightOperand);
 
-        return (string)(
+        return (string) (
             $gcd(
                 strval($leftOperand * (pow(10, $exponent))),
                 strval($rightOperand * (pow(10, $exponent)))
@@ -233,7 +233,7 @@ class Spl implements MathLibraryInterface
      * Calculates to the nth root.
      *
      * @param string $operand
-     * @param int $nth
+     * @param int    $nth
      *
      * @return string
      */
@@ -253,18 +253,18 @@ class Spl implements MathLibraryInterface
     public function nextPrime(string $operand) : string
     {
         $operand = (intval($operand) + 1);
-        for ($i = $operand; ; ++$i) {
+        for ($i = $operand;; ++$i) {
             if ($this->isPrime(strval($i))) {
                 break;
             }
         }
 
-        return (string)$i;
+        return (string) $i;
     }
 
     /**
      * @param string $operand
-     * @param int $reps
+     * @param int    $reps
      *
      * @return bool
      */
@@ -284,7 +284,7 @@ class Spl implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return bool
      */
@@ -316,6 +316,7 @@ class Spl implements MathLibraryInterface
 
     /**
      * @param string $operand
+     *
      * @return string
      */
     public function gamma(string $operand) : string
@@ -369,7 +370,7 @@ class Spl implements MathLibraryInterface
             $den = 1.0;
             $z = $y - 1;
 
-            for ($i = 0; $i < 8; $i++) {
+            for ($i = 0; $i < 8; ++$i) {
                 $num = ($num + $p[$i]) * $z;
                 $den = $den * $z + $q[$i];
             }
@@ -379,7 +380,7 @@ class Spl implements MathLibraryInterface
             if ($lessThanOne) {
                 $result /= ($y - 1.0);
             } else {
-                for ($i = 0; $i < $n; $i++) {
+                for ($i = 0; $i < $n; ++$i) {
                     $result *= $y++;
                 }
             }
@@ -391,11 +392,12 @@ class Spl implements MathLibraryInterface
             throw new \RuntimeException('Number too large.');
         }
 
-        return (string) exp($this->logGamma((string) $operand));
+        return (string) exp(floatval($this->logGamma((string) $operand)));
     }
 
     /**
      * @param string $operand
+     *
      * @return string
      */
     public function logGamma(string $operand) : string
@@ -421,21 +423,21 @@ class Spl implements MathLibraryInterface
 
         $z = 1.0 / ($operand * $operand);
         $sum = $c[7];
-        for ($i = 6; $i >= 0; $i--) {
+        for ($i = 6; $i >= 0; --$i) {
             $sum *= $z;
             $sum += $c[$i];
         }
 
         $series = $sum / $operand;
         $halfLogTwoPi = 0.91893853320467274178032973640562;
-        $logGamma = (floatval($operand) - 0.5) * log($operand) - $operand + $halfLogTwoPi + $series;
+        $logGamma = (floatval($operand) - 0.5) * log(floatval($operand)) - $operand + $halfLogTwoPi + $series;
 
         return (string) $logGamma;
     }
 
     /**
      * Figures out the smallest number of decimal places between the two numbers and returns that count.
-     * Eg. (1.005, 2.4) => 1, (1.005, 2.5399) => 3
+     * Eg. (1.005, 2.4) => 1, (1.005, 2.5399) => 3.
      *
      * @param string $leftOperand
      * @param string $rightOperand
