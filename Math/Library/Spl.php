@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
-use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\DefaultMathAdapter;
 use Tdn\PhpTypes\Type\StringType;
 
@@ -189,7 +188,7 @@ class Spl implements MathLibraryInterface
     public function factorial(string $operand) : string
     {
         if (StringType::create($operand)->contains('.')) {
-            $operand = $operand + 1;
+            $operand = floatval($operand) + 1;
             return $this->gamma((string) $operand);
         }
 
