@@ -30,8 +30,10 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
 
     /**
      * @param NumberValidatorInterface|null $validator
-     * @param MathLibraryInterface          $delegate
-     * @param int                           $roundingStrategy
+     * @param MathLibraryInterface|null     $delegate
+     * @param int|null                      $roundingStrategy
+     *
+     * @throws \OutOfBoundsException when a rounding strategy is passed as argument and not supported.
      */
     public function __construct(
         NumberValidatorInterface $validator = null,
@@ -39,7 +41,9 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
         int $roundingStrategy = PHP_ROUND_HALF_UP
     ) {
         if ($roundingStrategy !== null && !in_array($roundingStrategy, static::getSupportedRoundingStrategies())) {
-            throw new \OutOfBoundsException('Unsupported rounding strategy. Please refer to PHP\'s documentation.');
+            throw new \OutOfBoundsException(
+                'Unsupported rounding strategy. Please refer to PHP\'s documentation on rounding.'
+            );
         }
 
         $this->validator = $validator ?? new DefaultNumberValidator();
@@ -115,11 +119,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      */
     protected function isRealNumber(string $type, string $leftOperand, string $rightOperand = '0')
     {
-        if ($type !== self::TYPE_INT || $leftOperand < 0 || $rightOperand < 0) {
-            return false;
-        }
-
-        return true;
+        return !($type !== self::TYPE_INT || $leftOperand < 0 || $rightOperand < 0);
     }
 
     /**
@@ -165,8 +165,8 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @param string $operation
      * @param string $leftOperand
-     * @param string $rightOperand
-     * @param int $precision
+     * @param string|null $rightOperand
+     * @param int|null $precision
      *
      * @return mixed
      */
@@ -200,36 +200,18 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     }
 
     /**
-     * This method tries to call the operation with the proper number of arguments based on whether they are null.
+     * Supported rounding strategies.
      *
-     * @param MathLibraryInterface $library
-     * @param string $operation
-     * @param string $leftOperand
-     * @param string|null $rightOperand
-     * @param int|null $precision
-     *
-     * @return mixed
+     * @return array<int>
      */
-    protected function getLibraryResult(
-        MathLibraryInterface $library,
-        string $operation,
-        string $leftOperand,
-        string $rightOperand = null,
-        int $precision = null
-    ) {
-        if ($precision !== null) {
-            if ($rightOperand !== null) {
-                return $library->$operation($leftOperand, $rightOperand, $precision);
-            }
-
-            return $library->$operation($leftOperand, $precision);
-        }
-
-        if ($rightOperand !== null) {
-            return $library->$operation($leftOperand, $rightOperand);
-        }
-
-        return $library->$operation($leftOperand);
+    protected static function getSupportedRoundingStrategies() : array
+    {
+        return [
+            PHP_ROUND_HALF_UP,
+            PHP_ROUND_HALF_DOWN,
+            PHP_ROUND_HALF_EVEN,
+            PHP_ROUND_HALF_ODD,
+        ];
     }
 
     /**
@@ -251,17 +233,35 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     }
 
     /**
-     * Supported rounding strategies.
+     * This method tries to call the operation with the proper number of arguments based on whether they are null.
      *
-     * @return array<int>
+     * @param MathLibraryInterface $library
+     * @param string $operation
+     * @param string $leftOperand
+     * @param string|null $rightOperand
+     * @param int|null $precision
+     *
+     * @return mixed
      */
-    private static function getSupportedRoundingStrategies() : array
-    {
-        return [
-            PHP_ROUND_HALF_UP,
-            PHP_ROUND_HALF_DOWN,
-            PHP_ROUND_HALF_EVEN,
-            PHP_ROUND_HALF_ODD,
-        ];
+    private function getLibraryResult(
+        MathLibraryInterface $library,
+        string $operation,
+        string $leftOperand,
+        string $rightOperand = null,
+        int $precision = null
+    ) {
+        if ($precision !== null) {
+            if ($rightOperand !== null) {
+                return $library->$operation($leftOperand, $rightOperand, $precision);
+            }
+
+            return $library->$operation($leftOperand, $precision);
+        }
+
+        if ($rightOperand !== null) {
+            return $library->$operation($leftOperand, $rightOperand);
+        }
+
+        return $library->$operation($leftOperand);
     }
 }

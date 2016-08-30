@@ -211,13 +211,35 @@ class Gmp implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int|null $precision
+     * @param int $precision
      *
      * @return bool
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
     {
         return gmp_perfect_square($operand);
+    }
+
+    /**
+     * The gamma function
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function gamma(string $operand) : string
+    {
+        throw $this->createInvalidLibraryException(__FUNCTION__);
+    }
+
+    /**
+     * The log-gamma function.
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function logGamma(string $operand) : string
+    {
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -237,5 +259,17 @@ class Gmp implements MathLibraryInterface
     public function isEnabled() : bool
     {
         return extension_loaded('gmp');
+    }
+
+    /**
+     * @param string $methodName
+     *
+     * @return \RuntimeException
+     */
+    private function createInvalidLibraryException(string $methodName) : \RuntimeException
+    {
+        return new \RuntimeException(
+            sprintf('Not a valid library for %s.', $methodName)
+        );
     }
 }

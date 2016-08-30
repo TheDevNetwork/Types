@@ -246,11 +246,33 @@ class BcMath implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int|null $precision
+     * @param int $precision
      *
      * @return bool
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
+    {
+        throw $this->createInvalidLibraryException(__FUNCTION__);
+    }
+
+    /**
+     * The gamma function
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function gamma(string $operand) : string
+    {
+        throw $this->createInvalidLibraryException(__FUNCTION__);
+    }
+
+    /**
+     * The log-gamma function.
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function logGamma(string $operand) : string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }

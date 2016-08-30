@@ -179,4 +179,20 @@ interface MathInterface
      * @return bool
      */
     public function isPerfectSquare(string $operand, int $precision = null) : bool;
+
+    /**
+     * The gamma function
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function gamma(string $operand) : string;
+
+    /**
+     * The log-gamma function.
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function logGamma(string $operand) : string;
 }

@@ -16,9 +16,11 @@ use Tdn\PhpTypes\Math\Library\Spl;
 class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInterface
 {
     /**
+     * Add two arbitrary precision numbers.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -28,9 +30,11 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Subtract two arbitrary precision numbers.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -40,9 +44,11 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Multiply two arbitrary precision numbers.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -52,9 +58,11 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Divide two arbitrary precision numbers.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      *
@@ -63,16 +71,18 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
         if ($rightOperand == '0') {
-            throw new \DivisionByZeroError('Cannot divide by zero.');
+            throw new \DivisionByZeroError();
         }
 
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
+     * Compare two arbitrary precision numbers.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -82,9 +92,11 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Get modulus of an arbitrary precision number.
+     *
      * @param string $operand
      * @param string $modulus
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -94,9 +106,11 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Raise an arbitrary precision number to another.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -106,8 +120,10 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Get the square root of an arbitrary precision number.
+     *
      * @param string $operand
-     * @param int $precision
+     * @param int    $precision
      *
      * @return string
      */
@@ -117,6 +133,8 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Returns absolute value of operand.
+     *
      * @param string $operand
      *
      * @return string
@@ -127,6 +145,8 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Negates a number. Opposite of absolute/abs.
+     *
      * @param string $operand
      *
      * @return string
@@ -137,6 +157,8 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Returns the factorial of operand.
+     *
      * @param string $operand
      *
      * @return string
@@ -153,6 +175,8 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Greatest common divisor.
+     *
      * @param string $leftOperand
      * @param string $rightOperand
      *
@@ -170,8 +194,10 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Calculates to the nth root.
+     *
      * @param string $operand
-     * @param int $nth
+     * @param int    $nth
      *
      * @return string
      */
@@ -196,6 +222,8 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     }
 
     /**
+     * Gets the next prime after operand.
+     *
      * @param string $operand
      *
      * @return string
@@ -207,7 +235,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
 
     /**
      * @param string $operand
-     * @param int $reps
+     * @param int    $reps
      *
      * @return bool
      */
@@ -237,15 +265,40 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         throw $exception ?? $this->createNewUnknownErrorException();
     }
 
+
     /**
+     * Checks if operand is perfect square.
+     *
      * @param string $operand
-     * @param int $precision
+     * @param int|null $precision
      *
      * @return bool
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
     {
         return $this->getDelegateResult(__FUNCTION__, $operand, null, $precision);
+    }
+
+    /**
+     * The gamma function
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function gamma(string $operand) : string
+    {
+        return $this->getDelegateResult(__FUNCTION__, $operand);
+    }
+
+    /**
+     * The log-gamma function.
+     *
+     * @param string $operand
+     * @return string
+     */
+    public function logGamma(string $operand) : string
+    {
+        return $this->getDelegateResult(__FUNCTION__, $operand);
     }
 
     /**

@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
+use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\DefaultMathAdapter;
 use Tdn\PhpTypes\Type\StringType;
 
@@ -188,7 +189,8 @@ class Spl implements MathLibraryInterface
     public function factorial(string $operand) : string
     {
         if (StringType::create($operand)->contains('.')) {
-            $operand = floatval($operand) + 1;
+            $operand++;
+
             return $this->gamma((string) $operand);
         }
 
@@ -282,7 +284,7 @@ class Spl implements MathLibraryInterface
      * Checks if operand is perfect square.
      *
      * @param string $operand
-     * @param int|null $precision
+     * @param int $precision
      *
      * @return bool
      */
@@ -313,42 +315,31 @@ class Spl implements MathLibraryInterface
     }
 
     /**
-     * Ensures that an operation is meant to be an integer operation, float operation otherwise.
-     *
-     * @param int|null $precision
-     *
-     * @return bool
-     */
-    private function isIntOperation(int $precision = 0) : bool
-    {
-        return $precision === null || $precision === 0;
-    }
-
-    /**
-     * @param string $x
+     * @param string $operand
      * @return string
      */
-    private function gamma(string $x) : string
+    public function gamma(string $operand) : string
     {
-        if ($x <= 0.0) {
-            die("Invalid input argument $x. Argument must be positive");
+        if ($operand <= 0.0) {
+            throw new InvalidNumberException('Operand must be a positive number.');
         }
 
         # Euler's gamma constant
         $gamma = 0.577215664901532860606512090;
 
-        if ($x < 0.001) {
-            return strval(1.0 / ($x * (1.0 + $gamma * $x)));
+        if ($operand < 0.001) {
+            return strval(1.0 / ($operand * (1.0 + $gamma * $operand)));
         }
 
-        if ($x < 12.0) {
-            $y = $x;
+        if ($operand < 12.0) {
+            $y = $operand;
             $n = 0;
-            $arg_was_less_than_one = ($y < 1.0);
-            if ($arg_was_less_than_one) {
+            $lessThanOne = ($y < 1.0);
+            if ($lessThanOne) {
                 $y += 1.0;
             } else {
-                $n = floor($y) - 1;  # will use n later
+                # will use n later
+                $n = floor($y) - 1;
                 $y -= $n;
             }
 
@@ -385,7 +376,7 @@ class Spl implements MathLibraryInterface
 
             $result = $num / $den + 1.0;
 
-            if ($arg_was_less_than_one) {
+            if ($lessThanOne) {
                 $result /= ($y - 1.0);
             } else {
                 for ($i = 0; $i < $n; $i++) {
@@ -396,25 +387,25 @@ class Spl implements MathLibraryInterface
             return (string) $result;
         }
 
-        if ($x > 171.624) {
+        if ($operand > 171.624) {
             throw new \RuntimeException('Number too large.');
         }
 
-        return (string) exp($this->logGamma((string) $x));
+        return (string) exp($this->logGamma((string) $operand));
     }
 
     /**
-     * @param string $x
+     * @param string $operand
      * @return string
      */
-    private function logGamma(string $x) : string
+    public function logGamma(string $operand) : string
     {
-        if ($x <= 0.0) {
-            die("Invalid input argument $x. Argument must be positive");
+        if ($operand <= 0.0) {
+            throw new InvalidNumberException('Operand must be a positive number.');
         }
 
-        if ($x < 12.0) {
-            return (string) log(abs($this->gamma((string) $x)));
+        if ($operand < 12.0) {
+            return (string) log(abs($this->gamma((string) $operand)));
         }
 
         $c = [
@@ -428,16 +419,16 @@ class Spl implements MathLibraryInterface
             -3617.0 / 122400.0,
         ];
 
-        $z = 1.0 / ($x * $x);
+        $z = 1.0 / ($operand * $operand);
         $sum = $c[7];
         for ($i = 6; $i >= 0; $i--) {
             $sum *= $z;
             $sum += $c[$i];
         }
 
-        $series = $sum / $x;
+        $series = $sum / $operand;
         $halfLogTwoPi = 0.91893853320467274178032973640562;
-        $logGamma = (floatval($x) - 0.5) * log($x) - $x + $halfLogTwoPi + $series;
+        $logGamma = (floatval($operand) - 0.5) * log($operand) - $operand + $halfLogTwoPi + $series;
 
         return (string) $logGamma;
     }
@@ -457,5 +448,17 @@ class Spl implements MathLibraryInterface
         $rightPrecision = DefaultMathAdapter::getNumberPrecision($rightOperand);
 
         return $leftPrecision < $rightPrecision ? $leftPrecision : $rightPrecision;
+    }
+
+    /**
+     * Ensures that an operation is meant to be an integer operation, float operation otherwise.
+     *
+     * @param int $precision
+     *
+     * @return bool
+     */
+    private function isIntOperation(int $precision = 0) : bool
+    {
+        return $precision === null || $precision === 0;
     }
 }

@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Type\Traits;
 
+use Tdn\PhpTypes\Exception\InvalidTransformationException;
 use Tdn\PhpTypes\Type\Collection;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\BooleanType;
@@ -66,7 +67,7 @@ trait Transmutable
             return $this(Type::BOOL);
         }
 
-        return false;
+        throw $this->createInvalidTransformationException('bool');
     }
 
     /**
@@ -78,7 +79,7 @@ trait Transmutable
             return $this(Type::INT);
         }
 
-        return 0;
+        throw $this->createInvalidTransformationException('int');
     }
 
     /**
@@ -90,7 +91,7 @@ trait Transmutable
             return $this(Type::FLOAT);
         }
 
-        return 0.00;
+        throw $this->createInvalidTransformationException('float');
     }
 
     /**
@@ -102,7 +103,7 @@ trait Transmutable
             return $this(Type::STRING);
         }
 
-        return '';
+        throw $this->createInvalidTransformationException('string');
     }
 
     /**
@@ -111,5 +112,10 @@ trait Transmutable
     public function __toString() : string
     {
         return $this->toString();
+    }
+
+    private function createInvalidTransformationException($type)
+    {
+        return new InvalidTransformationException(static::class, $type);
     }
 }

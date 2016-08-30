@@ -40,8 +40,8 @@ abstract class AbstractNumberType implements NumberTypeInterface
      * Precision order of priority: Argument != null > $num's precision > null precision.
      * So for an int, 0 should be passed for precision, otherwise it will auto-convert to float (if null or $num > 0).
      *
-     * @param number                    $num
-     * @param int|null                  $precision
+     * @param number $num
+     * @param int|null $precision
      * @param MathAdapterInterface|null $mathAdapter
      */
     public function __construct($num, int $precision = null, MathAdapterInterface $mathAdapter = null)
@@ -61,14 +61,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function plus($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->add(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation('add', $num);
     }
 
     /***
@@ -80,14 +73,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function minus($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->subtract(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation('subtract', $num);
     }
 
     /**
@@ -99,14 +85,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function multipliedBy($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->multiply(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation('multiply', $num);
     }
 
     /**
@@ -118,14 +97,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function dividedBy($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->divide(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation('divide', $num);
     }
 
     /**
@@ -138,14 +110,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function compare($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->compare(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation(__FUNCTION__, $num);
     }
 
     /**
@@ -157,14 +122,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function modulus($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->modulus(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation(__FUNCTION__, $num);
     }
 
     /**
@@ -176,14 +134,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function power($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->power(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get(),
-                $this->getPrecision()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation(__FUNCTION__, $num);
     }
 
     /**
@@ -250,13 +201,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     public function gcd($num) : NumberTypeInterface
     {
-        return static::valueOf(
-            $this->getMathAdapter()->gcd(
-                $this->toStringType()->get(),
-                static::valueOf($num)->toStringType()->get()
-            ),
-            $this->getPrecision()
-        );
+        return $this->getAdapterOperation(__FUNCTION__, $num);
     }
 
     /**
@@ -349,5 +294,32 @@ abstract class AbstractNumberType implements NumberTypeInterface
     protected function getMathAdapter()
     {
         return $this->mathAdapter;
+    }
+
+    /**
+     * @param string $operation
+     * @param $operand
+     * @return NumberTypeInterface
+     */
+    private function getAdapterOperation(string $operation, $operand) : NumberTypeInterface
+    {
+        if (!is_callable([$operation, $this->getMathAdapter()])) {
+            throw new \LogicException(
+                sprintf(
+                    'Operation does not exist. Invalid operation: %s::%s()',
+                    get_class($this->getMathAdapter()),
+                    $operation
+                )
+            );
+        }
+
+        return static::valueOf(
+            $this->getMathAdapter()->$operation(
+                $this->toStringType()->get(),
+                static::valueOf($operand)->toStringType()->get(),
+                $this->getPrecision()
+            ),
+            $this->getPrecision()
+        );
     }
 }
