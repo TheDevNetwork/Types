@@ -40,7 +40,7 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \OutOfBoundsException
-     * @expectedExceptionMessageRegExp /Unsupported rounding strategy. Please refer to PHP's documentation.$/
+     * @expectedExceptionMessageRegExp /Unsupported rounding strategy. Please refer to PHP's documentation on rounding.$/
      */
     public function testBadRoundingStrategy()
     {

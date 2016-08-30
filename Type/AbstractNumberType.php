@@ -303,7 +303,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     private function getAdapterOperation(string $operation, $operand) : NumberTypeInterface
     {
-        if (!is_callable([$operation, $this->getMathAdapter()])) {
+        if (!is_callable([$this->getMathAdapter(), $operation])) {
             throw new \LogicException(
                 sprintf(
                     'Operation does not exist. Invalid operation: %s::%s()',
