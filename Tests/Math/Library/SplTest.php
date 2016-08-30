@@ -54,6 +54,7 @@ class SplTest extends AbstractPrecisionMathLibraryTest
         $this->assertEquals('10.136101851155', $this->mathLibrary->gamma('4.4'));
         $this->assertEquals('334838609873.69', $this->mathLibrary->gamma('15.5'));
         $this->assertEquals('5.5620924145341E+305', $this->mathLibrary->gamma('170.5'));
+        $this->assertEquals('999999.42278467', $this->mathLibrary->gamma('.000001'));
     }
 
     /**
