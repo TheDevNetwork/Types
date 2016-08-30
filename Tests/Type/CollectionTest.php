@@ -126,7 +126,7 @@ class CollectionTest extends AbstractTypeTest
 
     public function testTransmutable()
     {
-        $this->assertEquals(new StringType('bar, baz'), (new Collection(['bar', 'baz']))->toString());
+        $this->assertEquals(new StringType('bar, baz'), (new Collection(['bar', 'baz']))->toStringType());
         $this->assertEquals(new Collection(['bar', 'baz']), (new Collection(['bar', 'baz']))->toCollection());
     }
 
@@ -136,7 +136,7 @@ class CollectionTest extends AbstractTypeTest
      */
     public function testBadTransmutableBool()
     {
-        (new Collection(['bar', 'baz']))->toBool();
+        (new Collection(['bar', 'baz']))->toBoolType();
     }
 
     /**
@@ -145,7 +145,7 @@ class CollectionTest extends AbstractTypeTest
      */
     public function testBadTransmutableInt()
     {
-        (new Collection(['bar', 'baz']))->toInt();
+        (new Collection(['bar', 'baz']))->toIntType();
     }
 
     /**
@@ -154,6 +154,6 @@ class CollectionTest extends AbstractTypeTest
      */
     public function testBadTransmutableFloat()
     {
-        (new Collection(['bar', 'baz']))->toFloat();
+        (new Collection(['bar', 'baz']))->toFloatType();
     }
 }

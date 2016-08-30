@@ -5,10 +5,7 @@ declare (strict_types = 1);
 namespace Tdn\PhpTypes\Math;
 
 use Tdn\PhpTypes\Exception\InvalidNumberException;
-use Tdn\PhpTypes\Math\Library\BcMath;
-use Tdn\PhpTypes\Math\Library\Gmp;
 use Tdn\PhpTypes\Math\Library\MathLibraryInterface;
-use Tdn\PhpTypes\Math\Library\Spl;
 use Tdn\PhpTypes\Type\StringType;
 
 /**
@@ -24,16 +21,21 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     /**
      * @var array|MathLibraryInterface[]
      */
-    private $mathLibraries = [];
+    private $delegates = [];
+
+    /**
+     * @var int
+     */
+    private $roundingStrategy;
 
     /**
      * @param NumberValidatorInterface|null $validator
-     * @param MathLibraryInterface          $mathLibrary
+     * @param MathLibraryInterface          $delegate
      * @param int                           $roundingStrategy
      */
     public function __construct(
         NumberValidatorInterface $validator = null,
-        MathLibraryInterface $mathLibrary = null,
+        MathLibraryInterface $delegate = null,
         int $roundingStrategy = PHP_ROUND_HALF_UP
     ) {
         if ($roundingStrategy !== null && !in_array($roundingStrategy, static::getSupportedRoundingStrategies())) {
@@ -41,15 +43,31 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
         }
 
         $this->validator = $validator ?? new DefaultNumberValidator();
-        $this->mathLibraries = $mathLibrary ? [$mathLibrary] : $this->getSupportedMathLibraries($roundingStrategy);
+        $this->roundingStrategy = $roundingStrategy;
+        $this->delegates = $delegate ? [$delegate] : $this->getDefaultDelegates();
     }
 
     /**
-     * @param int $roundingStrategy
-     *
-     * @return array|MathLibraryInterface[]
+     * @param $number
+     * @return int
      */
-    abstract protected function getSupportedMathLibraries(int $roundingStrategy) : array;
+    public static function getNumberPrecision($number) : int
+    {
+        $string = StringType::valueOf($number);
+        if ($string->contains('.')) {
+            return $string->substr(($string->indexOf('.') + 1), $string->length())->count();
+        }
+
+        return 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRoundingStrategy() : int
+    {
+        return $this->roundingStrategy;
+    }
 
     /**
      * Returns the precision of number.
@@ -61,16 +79,16 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     public function getPrecision($number) : int
     {
         if ($this->validator->isValid($number)) {
-            $string = StringType::valueOf($number);
-            if ($string->contains('.')) {
-                return $string->substr(($string->indexOf('.') + 1), $string->length())->count();
-            }
-
-            return 0;
+            return static::getNumberPrecision($number);
         }
 
         throw new InvalidNumberException(sprintf('Invalid number: %s', ($number ?: gettype($number))));
     }
+
+    /**
+     * @return MathLibraryInterface[]
+     */
+    abstract protected function getDefaultDelegates() : array;
 
     /**
      * Iterates through libraries to operate on.
@@ -79,9 +97,9 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return \Generator|MathLibraryInterface[]
      */
-    protected function getLibraryForOperation(string $type) : \Generator
+    protected function getDelegates(string $type) : \Generator
     {
-        foreach ($this->mathLibraries as $library) {
+        foreach ($this->delegates as $library) {
             if ($library->isEnabled() && $library->supportsOperationType($type)) {
                 yield $library;
             }
@@ -98,7 +116,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     protected function isRealNumber(string $type, string $leftOperand, string $rightOperand = '0')
     {
         if ($type !== self::TYPE_INT || $leftOperand < 0 || $rightOperand < 0) {
-            throw $this->createNewInvalidNumberException('Arguments must be real numbers.');
+            return false;
         }
 
         return true;
@@ -116,15 +134,15 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      */
     protected function getOperationType(string $a, string $b = null) : string
     {
+        $getType = function ($v, $previousType = null) {
+            $previousType = $previousType ?? self::TYPE_INT;
+
+            return (strpos($v, '.') !== false) ? self::TYPE_FLOAT : $previousType;
+        };
+
         if (!$this->validator->isValid($a)) {
             throw $this->createNewInvalidNumberException($a);
         }
-
-        $getType = function ($v, $firstType = null) {
-            $firstType = $firstType ?? self::TYPE_INT;
-
-            return (strpos($v, '.') !== false) ? self::TYPE_FLOAT : $firstType;
-        };
 
         $type = $getType($a);
 
@@ -140,6 +158,99 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     }
 
     /**
+     * Much like a "chain-of-responsibility" this method iterates through the available delegates, attempting to perform
+     * the desired operation if it exists.
+     * If the operation fails due to a library error, it will try the next library. If all libraries fail then
+     * it will use the last exception thrown.
+     *
+     * @param string $operation
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return mixed
+     */
+    protected function getDelegateResult(
+        string $operation,
+        string $leftOperand,
+        string $rightOperand = null,
+        int $precision = null
+    ) {
+        $type = $this->getOperationType($leftOperand, $rightOperand);
+        $exception = null;
+
+        foreach ($this->getDelegates($type) as $library) {
+            // In case of future interface changes between delegates, let's see if the method is callable.
+            // If not, we'll skip to the next library.
+            if (!is_callable([$library, $operation])) {
+                continue;
+            }
+
+            try {
+                return $this->getLibraryResult($library, $operation, $leftOperand, $rightOperand, $precision);
+            } catch (\Throwable $e) {
+                // Save last exception and try next library.
+                $exception = new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+                continue;
+            }
+        }
+
+        //We'll use the last exception thrown, otherwise create one.
+        throw $exception ?? $this->createNewUnknownErrorException();
+    }
+
+    /**
+     * This method tries to call the operation with the proper number of arguments based on whether they are null.
+     *
+     * @param MathLibraryInterface $library
+     * @param string $operation
+     * @param string $leftOperand
+     * @param string|null $rightOperand
+     * @param int|null $precision
+     *
+     * @return mixed
+     */
+    protected function getLibraryResult(
+        MathLibraryInterface $library,
+        string $operation,
+        string $leftOperand,
+        string $rightOperand = null,
+        int $precision = null
+    ) {
+        if ($precision !== null) {
+            if ($rightOperand !== null) {
+                return $library->$operation($leftOperand, $rightOperand, $precision);
+            }
+
+            return $library->$operation($leftOperand, $precision);
+        }
+
+        if ($rightOperand !== null) {
+            return $library->$operation($leftOperand, $rightOperand);
+        }
+
+        return $library->$operation($leftOperand);
+    }
+
+    /**
+     * @param $num
+     *
+     * @return InvalidNumberException
+     */
+    protected function createNewInvalidNumberException($num)
+    {
+        return new InvalidNumberException(sprintf('Invalid number: %s', ($num ?: gettype($num))));
+    }
+
+    /**
+     * @return \RuntimeException
+     */
+    protected function createNewUnknownErrorException()
+    {
+        return new \RuntimeException('Unknown error.');
+    }
+
+    /**
      * Supported rounding strategies.
      *
      * @return array<int>
@@ -152,15 +263,5 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
             PHP_ROUND_HALF_EVEN,
             PHP_ROUND_HALF_ODD,
         ];
-    }
-
-    /**
-     * @param $num
-     *
-     * @return InvalidNumberException
-     */
-    private function createNewInvalidNumberException($num)
-    {
-        return new InvalidNumberException(sprintf('Invalid number: %s', ($num ?: gettype($num))));
     }
 }

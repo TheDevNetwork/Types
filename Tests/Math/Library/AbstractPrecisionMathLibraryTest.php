@@ -46,12 +46,6 @@ abstract class AbstractPrecisionMathLibraryTest extends AbstractMathLibraryTest
         parent::testCompare();
     }
 
-    public function testModulus()
-    {
-        $this->assertEquals('5.5', $this->mathLibrary->modulus('5.5', '10', 1));
-        parent::testModulus();
-    }
-
     public function testPower()
     {
         $this->assertEquals('766217865.41', $this->mathLibrary->power('5.5', '12', 2));

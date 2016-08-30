@@ -73,6 +73,7 @@ abstract class AbstractMathLibraryTest extends \PHPUnit_Framework_TestCase
     public function testGcd()
     {
         $this->assertEquals('10', $this->mathLibrary->gcd('10', '50'));
+        $this->assertEquals('40', $this->mathLibrary->gcd('80', '120'));
     }
 
     public function testRoot()

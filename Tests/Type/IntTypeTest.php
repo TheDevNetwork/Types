@@ -104,8 +104,8 @@ class IntTypeTest extends AbstractTypeTest
         $this->assertEquals(new IntType(10), (new IntType(20))->minus(new IntType(10)));
         $this->assertEquals(new IntType(10), (new IntType(20))->minus(new FloatType(10.4))); //Rounds down
         $this->assertEquals(new IntType(9), (new IntType(20))->minus(new FloatType(10.6))); //Rounds up
-        $this->assertEquals(new FloatType(9), (new IntType(20))->toFloat()->minus(new FloatType(10.4)));
-        $this->assertEquals(new FloatType(9), (new IntType(20))->toFloat()->minus(new FloatType(10.6)));
+        $this->assertEquals(new FloatType(9), (new IntType(20))->toFloatType()->minus(new FloatType(10.4)));
+        $this->assertEquals(new FloatType(9), (new IntType(20))->toFloatType()->minus(new FloatType(10.6)));
         $this->assertEquals(new IntType(10), (new IntType(20))->minus(10));
     }
 
@@ -273,13 +273,13 @@ class IntTypeTest extends AbstractTypeTest
      */
     public function testBadTransmutableBool()
     {
-        (new IntType(0))->toBool();
+        (new IntType(0))->toBoolType();
     }
 
     public function testTransmutable()
     {
-        $this->assertEquals(new StringType(1), (new IntType(1))->toString());
-        $this->assertEquals(new IntType(10), (new IntType(10))->toInt()); //Redundant, but w/e.
-        $this->assertEquals(new FloatType(1.0), (new IntType(1))->toFloat());
+        $this->assertEquals(new StringType(1), (new IntType(1))->toStringType());
+        $this->assertEquals(new IntType(10), (new IntType(10))->toIntType()); //Redundant, but w/e.
+        $this->assertEquals(new FloatType(1.0), (new IntType(1))->toFloatType());
     }
 }

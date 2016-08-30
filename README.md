@@ -11,26 +11,7 @@
 PhpTypes
 ========
 
-##### What?
-
-An immutable primitive wrapper library for PHP with explicit boxing/unboxing.
- (strong types even on reassignment similar to SPL_Types).
-
-Uses the most popular* libs available in the PHP landscape and neatly wraps them in a single repo,
- providing aliased classes and some extra features not available in the base classes.
- 
-Long term goal is to create something like Java core libs for PHP
- although in app-land for now, so no auto-unboxing or primitive type
-  casting magic methods** but damn close.
-
-<sub>* According to packagist downloads.</sub>
-
-<sub>** RFCs for boxing and type casting methods [[1](https://wiki.php.net/rfc/boxingandunboxing), 
-[2](https://wiki.php.net/rfc/object_cast_to_types)]</sub>
-
-###### Types
-
-<sub>Updated list of reserved words for PHP 7 includes: int, float, bool, string.  It is why library appends `Type` to class names. Read the list [here](https://secure.php.net/manual/en/reserved.other-reserved-words.php).</sub>
+#### Types
 
 - StringType
 - BooleanType
@@ -41,13 +22,47 @@ Long term goal is to create something like Java core libs for PHP
 
 <sub>* Smart use of [bcmath] or [gmp] if they are installed.</sub>
 
-###### Credits
+##### Wait, what is this?
 
-<a href="https://github.com/doctrine"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/doctrine-logo.png" alt="Doctrine Collections & Doctrine Inflector" width="160px" /></a> 
- <a href="https://github.com/briannesbitt/carbon"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/carbon-logo.png" alt="Doctrine" width="160px"  /></a>
-  <a href="https://github.com/danielstjules/Stringy"><img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/stringy.png" alt="Stringy" width="160px" /></a>
+Primitive wrappers for PHP with boxing/unboxing. (strong types even on reassignment like SPL_Types).
 
-<sub>For further credits look at the [license](#license) section.</sub>
+Uses the most popular* libs available in the PHP landscape and neatly wraps them in a single repo,
+ providing decorators with extra features.
+
+This is an attempt to create something close to Java core libs for PHP, unfortunately no context casting
+ or even primitive type casting magic methods** but damn close.
+
+<sub>* Based on opinion but backed by packagist downloads =)</sub>
+
+<sub>** RFCs for boxing and type casting methods that never got accepted [[1](https://wiki.php.net/rfc/boxingandunboxing), 
+[2](https://wiki.php.net/rfc/object_cast_to_types)]</sub>
+
+###### Type Credits
+
+<a href="https://github.com/doctrine">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/doctrine-logo.png" alt="Doctrine Collections & Doctrine Inflector" width="160px" />
+</a> 
+<a href="https://github.com/briannesbitt/carbon">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/carbon-logo.png" alt="Doctrine" width="160px" />
+</a>
+<a href="https://github.com/danielstjules/Stringy">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/stringy.png" alt="Stringy" width="160px" />
+</a>
+
+##### LOL! why?!
+
+Many reasons!
+* **Lack of core primitive wrappers**: The underlying libraries (carbon, stringy, doctrine collections & inflector) are all 
+ extremely popular. It would be cool to have a core library built into the language with an interface like these.
+* **Fluent/Consistent interfaces**: Our beloved PHP is infamous for flipping arguments in array and string functions.
+* **Because why not?** Seemed fun to code.
+
+**The library is fully functional**, but this is mainly a *CONCEPT*. 
+Primitives will always yield higher performance than objects.
+
+For quick performance run check out the [performance doc][performance-doc] located at
+
+    docs/performance.md
 
 Example
 -------
@@ -133,21 +148,6 @@ echo $int
 , PHP_EOL;
 ```
 
-##### Ok, but why?
-
-Many reasons!
-* **Consistency**: PHP's api is known to be inconsistent in certain areas, such as array functions, string functions, math functions, etc.
-* **Stricter Typing**: Even with PHP 7 strict types, PHP remains very loosely typed. With this you have a much stricter landscape.
-* **Lack of core scalar wrappers**: Most modern languages include an object version of primitives to use, PHP does not.
-* **Usability**: The underlying libraries (carbon, stringy, doctrine collections & inflector) are all 
- extremely popular. Rather than reinventing the wheel, it's best to leverage those.
-* **Less bugs**
-* **Less bugs** (yes, I know I put that twice)
-
-For performance questions check out the [documentation file][performance-doc] located at
-
-    docs/performance.md
-
 Documentation
 -------------
 
@@ -172,33 +172,9 @@ In the `composer.json` file:
 }
 ```
 
-##### In-Depth
-Please checkout the [online documentation] or [main documentation file] located at
-
-    docs/index.md
-
 ##### API
 
-Please checkout the [online API] or run `vendor/bin/robo documentation:build` to build local documentation.
-
-Milestones
-----------
-
-- [ ] x.x
-  - [ ] PHP Extension?
-- [ ] 3.0.1
-  - [ ] FileSystem (Symfony FileSystem Component)
-  - [ ] Finder (Symfony Finder Component)
-  - [ ] File (Symfony Finder Component)
-  - [ ] Money (MoneyPHP)
-- [x] 3.0.0
-  - [x] Updated codebase to PHP 7. (BC Incompatible)
-  - [x] Removed invalid class names. (BC incompatible)
-  - [x] Cleaner API (BC incompatible)
-  - [x] Boxing/Unboxing
-  - [x] Added Collection
-- [X] 2.0 (Last supported release: 2.0.1)
-  - [x] Prepared APIs for PHP 7 compatibility.
+Please checkout the [online API] or clone repo and run `vendor/bin/robo documentation:build` to build local documentation.
 
 Contributing
 ------------
@@ -210,7 +186,6 @@ License
 
 This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE) file.
 
-[online documentation]: http://todo
 [online API]: http://todo
 [performance-doc]: docs/performance.md
 [bcmath]: https://secure.php.net/manual/en/book.bc.php

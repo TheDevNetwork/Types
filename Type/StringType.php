@@ -178,7 +178,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return BooleanType
      */
-    public function toBool() : BooleanType
+    public function toBoolType() : BooleanType
     {
         return BooleanType::valueOf($this->regexReplace('[[:space:]]', '')->str);
     }
@@ -188,7 +188,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      */
     public function toBoolean() : BooleanType
     {
-        return $this->toBool();
+        return $this->toBoolType();
     }
 
     /**

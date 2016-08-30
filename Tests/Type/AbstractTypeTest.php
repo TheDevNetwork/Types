@@ -17,16 +17,16 @@ abstract class AbstractTypeTest extends \PHPUnit_Framework_TestCase
     public function testBadBoxType()
     {
         $notNullVar = false;
-        Boxable::box($notNullVar);
+        StringType::box($notNullVar);
     }
 
     /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessageRegExp /(.*) implemented but no constructor method found in class: (.*)$/
+     * @expectedException \TypeError
+     * @expectedExceptionMessageRegExp /Argument (.*) passed to (.*) must be of the type (.*), none given.*$/
      */
     public function testBadBoxImplementation()
     {
-        Boxable::box($foo);
+        StringType::box($foo);
     }
 
     /**

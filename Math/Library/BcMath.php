@@ -17,7 +17,7 @@ class BcMath implements MathLibraryInterface
     private $roundingStrategy;
 
     /**
-     * BcMath constructor.
+     * @param  int $roundingStrategy
      */
     public function __construct(int $roundingStrategy)
     {
@@ -166,7 +166,7 @@ class BcMath implements MathLibraryInterface
      */
     public function absolute(string $operand) : string
     {
-        throw new \RuntimeException('Not a valid library for absolute.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -178,7 +178,7 @@ class BcMath implements MathLibraryInterface
      */
     public function negate(string $operand) : string
     {
-        throw new \RuntimeException('Not a valid library for negate.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -190,7 +190,7 @@ class BcMath implements MathLibraryInterface
      */
     public function factorial(string $operand) : string
     {
-        throw new \RuntimeException('Not a valid library for factorial.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -203,7 +203,7 @@ class BcMath implements MathLibraryInterface
      */
     public function gcd(string $leftOperand, string $rightOperand) : string
     {
-        throw new \RuntimeException('Not a valid library for gcd.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -216,7 +216,7 @@ class BcMath implements MathLibraryInterface
      */
     public function root(string $operand, int $nth) : string
     {
-        throw new \RuntimeException('Not a valid library for root.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -228,7 +228,7 @@ class BcMath implements MathLibraryInterface
      */
     public function nextPrime(string $operand) : string
     {
-        throw new \RuntimeException('Not a valid library for nextPrime.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -239,7 +239,7 @@ class BcMath implements MathLibraryInterface
      */
     public function isPrime(string $operand, int $reps = 10) : bool
     {
-        throw new \RuntimeException('Not a valid library for isPrime.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -252,7 +252,7 @@ class BcMath implements MathLibraryInterface
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
     {
-        throw new \RuntimeException('Not a valid library for isPerfectSquare.');
+        throw $this->createInvalidLibraryException(__FUNCTION__);
     }
 
     /**
@@ -307,5 +307,17 @@ class BcMath implements MathLibraryInterface
     {
         return (StringType::create($leftOperand)->countSubstr('.') > 1) ||
         (StringType::create($rightOperand)->countSubstr('.') > 1);
+    }
+
+    /**
+     * @param string $methodName
+     *
+     * @return \RuntimeException
+     */
+    private function createInvalidLibraryException(string $methodName) : \RuntimeException
+    {
+        return new \RuntimeException(
+            sprintf('Not a valid library for %s.', $methodName)
+        );
     }
 }

@@ -6,7 +6,7 @@ filter:
         - Tests/*
         - RoboFile.php
         - sami.php
-        - simple-benchmark.php
+        - simple-performance.php
         - example.php
 
 tools:

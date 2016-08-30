@@ -266,13 +266,13 @@ class FloatTypeTest extends AbstractTypeTest
      */
     public function testBadTransmutableBool()
     {
-        (new FloatType(0))->toBool();
+        (new FloatType(0))->toBoolType();
     }
 
     public function testTransmutable()
     {
-        $this->assertEquals(new StringType(99.9), (new FloatType(99.9))->toString());
-        $this->assertEquals(new IntType(11), (new FloatType(10.9))->toInt());
-        $this->assertEquals(new FloatType(1.00), (new FloatType(1, 2))->toFloat());
+        $this->assertEquals(new StringType(99.9), (new FloatType(99.9))->toStringType());
+        $this->assertEquals(new IntType(11), (new FloatType(10.9))->toIntType());
+        $this->assertEquals(new FloatType(1.00), (new FloatType(1, 2))->toFloatType());
     }
 }

@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Math;
 
-use Tdn\PhpTypes\Exception\DivisionByZeroException;
+use Tdn\PhpTypes\Exception\InvalidNumberException;
 use Tdn\PhpTypes\Math\Library\BcMath;
 use Tdn\PhpTypes\Math\Library\Gmp;
 use Tdn\PhpTypes\Math\Library\MathLibraryInterface;
@@ -16,140 +16,164 @@ use Tdn\PhpTypes\Math\Library\Spl;
 class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInterface
 {
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return string
      */
     public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('add', $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return string
      */
     public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('subtract', $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return string
      */
     public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('multiply', $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
      *
-     * @throws DivisionByZeroException when dividing by zero.
+     * @return string
+     *
+     * @throws \DivisionByZeroError
      */
     public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
         if ($rightOperand == '0') {
-            throw new DivisionByZeroException('Cannot divide by zero.');
+            throw new \DivisionByZeroError('Cannot divide by zero.');
         }
 
-        return $this->getAdapterOperationResult('divide', $leftOperand, $rightOperand, $precision);
-
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return string
      */
     public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('compare', $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     * @param string $modulus
+     * @param int $precision
+     *
+     * @return string
      */
     public function modulus(string $operand, string $modulus, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('modulus', $operand, $modulus, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $operand, $modulus, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     * @param int $precision
+     *
+     * @return string
      */
     public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('power', $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     * @param int $precision
+     *
+     * @return string
      */
     public function squareRoot(string $operand, int $precision = 0) : string
     {
-        return $this->getAdapterOperationResult('squareRoot', $operand, null, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $operand, null, $precision);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     *
+     * @return string
      */
     public function absolute(string $operand) : string
     {
-        return $this->getAdapterOperationResult('absolute', $operand);
+        return $this->getDelegateResult(__FUNCTION__, $operand);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     *
+     * @return string
      */
     public function negate(string $operand) : string
     {
-        return $this->getAdapterOperationResult('negate', $operand);
+        return $this->getDelegateResult(__FUNCTION__, $operand);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     *
+     * @return string
      */
     public function factorial(string $operand) : string
     {
         $type = $this->getOperationType($operand);
-        $exception = null;
 
         if ($this->isRealNumber($type, $operand)) {
-            foreach ($this->getLibraryForOperation($type) as $library) {
-                try {
-                    return $library->factorial($operand);
-                } catch (\RuntimeException $e) {
-                    $exception = $e;
-
-                    continue;
-                }
-            }
+            return $this->getDelegateResult(__FUNCTION__, $operand);
         }
 
-        throw ($exception ?? $this->createNewUnknownErrorException());
+        throw $this->createNotRealNumberException();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $leftOperand
+     * @param string $rightOperand
+     *
+     * @return string
      */
     public function gcd(string $leftOperand, string $rightOperand) : string
     {
         $type = $this->getOperationType($leftOperand, $rightOperand);
-        $exception = null;
 
         if ($this->isRealNumber($type, $leftOperand, $rightOperand)) {
-            foreach ($this->getLibraryForOperation($type) as $library) {
-                try {
-                    return $library->gcd($leftOperand, $rightOperand);
-                } catch (\RuntimeException $e) {
-                    $exception = $e;
-
-                    continue;
-                }
-            }
+            return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand);
         }
 
-        throw ($exception ?? $this->createNewUnknownErrorException());
+        throw $this->createNotRealNumberException();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     * @param int $nth
+     *
+     * @return string
      */
     public function root(string $operand, int $nth) : string
     {
@@ -157,30 +181,35 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
         $exception = null;
 
         if ($this->isRealNumber($type, $operand)) {
-            foreach ($this->getLibraryForOperation($type) as $library) {
+            foreach ($this->getDelegates($type) as $library) {
                 try {
                     return $library->root($operand, $nth);
-                } catch (\RuntimeException $e) {
-                    $exception = $e;
-
+                } catch (\Throwable $e) {
+                    // Save last exception and try next library.
+                    $exception = new \RuntimeException($e->getMessage(), $e->getCode(), $e);
                     continue;
                 }
             }
         }
 
-        throw ($exception ?? $this->createNewUnknownErrorException());
+        throw $exception ?? $this->createNotRealNumberException();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     *
+     * @return string
      */
     public function nextPrime(string $operand) : string
     {
-        return $this->getAdapterOperationResult('nextPrime', $operand);
+        return $this->getDelegateResult(__FUNCTION__, $operand);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     * @param int $reps
+     *
+     * @return bool
      */
     public function isPrime(string $operand, int $reps = 10) : bool
     {
@@ -195,88 +224,48 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
             return true;
         }
 
-        foreach ($this->getLibraryForOperation($type) as $library) {
+        foreach ($this->getDelegates($type) as $library) {
             try {
                 return $library->isPrime($operand, $reps);
-            } catch (\RuntimeException $e) {
-                $exception = $e;
-
+            } catch (\Throwable $e) {
+                // Save last exception and try next library.
+                $exception = new \RuntimeException($e->getMessage(), $e->getCode(), $e);
                 continue;
             }
         }
 
-        throw ($exception ?? $this->createNewUnknownErrorException());
+        throw $exception ?? $this->createNewUnknownErrorException();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $operand
+     * @param int $precision
+     *
+     * @return bool
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
     {
-        return $this->getAdapterOperationResult('isPerfectSquare', $operand, null, $precision);
+        return $this->getDelegateResult(__FUNCTION__, $operand, null, $precision);
     }
 
     /**
-     * @param int $roundingStrategy
-     *
      * @return MathLibraryInterface[]
      */
-    protected function getSupportedMathLibraries(int $roundingStrategy) : array
+    protected function getDefaultDelegates() : array
     {
-        //Array is sorted in order of preference.
+        //Array is sorted in order of preference. Override in child class if so desired.
         return [
-            'bcmath' => new BcMath($roundingStrategy),
+            'bcmath' => new BcMath($this->getRoundingStrategy()),
             'gmp' => new Gmp(),
-            'spl' => new Spl($roundingStrategy)
+            'spl' => new Spl($this->getRoundingStrategy())
         ];
     }
 
     /**
-     * @param callable $operation
-     * @param string $leftOperand
-     * @param string $rightOperand
-     * @param int $precision
-     * @return mixed
+     * @return InvalidNumberException
      */
-    private function getAdapterOperationResult(
-        callable $operation,
-        string $leftOperand,
-        string $rightOperand = null,
-        int $precision = null
-    ) {
-        $type = $this->getOperationType($leftOperand, $rightOperand);
-        $exception = null;
-
-        foreach ($this->getLibraryForOperation($type) as $library) {
-            try {
-                if ($precision !== null) {
-                    if ($rightOperand !== null) {
-                        return $library->$operation($leftOperand, $rightOperand, $precision);
-                    }
-
-                    return $library->$operation($leftOperand, $precision);
-                }
-
-                if ($rightOperand !== null) {
-                    return $library->$operation($leftOperand, $rightOperand);
-                }
-
-                return $library->$operation($leftOperand);
-            } catch (\RuntimeException $e) {
-                $exception = $e;
-
-                continue;
-            }
-        }
-
-        throw ($exception ?? $this->createNewUnknownErrorException());
-    }
-
-    /**
-     * @return \RuntimeException
-     */
-    private function createNewUnknownErrorException()
+    private function createNotRealNumberException() : InvalidNumberException
     {
-        return new \RuntimeException('Unknown error.');
+        return new InvalidNumberException('Arguments must be real numbers.');
     }
 }

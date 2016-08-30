@@ -15,4 +15,9 @@ interface MathAdapterInterface extends MathInterface
      * @return int
      */
     public function getPrecision($number) : int;
+
+    /**
+     * @return int
+     */
+    public function getRoundingStrategy() : int;
 }

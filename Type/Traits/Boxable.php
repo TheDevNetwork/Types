@@ -20,7 +20,19 @@ trait Boxable
     private $memoryAddress = null;
 
     /**
-     * {@inheritdoc}
+     * Boxes a variable to a specific type, including future reassignment as a primitive.
+     * Optionally takes value or instance of the variable.
+     * If more than one argument should be passed to constructor, then an instance should be passed explicitly instead
+     * of a primitive for $value argument.
+     *
+     * For examples please view the example.php file.
+     *
+     * @param null  &$pointer Anmpty variable to box (the pointer).
+     * @param mixed $value    The primitive value to pass the constructor OR an instance of the type.
+     *
+     * @throws \LogicException when the pointer has previously been declared.
+     * @throws \LogicException when the pointer has previously been declared.
+     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer.
      */
     final public static function box(&$pointer, $value = null)
     {
@@ -39,21 +51,11 @@ trait Boxable
             if ($value instanceof static) {
                 $pointer = clone $value;
             } else {
-                if (!method_exists(static::class, '__construct')) {
-                    throw new \LogicException(
-                        sprintf(
-                            '%s implemented but no constructor method found in class: %s',
-                            self::class,
-                            static::class
-                        )
-                    );
-                }
-
                 $pointer = $value !== null ? new static($value) : new static();
             }
         } catch (\TypeError $e) {
             $message = sprintf(
-                '%s. Argument can be instance of %s or scalar equivalent. ',
+                '%s. Argument can be instance of %s or scalar equivalent.',
                 $e->getMessage(),
                 static::class
             );
@@ -78,8 +80,17 @@ trait Boxable
         $value = $pointer;
 
         if ($value !== $this && $value !== null) {
-            $pointer = null;
-            static::box($pointer, $value);
+            try {
+                // Clear pointer before attempting to box new value.
+                $pointer = null;
+                static::box($pointer, $value);
+            } catch (\TypeError $e) {
+                // Reset the pointer to the previous value and re throw exception.
+                // This will allow the variable to remain boxed, the exception to be caught, and handled appropriately.
+                $pointer = clone $this;
+
+                throw $e;
+            }
         }
 
         Memory::shouldFree($this->memoryAddress);

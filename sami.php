@@ -9,7 +9,7 @@ $iterator = \Symfony\Component\Finder\Finder::create()
     ->exclude('Tests')
     ->exclude('vendor')
     ->notName('RoboFile.php')
-    ->notName('simple-benchmark.php')
+    ->notName('simple-performance.php')
     ->in(__DIR__)
 ;
 

@@ -14,26 +14,46 @@ interface TransmutableTypeInterface extends TypeInterface
      *
      * @return StringType
      */
-    public function toString() : StringType;
+    public function toStringType() : StringType;
 
     /**
      * Converts current type to BooleanType.
      *
      * @return BooleanType
      */
-    public function toBool() : BooleanType;
+    public function toBoolType() : BooleanType;
 
     /**
      * Converts current type to IntType.
      *
      * @return IntType
      */
-    public function toInt() : IntType;
+    public function toIntType() : IntType;
 
     /**
      * Converts current type to FloatType.
      *
      * @return FloatType
      */
-    public function toFloat() : FloatType;
+    public function toFloatType() : FloatType;
+
+    /**
+     * @return bool
+     */
+    public function toBool() : bool;
+
+    /**
+     * @return int
+     */
+    public function toInt() : int;
+
+    /**
+     * @return float
+     */
+    public function toFloat() : float;
+
+    /**
+     * @return string
+     */
+    public function toString() : string;
 }

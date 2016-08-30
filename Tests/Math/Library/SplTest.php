@@ -4,7 +4,7 @@ namespace Tdn\PhpTypes\Tests\Math\Library;
 
 use Tdn\PhpTypes\Math\Library\Spl;
 
-class SplTest extends AbstractMathLibraryTest
+class SplTest extends AbstractPrecisionMathLibraryTest
 {
     protected function setUp()
     {
@@ -26,12 +26,34 @@ class SplTest extends AbstractMathLibraryTest
 
     public function testGcd()
     {
-        $this->assertEquals('10', $this->mathLibrary->gcd('10.5', '50.75'));
+        $this->assertEquals('2.2', $this->mathLibrary->gcd('4.4', '6.66'));
+        $this->assertEquals('2.2', $this->mathLibrary->gcd('6.6', '4.44'));
+        $this->assertEquals('2.2', $this->mathLibrary->gcd('6.666', '4.4'));
+        $this->assertEquals('2.22', $this->mathLibrary->gcd('6.66', '4.44'));
+
         parent::testGcd();
     }
 
     public function testFactorial()
     {
-        $this->assertEquals('10', $this->mathLibrary->factorial('4.4'));
+        $this->assertEquals('3.3233509704478', $this->mathLibrary->factorial('2.5'));
+        $this->assertEquals('24.0', $this->mathLibrary->factorial('4.0'));
+        $this->assertEquals('287.88527781504', $this->mathLibrary->factorial('5.5'));
+        parent::testFactorial();
+    }
+
+    public function testModulus()
+    {
+        $this->assertEquals('5.5', $this->mathLibrary->modulus('5.5', '10', 1));
+        parent::testModulus();
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not a valid library for root^n.
+     */
+    public function testRoot()
+    {
+        parent::testRoot();
     }
 }

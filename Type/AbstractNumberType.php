@@ -37,42 +37,53 @@ abstract class AbstractNumberType implements NumberTypeInterface
 
     /**
      * AbstractNumberType constructor.
+     * Precision order of priority: Argument != null > $num's precision > null precision.
+     * So for an int, 0 should be passed for precision, otherwise it will auto-convert to float (if null or $num > 0).
      *
-     * @param $num
-     * @param int                       $precision
+     * @param number                    $num
+     * @param int|null                  $precision
      * @param MathAdapterInterface|null $mathAdapter
      */
-    public function __construct($num, $precision = 0, MathAdapterInterface $mathAdapter = null)
+    public function __construct($num, int $precision = null, MathAdapterInterface $mathAdapter = null)
     {
         $this->mathAdapter = $mathAdapter ?? new DefaultMathAdapter();
         $this->precision = $precision ?? $this->getMathAdapter()->getPrecision($num);
-        $this->value = ($this->getPrecision() > 0) ? round($num, $this->getPrecision()) : $num;
+        $this->value = ($this->getPrecision() > 0) ?
+            round($num, $this->getPrecision(), $this->mathAdapter->getRoundingStrategy()) : $num;
     }
 
     /**
-     * {@inheritdoc}
+     * Sums current NumberTypeInterface and number in argument.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function plus($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->add(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
         );
     }
 
-    /**
-     * {@inheritdoc}
+    /***
+     * Subtracts number passed from current NumberTypeInterface.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function minus($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->subtract(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -80,14 +91,18 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Multiplies current NumberTypeInterface by the number passed.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function multipliedBy($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->multiply(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -95,14 +110,18 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Divides current NumberTypeInterface by the number passed.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function dividedBy($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->divide(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -110,14 +129,19 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Compares current NumberTypeInterface to value passed.
+     * Same rules as spaceship or
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function compare($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->compare(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -125,14 +149,18 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns value of NumberTypeInterface modulus num.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function modulus($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->modulus(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -140,14 +168,18 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns NumberTypeInterface to the power of num.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function power($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->power(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get(),
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -155,13 +187,15 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the square root of NumberTypeInterface.
+     *
+     * @return NumberTypeInterface
      */
     public function squareRoot() : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->squareRoot(
-                $this->toString()->get(),
+                $this->toStringType()->get(),
                 $this->getPrecision()
             ),
             $this->getPrecision()
@@ -169,89 +203,111 @@ abstract class AbstractNumberType implements NumberTypeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the absolute value of NumberTypeInterface.
+     *
+     * @return NumberTypeInterface
      */
     public function absolute() : NumberTypeInterface
     {
         return static::valueOf(
-            $this->getMathAdapter()->absolute($this->toString()->get()),
+            $this->getMathAdapter()->absolute($this->toStringType()->get()),
             $this->getPrecision()
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the negated/opposite of NumberTypeInterface value.
+     *
+     * @return NumberTypeInterface
      */
     public function negate() : NumberTypeInterface
     {
         return static::valueOf(
-            $this->getMathAdapter()->negate($this->toString()->get()),
+            $this->getMathAdapter()->negate($this->toStringType()->get()),
             $this->getPrecision()
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Returns NumberTypeInterface factorial.
+     *
+     * @return NumberTypeInterface
      */
     public function factorial() : NumberTypeInterface
     {
         return static::valueOf(
-            $this->getMathAdapter()->factorial($this->toString()->get()),
+            $this->getMathAdapter()->factorial($this->toStringType()->get()),
             $this->getPrecision()
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the greatest common divider between NumberTypeInterface and num.
+     *
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
+     * @return NumberTypeInterface
      */
     public function gcd($num) : NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->gcd(
-                $this->toString()->get(),
-                static::valueOf($num)->toString()->get()
+                $this->toStringType()->get(),
+                static::valueOf($num)->toStringType()->get()
             ),
             $this->getPrecision()
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the root of NumberTypeInterface to the num.
+     *
+     * @param int $num
+     *
+     * @return NumberTypeInterface
      */
     public function root(int $num) : NumberTypeInterface
     {
         return static::valueOf(
-            $this->getMathAdapter()->root($this->toString()->get(), $num),
+            $this->getMathAdapter()->root($this->toStringType()->get(), $num),
             $this->getPrecision()
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Return the next prime number after NumberTypeInterface.
+     *
+     * @return NumberTypeInterface
      */
     public function getNextPrime() : NumberTypeInterface
     {
-        return static::valueOf($this->getMathAdapter()->nextPrime($this->toString()->get()));
+        return static::valueOf($this->getMathAdapter()->nextPrime($this->toStringType()->get()));
     }
 
     /**
-     * {@inheritdoc}
+     * Returns true of NumberTypeInterface is prime. False otherwise.
+     *
+     * @return BooleanType
      */
     public function isPrime() : BooleanType
     {
-        return new BooleanType($this->getMathAdapter()->isPrime($this->toString()->get()));
+        return new BooleanType($this->getMathAdapter()->isPrime($this->toStringType()->get()));
     }
 
     /**
-     * {@inheritdoc}
+     * Returns true if NumberTypeInterface is a perfect square. False otherwise.
+     *
+     * @return BooleanType
      */
     public function isPerfectSquare() : BooleanType
     {
-        return new BooleanType($this->getMathAdapter()->isPerfectSquare($this->toString()->get()));
+        return new BooleanType($this->getMathAdapter()->isPerfectSquare($this->toStringType()->get()));
     }
 
     /**
-     * {@inheritdoc}
+     * Gets the current precision (Should be 0 for IntType).
+     *
+     * @return int
      */
     public function getPrecision() : int
     {
@@ -266,7 +322,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      */
     protected static function asSubType(callable $converterFunction, $mixed)
     {
-        if ($mixed instanceof StringType || $mixed instanceof self) {
+        if ($mixed instanceof StringType || $mixed instanceof NumberTypeInterface) {
             $mixed = $mixed->get(); //Continue as primitive.
         }
 

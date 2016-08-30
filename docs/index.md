@@ -1,6 +1,6 @@
 Documentation
 =============
-Please refer to the appropriate class to read it's documentation
+Please refer to the appropriate class to read it's API
 
 - [StringType] + [Stringy](stringy-repo) + [Doctrine Inflector][doctrine-inflector]
 - [BooleanType]
@@ -13,6 +13,11 @@ Requirements
 ------------
 
 PHP 7.0 or above.
+
+Optional Requirements:
+* PHP BC Math (php-bcmath)
+* PHP Gmp (php-gmp)
+
 
 Installation
 ------------
@@ -46,24 +51,19 @@ License
 
 This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
 
-Credits
--------
+Type Credits
+------------
 
-* Boxing:
-  * Based on: [instinct/types-autoboxing][autoboxing-repo]
-* String:
-  * Stringy Base: [danielstjules/Stringy][stringy-repo]
-  * Doctrine Inflector: [doctrine/inflector][doctrine-inflector]
-* DateTime:
-  * Carbon Base: [briannesbitt/Carbon](https://github.com/briannesbitt/Carbon)
+<a href="https://github.com/doctrine">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/doctrine-logo.png" alt="Doctrine Collections & Doctrine Inflector" width="160px" />
+</a> 
+<a href="https://github.com/briannesbitt/carbon">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/carbon-logo.png" alt="Doctrine" width="160px" />
+</a>
+<a href="https://github.com/danielstjules/Stringy">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/stringy.png" alt="Stringy" width="160px" />
+</a>
 
-[BooleanType]: classes/boolean.md
-[Collection]: classes/collection.md
-[DateTime]: classes/datetime.md
-[FloatType]: classes/float.md
-[IntType]: classes/int.md
-[StringType]: classes/string.md
-[autoboxing-repo]: https://github.com/alquerci/php-types-autoboxing
 [doctrine-inflector]: https://github.com/doctrine/inflector
 [doctrine-collections]: https://github.com/doctrine/collections
 [stringy-repo]: https://github.com/danielstjules/Stringy

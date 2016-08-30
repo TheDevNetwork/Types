@@ -45,7 +45,7 @@ interface TypeInterface
     public function __invoke(int $toType = null);
 
     /**
-     * Returns an instace of TypeInterface from a mixed scalar/type.
+     * Returns an instance of TypeInterface from a mixed scalar/type.
      *
      * @param $mixed value to transform to TypeInterface instance.
      *

@@ -4,6 +4,10 @@ declare (strict_types = 1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
+use Tdn\PhpTypes\Exception\InvalidNumberException;
+use Tdn\PhpTypes\Math\DefaultMathAdapter;
+use Tdn\PhpTypes\Type\StringType;
+
 /**
  * Class Spl.
  */
@@ -33,7 +37,7 @@ class Spl implements MathLibraryInterface
      */
     public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
+        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
             round(floatval($leftOperand) + floatval($rightOperand), $precision, $this->roundingStrategy));
     }
 
@@ -48,7 +52,7 @@ class Spl implements MathLibraryInterface
      */
     public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
+        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
             round($leftOperand - $rightOperand, $precision, $this->roundingStrategy));
     }
 
@@ -63,7 +67,7 @@ class Spl implements MathLibraryInterface
      */
     public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
+        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
             round($leftOperand * $rightOperand, ($precision ?? 0), $this->roundingStrategy));
     }
 
@@ -78,7 +82,7 @@ class Spl implements MathLibraryInterface
      */
     public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
+        return (string)($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
             round($leftOperand / $rightOperand, $precision, $this->roundingStrategy));
     }
 
@@ -107,7 +111,7 @@ class Spl implements MathLibraryInterface
      */
     public function modulus(string $operand, string $modulus, int $precision = 0) : string
     {
-        return (string) round(
+        return (string)round(
             fmod(
                 floatval($operand),
                 floatval($modulus)
@@ -128,7 +132,7 @@ class Spl implements MathLibraryInterface
      */
     public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return (string) round(
+        return (string)round(
             pow(
                 floatval($leftOperand),
                 floatval($rightOperand)
@@ -148,7 +152,7 @@ class Spl implements MathLibraryInterface
      */
     public function squareRoot(string $operand, int $precision = 0) : string
     {
-        return (string) round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
+        return (string)round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
     }
 
     /**
@@ -160,7 +164,7 @@ class Spl implements MathLibraryInterface
      */
     public function absolute(string $operand) : string
     {
-        return (string) abs($operand);
+        return (string)abs($operand);
     }
 
     /**
@@ -184,6 +188,11 @@ class Spl implements MathLibraryInterface
      */
     public function factorial(string $operand) : string
     {
+        if (StringType::create($operand)->contains('.')) {
+            $operand = $operand + 1;
+            return $this->gamma((string) $operand);
+        }
+
         $factorial = function (string $num) use (&$factorial) {
             if ($num < 2) {
                 return 1;
@@ -192,7 +201,7 @@ class Spl implements MathLibraryInterface
             return $factorial(strval($num - 1)) * $num;
         };
 
-        return (string) $factorial($operand);
+        return (string)$factorial($operand);
     }
 
     /**
@@ -206,10 +215,17 @@ class Spl implements MathLibraryInterface
     public function gcd(string $leftOperand, string $rightOperand) : string
     {
         $gcd = function (string $a, string $b) use (&$gcd) {
-            return $b > .01 ? $gcd($b, strval(fmod(floatval($a), floatval($b)))) : $a;
+            return $b ? $gcd($b, strval($a % $b)) : $a;
         };
 
-        return (string) $gcd($leftOperand, $rightOperand);
+        $exponent = $this->getSmallestDecimalPlaceCount($leftOperand, $rightOperand);
+
+        return (string)(
+            $gcd(
+                strval($leftOperand * (pow(10, $exponent))),
+                strval($rightOperand * (pow(10, $exponent)))
+            ) / pow(10, $exponent)
+        );
     }
 
     /**
@@ -236,13 +252,13 @@ class Spl implements MathLibraryInterface
     public function nextPrime(string $operand) : string
     {
         $operand = (intval($operand) + 1);
-        for ($i = $operand;; ++$i) {
+        for ($i = $operand; ; ++$i) {
             if ($this->isPrime(strval($i))) {
                 break;
             }
         }
 
-        return (string) $i;
+        return (string)$i;
     }
 
     /**
@@ -307,5 +323,140 @@ class Spl implements MathLibraryInterface
     private function isIntOperation(int $precision = 0) : bool
     {
         return $precision === null || $precision === 0;
+    }
+
+    /**
+     * @param string $x
+     * @return string
+     */
+    private function gamma(string $x) : string
+    {
+        if ($x <= 0.0) {
+            die("Invalid input argument $x. Argument must be positive");
+        }
+
+        # Euler's gamma constant
+        $gamma = 0.577215664901532860606512090;
+
+        if ($x < 0.001) {
+            return strval(1.0 / ($x * (1.0 + $gamma * $x)));
+        }
+
+        if ($x < 12.0) {
+            $y = $x;
+            $n = 0;
+            $arg_was_less_than_one = ($y < 1.0);
+            if ($arg_was_less_than_one) {
+                $y += 1.0;
+            } else {
+                $n = floor($y) - 1;  # will use n later
+                $y -= $n;
+            }
+
+            $p = [
+                -1.71618513886549492533811E+0,
+                2.47656508055759199108314E+1,
+                -3.79804256470945635097577E+2,
+                6.29331155312818442661052E+2,
+                8.66966202790413211295064E+2,
+                -3.14512729688483675254357E+4,
+                -3.61444134186911729807069E+4,
+                6.64561438202405440627855E+4,
+            ];
+
+            $q = [
+                -3.08402300119738975254353E+1,
+                3.15350626979604161529144E+2,
+                -1.01515636749021914166146E+3,
+                -3.10777167157231109440444E+3,
+                2.25381184209801510330112E+4,
+                4.75584627752788110767815E+3,
+                -1.34659959864969306392456E+5,
+                -1.15132259675553483497211E+5,
+            ];
+
+            $num = 0.0;
+            $den = 1.0;
+            $z = $y - 1;
+
+            for ($i = 0; $i < 8; $i++) {
+                $num = ($num + $p[$i]) * $z;
+                $den = $den * $z + $q[$i];
+            }
+
+            $result = $num / $den + 1.0;
+
+            if ($arg_was_less_than_one) {
+                $result /= ($y - 1.0);
+            } else {
+                for ($i = 0; $i < $n; $i++) {
+                    $result *= $y++;
+                }
+            }
+
+            return (string) $result;
+        }
+
+        if ($x > 171.624) {
+            throw new \RuntimeException('Number too large.');
+        }
+
+        return (string) exp($this->logGamma((string) $x));
+    }
+
+    /**
+     * @param string $x
+     * @return string
+     */
+    private function logGamma(string $x) : string
+    {
+        if ($x <= 0.0) {
+            die("Invalid input argument $x. Argument must be positive");
+        }
+
+        if ($x < 12.0) {
+            return (string) log(abs($this->gamma((string) $x)));
+        }
+
+        $c = [
+            1.0 / 12.0,
+            -1.0 / 360.0,
+            1.0 / 1260.0,
+            -1.0 / 1680.0,
+            1.0 / 1188.0,
+            -691.0 / 360360.0,
+            1.0 / 156.0,
+            -3617.0 / 122400.0,
+        ];
+
+        $z = 1.0 / ($x * $x);
+        $sum = $c[7];
+        for ($i = 6; $i >= 0; $i--) {
+            $sum *= $z;
+            $sum += $c[$i];
+        }
+
+        $series = $sum / $x;
+        $halfLogTwoPi = 0.91893853320467274178032973640562;
+        $logGamma = (floatval($x) - 0.5) * log($x) - $x + $halfLogTwoPi + $series;
+
+        return (string) $logGamma;
+    }
+
+    /**
+     * Figures out the smallest number of decimal places between the two numbers and returns that count.
+     * Eg. (1.005, 2.4) => 1, (1.005, 2.5399) => 3
+     *
+     * @param string $leftOperand
+     * @param string $rightOperand
+     *
+     * @return int
+     */
+    private function getSmallestDecimalPlaceCount(string $leftOperand, string $rightOperand) : int
+    {
+        $leftPrecision = DefaultMathAdapter::getNumberPrecision($leftOperand);
+        $rightPrecision = DefaultMathAdapter::getNumberPrecision($rightOperand);
+
+        return $leftPrecision < $rightPrecision ? $leftPrecision : $rightPrecision;
     }
 }

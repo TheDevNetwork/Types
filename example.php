@@ -15,19 +15,18 @@ use Tdn\PhpTypes\Type\Type;
 
 /** @var StringType $string */
 StringType::box($string, 'foo');
-echo $string; // foo
+echo $string, PHP_EOL; // foo
 
 //Reassignment will remain boxed.
 $string = 'bar is fun';
-echo $string->dasherize(); // bar-is-fun
+echo $string->dasherize(), PHP_EOL; // bar-is-fun
 
 try {
-    //Throws "TypeError" exception. This is a hard fail and you will have to box variable again. PHPism to solve.
+    //Throws "TypeError" exception. This is a hard fail.
     $string = false;
 } catch (\TypeError $e) {
-    //You will have to box again. We've lost the pointer.
-    StringType::box($string, 'bar');
-    echo $string(), PHP_EOL; // bar
+    $string = 'bar';
+    echo $string, PHP_EOL; // bar
     echo $string(Type::STRING), PHP_EOL; // bar
 }
 
@@ -51,13 +50,13 @@ try {
  */
 
 // syllabi
-echo (new StringType('syllabus'))->pluralize();
+echo (new StringType('syllabus'))->pluralize(), PHP_EOL;
 
 // Object is still instance of StringType.
 $string = 'This is my string.';
 
 // This is my string. It is an immutable string.
-echo $string->append('It is an immutable string.');
+echo $string->append('It is an immutable string.'), PHP_EOL;
 
 // This is my string.
 echo $string, PHP_EOL;
@@ -65,12 +64,10 @@ echo $string, PHP_EOL;
 /**
  * THAT YOU CAN CHAIN TOGETHER
  */
-
-//thisIsMyString.ItIsANiceString.
 echo $string
         ->append('It is a nice string.')
         ->camelize(),
-PHP_EOL;
+PHP_EOL; //thisIsMyString.ItIsANiceString.
 
 /** @var IntType $int */
 IntType::box($int, 100);

@@ -22,4 +22,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 Code from https://github.com/alquerci/php-types-autoboxing
- Copyright (c) 2013-2014 Alexandre Quercia
+ Copyright (c) 2013-2014 Alexandre Quercia which seems derivative of
+ http://php.webtutor.pl/en/2011/04/13/strong-data-typing-in-php-part-ii-autoboxing-and-indestructable-objects-english-version/

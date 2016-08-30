@@ -10,9 +10,9 @@ namespace Tdn\PhpTypes\Type;
 interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterface
 {
     /**
-     * Sums current NumberTypeInterface and number passed.
+     * Sums current NumberTypeInterface and number in argument.
      *
-     * @param mixed $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -21,7 +21,8 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /***
      * Subtracts number passed from current NumberTypeInterface.
      *
-     * @param mixed $num
+     * @param NumberTypeInterface|number|StringType|string $num
+     *
      * @return NumberTypeInterface
      */
     public function minus($num) : NumberTypeInterface;
@@ -29,7 +30,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Multiplies current NumberTypeInterface by the number passed.
      *
-     * @param $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -38,7 +39,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Divides current NumberTypeInterface by the number passed.
      *
-     * @param mixed $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -48,7 +49,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
      * Compares current NumberTypeInterface to value passed.
      * Same rules as spaceship or
      *
-     * @param $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -57,7 +58,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Returns value of NumberTypeInterface modulus num.
      *
-     * @param $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -66,7 +67,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Returns NumberTypeInterface to the power of num.
      *
-     * @param $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -103,7 +104,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Returns the greatest common divider between NumberTypeInterface and num.
      *
-     * @param $num
+     * @param NumberTypeInterface|number|StringType|string $num
      *
      * @return NumberTypeInterface
      */
@@ -112,7 +113,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Returns the root of NumberTypeInterface to the num.
      *
-     * @param $num
+     * @param int $num
      *
      * @return NumberTypeInterface
      */
@@ -149,7 +150,7 @@ interface NumberTypeInterface extends TransmutableTypeInterface, ValueTypeInterf
     /**
      * Creates a new instance of NumberTypeInterface from the variable passed.
      *
-     * @param $mixed
+     * @param mixed $mixed
      * @param int|null $precision
      *
      * @return NumberTypeInterface

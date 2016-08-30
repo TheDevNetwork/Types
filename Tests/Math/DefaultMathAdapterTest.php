@@ -92,12 +92,11 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException DivisionByZeroException
-     * @expectedExceptionMessage Cannot divide by zero.
+     * @expectedException \DivisionByZeroError
      */
     public function testBadDivideByZero()
     {
-        $this->splAdapter->divide(10, 0);
+        $this->mathAdapter->divide(10, 0);
     }
 
     public function testDivide()
@@ -147,23 +146,21 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('-49.39', $this->mathAdapter->negate('49.39'));
     }
 
-    /**
-     * @expectedException InvalidNumberException
-     * @expectedExceptionMessage Arguments must be real numbers.
-     */
-    public function testInvalidFactorial()
-    {
-        $this->mathAdapter->factorial('10.5');
-    }
-
     public function testFactorial()
     {
         $this->assertEquals('3628800', $this->mathAdapter->factorial('10'));
-        $this->assertEquals('10', $this->mathAdapter->factorial('4.4'));
     }
 
     /**
-     * @expectedException InvalidNumberException
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidNumberException
+     */
+    public function testBadFactorial()
+    {
+        $this->mathAdapter->factorial('4.4');
+    }
+
+    /**
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidNumberException
      * @expectedExceptionMessage Arguments must be real numbers.
      */
     public function testBadGcd()
@@ -178,7 +175,7 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidNumberException
+     * @expectedException \Tdn\PhpTypes\Exception\InvalidNumberException
      * @expectedExceptionMessage Arguments must be real numbers.
      */
     public function testBadRoot()

@@ -104,7 +104,7 @@ class Gmp implements MathLibraryInterface
      */
     public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_pow($leftOperand, $rightOperand));
+        return gmp_strval(gmp_pow($leftOperand, (int) $rightOperand));
     }
 
     /**

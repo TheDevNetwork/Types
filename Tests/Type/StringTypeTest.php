@@ -171,16 +171,16 @@ class StringTypeTest extends AbstractTypeTest
 
     public function testTransmutable()
     {
-        $this->assertEquals(new BooleanType(false), StringType::create('off')->toBool());
-        $this->assertEquals(new BooleanType(false), StringType::create('false')->toBool());
-        $this->assertEquals(new BooleanType(false), StringType::create('no')->toBool());
-        $this->assertEquals(new BooleanType(true), StringType::create('on')->toBool());
-        $this->assertEquals(new BooleanType(true), StringType::create('true')->toBool());
-        $this->assertEquals(new BooleanType(true), StringType::create('yes')->toBool());
+        $this->assertEquals(new BooleanType(false), StringType::create('off')->toBoolType());
+        $this->assertEquals(new BooleanType(false), StringType::create('false')->toBoolType());
+        $this->assertEquals(new BooleanType(false), StringType::create('no')->toBoolType());
+        $this->assertEquals(new BooleanType(true), StringType::create('on')->toBoolType());
+        $this->assertEquals(new BooleanType(true), StringType::create('true')->toBoolType());
+        $this->assertEquals(new BooleanType(true), StringType::create('yes')->toBoolType());
         $this->assertEquals(new BooleanType(true), StringType::create('true')->toBoolean());
-        $this->assertEquals(new IntType(1), StringType::create('1')->toInt());
-        $this->assertEquals(new IntType(0), StringType::create('0')->toInt());
-        $this->assertEquals(new FloatType(66.547), StringType::create('66.547')->toFloat());
+        $this->assertEquals(new IntType(1), StringType::create('1')->toIntType());
+        $this->assertEquals(new IntType(0), StringType::create('0')->toIntType());
+        $this->assertEquals(new FloatType(66.547), StringType::create('66.547')->toFloatType());
         $this->assertEquals(new Collection(['baz qux pie']), StringType::create('baz qux pie')->toCollection());
         $this->assertEquals(new DateTime('2016-01-01'), StringType::create('2016-01-01')->toDateTime());
     }
