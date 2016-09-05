@@ -269,7 +269,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      * Checks if operand is perfect square.
      *
      * @param string   $operand
-     * @param int|null $precision
+     * @param int      $precision
      *
      * @return bool
      */

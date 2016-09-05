@@ -31,7 +31,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     /**
      * @param NumberValidatorInterface|null $validator
      * @param MathLibraryInterface|null     $delegate
-     * @param int|null                      $roundingStrategy
+     * @param int                           $roundingStrategy
      *
      * @throws \OutOfBoundsException when a rounding strategy is passed as argument and not supported.
      */

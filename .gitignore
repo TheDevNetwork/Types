@@ -2,4 +2,3 @@ vendor/
 composer.phar
 build/
 bin/
-simple-performance.php
