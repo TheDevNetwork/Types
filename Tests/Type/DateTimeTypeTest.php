@@ -2,17 +2,17 @@
 
 namespace Tdn\PhpTypes\Tests\Type;
 
-use Tdn\PhpTypes\Type\DateTime;
+use Tdn\PhpTypes\Type\DateTimeType;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\Type;
 
 /**
  * Class DateTimeTest.
  */
-class DateTimeTest extends AbstractTypeTest
+class DateTimeTypeTest extends AbstractTypeTest
 {
     /**
-     * @var DateTime
+     * @var DateTimeType
      */
     protected $dateTime;
 
@@ -21,12 +21,12 @@ class DateTimeTest extends AbstractTypeTest
      */
     protected function setUp()
     {
-        $this->dateTime = new DateTime();
+        $this->dateTime = new DateTimeType();
     }
 
     public function testValue()
     {
-        $this->assertEquals(new DateTime('2016-01-01'), (new DateTime('2016-01-01'))());
+        $this->assertEquals(new DateTimeType('2016-01-01'), (new DateTimeType('2016-01-01'))());
     }
 
     public function testType()
@@ -37,66 +37,66 @@ class DateTimeTest extends AbstractTypeTest
 
     public function testBox()
     {
-        /* @var DateTime $date */
-        DateTime::box($date);
-        $this->assertTrue(($date instanceof DateTime));
+        /* @var DateTimeType $date */
+        DateTimeType::box($date);
+        $this->assertTrue(($date instanceof DateTimeType));
         $date = '2016-01-01';
-        $this->assertTrue(($date instanceof DateTime));
-        $date = new DateTime('2016-05-10');
-        $this->assertTrue(($date instanceof DateTime));
+        $this->assertTrue(($date instanceof DateTimeType));
+        $date = new DateTimeType('2016-05-10');
+        $this->assertTrue(($date instanceof DateTimeType));
     }
 
     public function testUnbox()
     {
-        /* @var DateTime $date */
-        DateTime::box($date, '2016-01-30');
+        /* @var DateTimeType $date */
+        DateTimeType::box($date, '2016-01-30');
         $this->assertEquals('2016-01-30 00:00:00', $date(Type::STRING));
         $date = '2016-07-30 10:05:43';
         $this->assertEquals('2016-07-30 10:05:43', $date(Type::STRING));
-        $this->assertEquals(new DateTime('2016-07-30 10:05:43'), $date());
+        $this->assertEquals(new DateTimeType('2016-07-30 10:05:43'), $date());
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast DateTime to int.
+     * @expectedExceptionMessage Could not cast DateTimeType to int.
      */
     public function testUnboxIntFail()
     {
-        /* @var DateTime $date */
-        DateTime::box($date, '2016-01-30');
+        /* @var DateTimeType $date */
+        DateTimeType::box($date, '2016-01-30');
         $date(Type::INT);
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast DateTime to array.
+     * @expectedExceptionMessage Could not cast DateTimeType to array.
      */
     public function testUnboxArrayFail()
     {
-        /* @var DateTime $date */
-        DateTime::box($date, '2016-01-30');
+        /* @var DateTimeType $date */
+        DateTimeType::box($date, '2016-01-30');
         $date(Type::ARRAY);
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast DateTime to float.
+     * @expectedExceptionMessage Could not cast DateTimeType to float.
      */
     public function testUnboxFoatFail()
     {
-        /* @var DateTime $date */
-        DateTime::box($date, '2016-01-30');
+        /* @var DateTimeType $date */
+        DateTimeType::box($date, '2016-01-30');
         $date(Type::FLOAT);
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTypeCastException
-     * @expectedExceptionMessage Could not cast DateTime to bool.
+     * @expectedExceptionMessage Could not cast DateTimeType to bool.
      */
     public function testUnboxBoolFail()
     {
-        /* @var DateTime $date */
-        DateTime::box($date, '2016-01-30');
+        /* @var DateTimeType $date */
+        DateTimeType::box($date, '2016-01-30');
         $date(Type::BOOL);
     }
 
@@ -106,7 +106,7 @@ class DateTimeTest extends AbstractTypeTest
      */
     public function testBoxBreakType()
     {
-        DateTime::box($date);
+        DateTimeType::box($date);
         $date = 1;
         $this->fail($date);
     }
@@ -117,57 +117,57 @@ class DateTimeTest extends AbstractTypeTest
      */
     public function testBadBoxCall()
     {
-        DateTime::box($date, false);
+        DateTimeType::box($date, false);
     }
 
     public function testFrom()
     {
-        $this->assertEquals(new DateTime('2016-01-01'), DateTime::valueOf(new StringType('2016-01-01')));
-        $this->assertEquals(new DateTime('2016-01-01'), DateTime::valueOf('2016-01-01'));
+        $this->assertEquals(new DateTimeType('2016-01-01'), DateTimeType::valueOf(new StringType('2016-01-01')));
+        $this->assertEquals(new DateTimeType('2016-01-01'), DateTimeType::valueOf('2016-01-01'));
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform null to DateTime.
+     * @expectedExceptionMessage Could not transform null to DateTimeType.
      */
     public function testBadFromNull()
     {
-        DateTime::valueOf(null);
+        DateTimeType::valueOf(null);
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform object to DateTime.
+     * @expectedExceptionMessage Could not transform object to DateTimeType.
      */
     public function testBadFromObject()
     {
-        DateTime::valueOf(new \stdClass());
+        DateTimeType::valueOf(new \stdClass());
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform resource to DateTime.
+     * @expectedExceptionMessage Could not transform resource to DateTimeType.
      */
     public function testBadFromResource()
     {
-        DateTime::valueOf(tmpfile());
+        DateTimeType::valueOf(tmpfile());
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform boolean to DateTime.
+     * @expectedExceptionMessage Could not transform boolean to DateTimeType.
      */
     public function testBadFromBoolean()
     {
-        DateTime::valueOf(false);
+        DateTimeType::valueOf(false);
     }
 
     /**
      * @expectedException \Tdn\PhpTypes\Exception\InvalidTransformationException
-     * @expectedExceptionMessage Could not transform array to DateTime.
+     * @expectedExceptionMessage Could not transform array to DateTimeType.
      */
     public function testBadFromArray()
     {
-        DateTime::valueOf([]);
+        DateTimeType::valueOf([]);
     }
 }

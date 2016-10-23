@@ -192,11 +192,11 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeType
      */
-    public function toDateTime() : DateTime
+    public function toDateTime() : DateTimeType
     {
-        return DateTime::valueOf($this);
+        return DateTimeType::valueOf($this);
     }
 
     /**

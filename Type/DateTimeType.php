@@ -17,7 +17,7 @@ use Carbon\Carbon;
  *
  * {@inheritdoc}
  */
-class DateTime extends Carbon implements TypeInterface
+class DateTimeType extends Carbon implements TypeInterface
 {
     use Boxable;
 
@@ -33,9 +33,9 @@ class DateTime extends Carbon implements TypeInterface
     /**
      * {@inheritdoc}
      *
-     * @return DateTime
+     * @return DateTimeType
      */
-    public static function valueOf($mixed) : DateTime
+    public static function valueOf($mixed) : DateTimeType
     {
         if ($mixed instanceof StringType || 'string' === $type = strtolower(gettype($mixed))) {
             return new static((string) $mixed);
@@ -47,7 +47,7 @@ class DateTime extends Carbon implements TypeInterface
     /**
      * {@inheritdoc}
      *
-     * @return string|DateTime
+     * @return string|DateTimeType
      */
     public function __invoke(int $toType = null)
     {

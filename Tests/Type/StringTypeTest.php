@@ -4,7 +4,7 @@ namespace Tdn\PhpTypes\Tests\Type;
 
 use Tdn\PhpTypes\Type\BooleanType;
 use Tdn\PhpTypes\Type\Collection;
-use Tdn\PhpTypes\Type\DateTime;
+use Tdn\PhpTypes\Type\DateTimeType;
 use Tdn\PhpTypes\Type\FloatType;
 use Tdn\PhpTypes\Type\IntType;
 use Tdn\PhpTypes\Type\StringType;
@@ -182,7 +182,7 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(new IntType(0), StringType::create('0')->toIntType());
         $this->assertEquals(new FloatType(66.547), StringType::create('66.547')->toFloatType());
         $this->assertEquals(new Collection(['baz qux pie']), StringType::create('baz qux pie')->toCollection());
-        $this->assertEquals(new DateTime('2016-01-01'), StringType::create('2016-01-01')->toDateTime());
+        $this->assertEquals(new DateTimeType('2016-01-01'), StringType::create('2016-01-01')->toDateTime());
     }
 
     /**
