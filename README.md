@@ -121,7 +121,7 @@ This library is released under the MIT license. See the complete license in the 
 [scrutinizer page]: https://scrutinizer-ci.com/g/TheDevNetwork/PhpTypes
 [travis build shield]: https://img.shields.io/travis/TheDevNetwork/PhpTypes.svg?style=flat-square
 [travis page]: https://travis-ci.org/TheDevNetwork/PhpTypes
-[coveralls badge]: https://img.shields.io/coveralls/TheDevNetwork/PhpTypes/master.svg?style=flat-square
-[coveralls page]: https://coveralls.io/github/TheDevNetwork/PhpTypes?branch=master
+[coveralls badge]: https://img.shields.io/coveralls/TheDevNetwork/PhpTypes/develop.svg?style=flat-square
+[coveralls page]: https://coveralls.io/github/TheDevNetwork/PhpTypes?branch=develop
 [sensio shield]: https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/mini.png
 [sensio page]: https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f
