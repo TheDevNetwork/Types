@@ -4,11 +4,15 @@ filter:
         - build/*
         - docs/*
         - Tests/*
+        - RoboFile.php
+        - sami.php
+        - simple-performance.php
+        - example.php
 
 tools:
     sensiolabs_security_checker: true
     external_code_coverage:
-        timeout: 600
+        timeout: 240
     php_sim:
         min_mass: 20
     php_code_sniffer:
@@ -17,6 +21,8 @@ tools:
 
 checks:
     php:
+        code_rating: true
+        duplication: true
         naming_conventions:
             local_variable: '^[a-z][a-zA-Z0-9]*$'
             abstract_class_name: ^Abstract|Factory$

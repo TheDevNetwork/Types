@@ -10,49 +10,105 @@
 
 PhpTypes
 ========
-A primitive wrappers library for PHP. Uses the best* libs available in the PHP landscape and neatly wraps them
-in a single repo, providing aliased classes and some extra features not available in the base classes.
 
-If you find any cool libs that wrap around primitives, go ahead and suggest them in the issues section!
+#### Types
 
-<sub>`*` Based purely on opinion, but download statistics for the respective libs definitely support the bias ;)</sub>
+- StringType
+- BooleanType
+- IntType*
+- FloatType*
+- DateTime
+- Collection
 
-Roadmap
+<sub>* Smart use of [bcmath] or [gmp] if they are installed.</sub>
+
+##### Wait, what is this?
+
+Primitive wrappers for PHP with boxing/unboxing. (strong types even on reassignment like SPL_Types).
+
+Uses the most popular* libs available in the PHP landscape and neatly wraps them in a single repo,
+ providing decorators with extra features.
+
+This is an attempt to create something close to Java core libs for PHP, unfortunately no context casting
+ or even primitive type casting magic methods** but damn close.
+
+<sub>* Based on opinion but backed by packagist downloads =)</sub>
+
+<sub>** RFCs for boxing and type casting methods that never got accepted [[1](https://wiki.php.net/rfc/boxingandunboxing), 
+[2](https://wiki.php.net/rfc/object_cast_to_types)]</sub>
+
+###### Type Credits
+
+<a href="https://github.com/doctrine">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/doctrine-logo.png" alt="Doctrine Collections & Doctrine Inflector" width="160px" />
+</a> 
+<a href="https://github.com/briannesbitt/carbon">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/carbon-logo.png" alt="Doctrine" width="160px" />
+</a>
+<a href="https://github.com/danielstjules/Stringy">
+  <img src="https://raw.githubusercontent.com/TheDevNetwork/Aux/master/images/stringy.png" alt="Stringy" width="160px" />
+</a>
+
+##### LOL! why?!
+
+Many reasons!
+* **Lack of core primitive wrappers**: The underlying libraries (carbon, stringy, doctrine collections & inflector) are all 
+ extremely popular. It would be cool to have a core library built into the language with an interface like these.
+* **Fluent/Consistent interfaces**: Our beloved PHP is infamous for flipping arguments in array and string functions.
+* **Because why not?** Seemed fun to code.
+
+**The library is fully functional**, but this is mainly a *CONCEPT*. 
+Primitives will always yield higher performance than objects.
+
+Example
 -------
-
-- [x] String
-- [x] Boolean
-- [ ] Int
-- [ ] Float
-- [x] DateTime
-
-Long term goal is to create something similar to java lang for php.
+File located at `example.php`
 
 Documentation
 -------------
 
-Please checkout the [main documentation file] located in
+##### Requirements
 
-    docs/index.md
+PHP 7.0 or above.
 
+##### Installation
 
-Requests
---------
-For ideas or requests, you can propose an enhancement through the issues system.
+Using CLI:
+
+```bash
+php composer.phar require tdn/php-types:*@stable
+```
+
+In the `composer.json` file:
+```json
+{
+    "require": {
+        "tdn/php-types": "*@stable"
+    }
+}
+```
+
+##### API
+
+Please checkout the [online API] or clone repo and run `vendor/bin/robo documentation:build` to build local documentation.
 
 Contributing
 ------------
 
-If you are contributing or otherwise developing in this bundle, please read the [CONTRIBUTING](CONTRIBUTING.md).
+If you want to contribute, please read the [CONTRIBUTING](CONTRIBUTING.md).
 
 License
 -------
 
-This bundle is released under the MIT license. See the complete license in the [LICENSE](LICENSE.md) file.
+This library is released under the MIT license. See the complete license in the [LICENSE](LICENSE) file.
 
-[SensioLabsInsight]:https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/big.png
+[online API]: http://todo
+[performance-doc]: docs/performance.md
+[bcmath]: https://secure.php.net/manual/en/book.bc.php
+[gmp]: https://secure.php.net/manual/en/book.gmp.php
 [main documentation file]: docs/index.md
 
+[SensioLabsInsight]:https://insight.sensiolabs.com/projects/5d4f02af-7c43-4079-bcb0-9d57439a9a3f/big.png
 [version eye shield]: https://www.versioneye.com/user/projects/55e90585211c6b001f00088b/badge.svg?style=flat-square
 [version eye]: https://www.versioneye.com/user/projects/55e90585211c6b001f00088b
 [github issues]: https://img.shields.io/github/issues/TheDevNetwork/PhpTypes.svg?style=flat-square
