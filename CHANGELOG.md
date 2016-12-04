@@ -8,7 +8,7 @@
     * Removed `getValue` from TypeInterface.
     * Changed API of `__invoke` to resemble that of auto unboxing (although explicitly).
     * Removed `static::from` favoring `static::valueFrom` instead.
-    * Other miscellaneous changes types.
+    * Other miscellaneous changes to types.
   * Moved traits to different namespace.
   * Newer dependencies
   * PHP 7 code base
