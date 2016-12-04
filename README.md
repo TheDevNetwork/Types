@@ -60,9 +60,26 @@ Many reasons!
 **The library is fully functional**, but this is mainly a *CONCEPT*. 
 Primitives will always yield higher performance than objects.
 
-Example
--------
-File located at `example.php`
+Examples/Explanation
+--------------------
+More examples located at `example.php`
+
+```php
+
+/** @var StringType $string */
+StringType::box($string, 'foo');
+echo $string; // foo
+$string = 'bar is fun'; //Remains boxed as instance of StringType.
+echo $string->dasherize(); // bar-is-fun
+
+try {
+    //Throws "TypeError" exception.
+    $string = false;
+} catch (\TypeError $e) {
+    ....
+}
+
+```
 
 Documentation
 -------------
