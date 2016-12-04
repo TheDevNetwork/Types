@@ -8,10 +8,11 @@
     * Removed `getValue` from TypeInterface.
     * Changed API of `__invoke` to resemble that of auto unboxing (although explicitly).
     * Removed `static::from` favoring `static::valueFrom` instead.
-    * Other miscellaneous types to objects.
+    * Other miscellaneous changes types.
   * Moved traits to different namespace.
   * Newer dependencies
   * PHP 7 code base
+  * Renamed some objects to prevent confusion / clashes.
 * Added new types
   * Collections from Doctrine/Collections
   * Float
