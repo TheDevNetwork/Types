@@ -9,6 +9,7 @@
     * Changed API of `__invoke` to resemble that of auto unboxing (although explicitly).
     * Removed `static::from` favoring `static::valueFrom` instead.
     * Other miscellaneous changes to types.
+    * Renamed DateTime to DateTimeType to prevent confusion with internal PHP type.
   * Moved traits to different namespace.
   * Newer dependencies
   * PHP 7 code base

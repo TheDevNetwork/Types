@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Tdn\PhpTypes\Type;
 
 use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Stringy\Stringy;
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
 use Tdn\PhpTypes\Type\Traits\Boxable;
@@ -230,7 +231,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
             $mixed = $mixed->get();
         }
 
-        if ($mixed instanceof Collection) {
+        if ($mixed instanceof CollectionInterface) {
             //Handle as array.
             $mixed = $mixed->toArray();
         }

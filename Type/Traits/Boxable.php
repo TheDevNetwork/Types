@@ -68,7 +68,8 @@ trait Boxable
 
     /**
      * Runs when a variable is reassigned or destroyed with $pointer = null;.
-     * Basically overloads the assignment operator when a specific pointer has been boxed.
+     * Basically overloads the assignment operator when a specific pointer has been boxed to return a new instance
+     * of the previous type with the new assigned value.
      */
     final public function __destruct()
     {
@@ -105,28 +106,20 @@ trait Boxable
      */
     protected function getTranslatedType(int $type = null) : string
     {
-        if ($type !== null && !array_key_exists($type, $this->getSupportedTypes())) {
-            throw new \OutOfBoundsException(
-                sprintf('Type %s not found. Valid types are %s.', $type, implode(', ', $this->getSupportedTypes()))
-            );
-        }
-
-        return $this->getSupportedTypes()[$type];
-    }
-
-    /**
-     * Returns an array of supported casting types.
-     *
-     * @return array<int,string>
-     */
-    private function getSupportedTypes() : array
-    {
-        return [
+        $supportedTypes = [
             Type::STRING => 'string',
             Type::BOOL => 'bool',
             Type::INT => 'int',
             Type::FLOAT => 'float',
             Type::ARRAY => 'array',
         ];
+
+        if ($type !== null && !array_key_exists($type, $supportedTypes)) {
+            throw new \OutOfBoundsException(
+                sprintf('Type %s not found. Valid types are %s.', $type, implode(', ', $supportedTypes))
+            );
+        }
+
+        return $supportedTypes[$type];
     }
 }
