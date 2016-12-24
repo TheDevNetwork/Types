@@ -100,6 +100,24 @@ class CollectionTest extends AbstractTypeTest
         $this->assertEquals(['foo'], $myCollection());
     }
 
+    public function testMerge()
+    {
+        /** @var Collection $myCollection */
+        Collection::box($myCollection, ['foo']);
+        $expected = new Collection(['foo', 'bar']);
+        $this->assertEquals($expected, $myCollection->merge($expected));
+    }
+
+    public function testMergeWithDupes()
+    {
+        /** @var Collection $myCollection */
+        Collection::box($myCollection, ['foo']);
+        $this->assertEquals(
+            new Collection(['foo', 'foo', 'bar']),
+            $myCollection->merge(new Collection(['foo', 'bar']), true)
+        );
+    }
+
     public function testFrom()
     {
         $resource = tmpfile();

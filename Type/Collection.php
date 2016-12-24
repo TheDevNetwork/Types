@@ -39,17 +39,29 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
                 return $this->toArray();
             case Type::STRING:
                 try {
-                    return (StringType::valueOf($this->toArray()))(Type::STRING);
+                    return (StringType::valueOf($this))(Type::STRING);
                 } catch (\Throwable $e) {
                     //throwing exception below
                 }
-
-                break;
+                //Explicitly leaving out break comment here.
             default:
+                throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType), null, 0, $e);
+        }
+    }
+
+    /**
+     * @param CollectionInterface $collection
+     * @param bool                $keepDupes
+     *
+     * @return Collection
+     */
+    public function merge(CollectionInterface $collection, $keepDupes = false) : Collection
+    {
+        if ($keepDupes) {
+            return new self(array_merge($this->toArray(), $collection->toArray()));
         }
 
-        $e = ($e ?? null);
-        throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType), null, 0, $e);
+        return new self($this->toArray() + $collection->toArray());
     }
 
     /**
