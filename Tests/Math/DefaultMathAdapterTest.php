@@ -23,7 +23,7 @@ class DefaultMathAdapterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->numberValidator = $this->getMock(NumberValidatorInterface::class);
+        $this->numberValidator = $this->createMock(NumberValidatorInterface::class);
         $this->numberValidator
             ->expects($this->any())
             ->method('isValid')

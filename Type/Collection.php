@@ -25,6 +25,38 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     use Boxable;
 
     /**
+     * @var null|string
+     */
+    private $type;
+
+    /**
+     * @param array $elements
+     * @param null|string $type
+     */
+    public function __construct(array $elements = array(), string $type = null)
+    {
+        $this->type = $type;
+        foreach ($elements as &$element) {
+            $element = $this->getRealValue($element);
+        }
+
+        parent::__construct($elements);
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function add($value)
+    {
+        parent::add($this->getRealValue($value));
+    }
+
+    public function set($key, $value)
+    {
+        parent::set($key, $this->getRealValue($value));
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @return string|array|int
@@ -106,5 +138,18 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
             default:
                 throw new InvalidTransformationException($type, static::class);
         }
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    private function getRealValue($value)
+    {
+        if ($this->type && class_exists($this->type) && !$value instanceof $this->type) {
+            return new $this->type($value);
+        }
+
+        return $value;
     }
 }

@@ -20,7 +20,7 @@ class Gmp implements MathLibraryInterface
      */
     public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_add($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_add($leftOperand, $rightOperand));
     }
 
     /**
@@ -34,7 +34,7 @@ class Gmp implements MathLibraryInterface
      */
     public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_sub($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_sub($leftOperand, $rightOperand));
     }
 
     /**
@@ -48,7 +48,7 @@ class Gmp implements MathLibraryInterface
      */
     public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_mul($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_mul($leftOperand, $rightOperand));
     }
 
     /**
@@ -62,7 +62,7 @@ class Gmp implements MathLibraryInterface
      */
     public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_div($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_div($leftOperand, $rightOperand));
     }
 
     /**
@@ -76,7 +76,7 @@ class Gmp implements MathLibraryInterface
      */
     public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_cmp($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_cmp($leftOperand, $rightOperand));
     }
 
     /**
@@ -90,7 +90,7 @@ class Gmp implements MathLibraryInterface
      */
     public function modulus(string $operand, string $modulus, int $precision = 0) : string
     {
-        return gmp_strval(gmp_mod($operand, $modulus));
+        return \gmp_strval(\gmp_mod($operand, $modulus));
     }
 
     /**
@@ -104,7 +104,7 @@ class Gmp implements MathLibraryInterface
      */
     public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_pow($leftOperand, (int) $rightOperand));
+        return \gmp_strval(\gmp_pow($leftOperand, (int) $rightOperand));
     }
 
     /**
@@ -117,7 +117,7 @@ class Gmp implements MathLibraryInterface
      */
     public function squareRoot(string $operand, int $precision = 0) : string
     {
-        return gmp_strval(gmp_sqrt($operand));
+        return \gmp_strval(\gmp_sqrt($operand));
     }
 
     /**
@@ -129,7 +129,7 @@ class Gmp implements MathLibraryInterface
      */
     public function absolute(string $operand) : string
     {
-        return gmp_strval(gmp_abs($operand));
+        return \gmp_strval(\gmp_abs($operand));
     }
 
     /**
@@ -141,7 +141,7 @@ class Gmp implements MathLibraryInterface
      */
     public function negate(string $operand) : string
     {
-        return gmp_strval(gmp_neg($operand));
+        return \gmp_strval(\gmp_neg($operand));
     }
 
     /**
@@ -153,7 +153,7 @@ class Gmp implements MathLibraryInterface
      */
     public function factorial(string $operand) : string
     {
-        return gmp_strval(gmp_fact($operand));
+        return \gmp_strval(\gmp_fact($operand));
     }
 
     /**
@@ -166,7 +166,7 @@ class Gmp implements MathLibraryInterface
      */
     public function gcd(string $leftOperand, string $rightOperand) : string
     {
-        return gmp_strval(gmp_gcd($leftOperand, $rightOperand));
+        return \gmp_strval(\gmp_gcd($leftOperand, $rightOperand));
     }
 
     /**
@@ -179,9 +179,9 @@ class Gmp implements MathLibraryInterface
      */
     public function root(string $operand, int $nth) : string
     {
-        $operand = gmp_init($operand, 10);
+        $operand = \gmp_init($operand, 10);
 
-        return gmp_strval(gmp_root($operand, $nth));
+        return \gmp_strval(\gmp_root($operand, $nth));
     }
 
     /**
@@ -193,7 +193,7 @@ class Gmp implements MathLibraryInterface
      */
     public function nextPrime(string $operand) : string
     {
-        return gmp_strval(gmp_nextprime($operand));
+        return \gmp_strval(\gmp_nextprime($operand));
     }
 
     /**
@@ -204,7 +204,7 @@ class Gmp implements MathLibraryInterface
      */
     public function isPrime(string $operand, int $reps = 10) : bool
     {
-        return 0 < gmp_prob_prime($operand, $reps);
+        return 0 < \gmp_prob_prime($operand, $reps);
     }
 
     /**
@@ -217,7 +217,7 @@ class Gmp implements MathLibraryInterface
      */
     public function isPerfectSquare(string $operand, int $precision = 0) : bool
     {
-        return gmp_perfect_square($operand);
+        return \gmp_perfect_square($operand);
     }
 
     /**
