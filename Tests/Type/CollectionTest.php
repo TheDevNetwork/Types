@@ -3,6 +3,7 @@
 namespace Tdn\PhpTypes\Tests\Type;
 
 use Tdn\PhpTypes\Type\Collection;
+use Tdn\PhpTypes\Type\IntType;
 use Tdn\PhpTypes\Type\StringType;
 use Tdn\PhpTypes\Type\Type;
 
@@ -36,6 +37,18 @@ class CollectionTest extends AbstractTypeTest
         $this->assertEquals(['1', '2', '3', '4', '5'], $myOtherCollection->toArray());
     }
 
+    public function testTypedCollection()
+    {
+        $collection = new Collection(['foo', 'bar', 'baz'], StringType::class);
+        $collection->add('qux');
+        $collection->set('quux', 'quux');
+
+        $this->assertEquals(5, $collection->count());
+        foreach ($collection as $stringInstance) {
+            $this->assertInstanceOf(StringType::class, $stringInstance);
+        }
+    }
+
     public function testUnbox()
     {
         /* @var Collection $collection */
@@ -47,6 +60,14 @@ class CollectionTest extends AbstractTypeTest
         $this->assertEquals(['baz', 'qux'], $collection(Type::ARRAY));
         $collection = ['foo', 'bar', 'baz', 'qux'];
         $this->assertEquals(4, $collection(Type::INT)); //"Cast" to int returns count
+    }
+
+    /**
+     * @expectedException \TypeError
+     */
+    public function testTypedCollectionFail()
+    {
+        new Collection([1, 2, 3, 'nan'], IntType::class);
     }
 
     /**

@@ -32,12 +32,11 @@
         "doctrine/collections": "~1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5",
+        "phpunit/phpunit": "~5.6",
         "satooshi/php-coveralls": "~0",
-        "bruli/php-git-hooks": "~4",
-        "friendsofphp/php-cs-fixer": "~1",
-        "squizlabs/php_codesniffer": "~2",
-        "codegyre/robo": "~0",
+        "friendsofphp/php-cs-fixer": "~2",
+        "squizlabs/php_codesniffer": "~2.7",
+        "consolidation/robo": "~1.0",
         "jakub-onderka/php-parallel-lint": "~0",
         "jakub-onderka/php-console-highlighter": "~0",
         "sami/sami": "dev-master"
@@ -49,7 +48,7 @@
     },
     "extra": {
         "branch-alias": {
-            "feature/php7": "3.0.x-dev"
+            "develop": "3.0.x-dev"
         }
     }
 }
