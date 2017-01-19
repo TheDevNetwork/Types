@@ -329,8 +329,8 @@ class BcMath implements MathLibraryInterface
      */
     private function isVersionComparison(string $leftOperand, string $rightOperand) : bool
     {
-        return (StringType::create($leftOperand)->countSubstr('.') > 1) ||
-        (StringType::create($rightOperand)->countSubstr('.') > 1);
+        return (StringType::create($leftOperand)->isSemVer()->isTrue()) ||
+        (StringType::create($rightOperand)->isSemVer()->isTrue());
     }
 
     /**
