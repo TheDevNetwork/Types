@@ -73,9 +73,9 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
                 try {
                     return (StringType::valueOf($this))(Type::STRING);
                 } catch (\Throwable $e) {
-                    //throwing exception below
+                    $e = new \ErrorException($e->getMessage());
                 }
-                //Explicitly leaving out break comment here.
+                // Intentionally throwing exception below.
             default:
                 throw new InvalidTypeCastException(static::class, $this->getTranslatedType($toType), null, 0, $e);
         }
@@ -104,6 +104,16 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
     public static function valueOf($mixed) : Collection
     {
         return new static(self::asArray($mixed));
+    }
+
+    /**
+     * @param string $delimeter
+     *
+     * @return StringType
+     */
+    public function implode(string $delimeter): StringType
+    {
+        return StringType::create(implode($delimeter, $this->toArray()));
     }
 
     /**
@@ -146,7 +156,7 @@ class Collection extends ArrayCollection implements TransmutableTypeInterface
      */
     private function getRealValue($value)
     {
-        if ($this->type && class_exists($this->type) && !$value instanceof $this->type) {
+        if (null !== $this->type && class_exists($this->type) && !$value instanceof $this->type) {
             return new $this->type($value);
         }
 

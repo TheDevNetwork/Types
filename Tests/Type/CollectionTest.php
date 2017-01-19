@@ -62,6 +62,12 @@ class CollectionTest extends AbstractTypeTest
         $this->assertEquals(4, $collection(Type::INT)); //"Cast" to int returns count
     }
 
+    public function testImplode()
+    {
+        $collection = new Collection(['foo', 'bar', 'baz']);
+        $this->assertEquals(StringType::create('foo, bar, baz'), $collection->implode(', '));
+    }
+
     /**
      * @expectedException \TypeError
      */

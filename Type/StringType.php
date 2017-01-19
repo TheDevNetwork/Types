@@ -102,12 +102,16 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @param string $delimiter
      * @param int    $limit     default PHP_INT_MAX
+     * @param bool   $trim      default false, greedely trim the string before exploding.
      *
      * @return Collection
      */
-    public function explode(string $delimiter, int $limit = PHP_INT_MAX) : Collection
+    public function explode(string $delimiter, int $limit = PHP_INT_MAX, bool $trim = true) : Collection
     {
-        return new Collection(explode($delimiter, $this->regexReplace('[[:space:]]', '')->str, $limit));
+        $str = ($trim) ? $this->regexReplace('[[:space:]]', '')->str : $this->str;
+        $delimiter = ($trim) ? static::create($delimiter)->regexReplace('[[:space:]]', '')->str : $delimiter;
+
+        return new Collection(explode($delimiter, $str, $limit));
     }
 
     /**
@@ -164,6 +168,21 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
             mb_strripos($this->str, $subStr, $offset, $this->encoding);
 
         return new IntType($res);
+    }
+
+    /**
+     * @return BooleanType
+     */
+    public function isSemVer(): BooleanType
+    {
+        $parts = $this->explode('.');
+        foreach ($parts as $possibleNumber) {
+            if (false === is_numeric($possibleNumber)) {
+                return new BooleanType(false);
+            }
+        }
+
+        return ($this->countSubstr('.') > 1) ? new BooleanType(true) : new BooleanType(false);
     }
 
     /**

@@ -139,11 +139,30 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(new IntType(6), StringType::create(self::LOREM_IPSUM)->strrpos('ipsum', 0, true));
     }
 
+    public function testIsSemVer()
+    {
+        $this->assertTrue(StringType::create('1.0.4')->isSemVer()->isTrue());
+        $this->assertTrue(StringType::create('0.0.1')->isSemVer()->isTrue());
+        $this->assertTrue(StringType::create('1.0.5.1')->isSemVer()->isTrue());
+        $this->assertFalse(StringType::create('1.0')->isSemVer()->isTrue());
+        $this->assertFalse(StringType::create('105')->isSemVer()->isTrue());
+    }
+
     public function testExplode()
     {
         $this->assertEquals(
             new Collection(['this', 'is', 'my', 'list']),
             StringType::create('this, is, my, list')->explode(',')
+        );
+
+        $this->assertEquals(
+            new Collection(['this', 'is', 'my', 'list']),
+            StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ')
+        );
+
+        $this->assertEquals(
+            new Collection(['  this', 'is', 'my  ', 'list  ' . PHP_EOL]),
+            StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ', PHP_INT_MAX, false)
         );
     }
 
