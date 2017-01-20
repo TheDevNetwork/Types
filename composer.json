@@ -26,7 +26,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.0",
-        "danielstjules/stringy": "~2",
+        "danielstjules/stringy": "dev-feature/fix-phpdoc as 2.3.3",
         "nesbot/carbon": "~1",
         "doctrine/inflector": "~1",
         "doctrine/collections": "~1"
@@ -50,5 +50,11 @@
         "branch-alias": {
             "develop": "3.0.x-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/vpassapera/Stringy.git"
+        }
+    ]
 }
