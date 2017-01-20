@@ -151,17 +151,17 @@ class StringTypeTest extends AbstractTypeTest
     public function testExplode()
     {
         $this->assertEquals(
-            new Collection(['this', 'is', 'my', 'list']),
+            new Collection(['this', 'is', 'my', 'list'], StringType::class),
             StringType::create('this, is, my, list')->explode(',')
         );
 
         $this->assertEquals(
-            new Collection(['this', 'is', 'my', 'list']),
+            new Collection(['this', 'is', 'my', 'list'], StringType::class),
             StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ')
         );
 
         $this->assertEquals(
-            new Collection(['  this', 'is', 'my  ', 'list  ' . PHP_EOL]),
+            new Collection(['  this', 'is', 'my  ', 'list  ' . PHP_EOL], StringType::class),
             StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ', PHP_INT_MAX, false)
         );
     }

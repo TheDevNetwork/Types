@@ -104,14 +104,14 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      * @param int    $limit     default PHP_INT_MAX
      * @param bool   $trim      default false, greedely trim the string before exploding.
      *
-     * @return Collection
+     * @return Collection|StringType[]
      */
     public function explode(string $delimiter, int $limit = PHP_INT_MAX, bool $trim = true) : Collection
     {
         $str = ($trim) ? $this->regexReplace('[[:space:]]', '')->str : $this->str;
         $delimiter = ($trim) ? static::create($delimiter)->regexReplace('[[:space:]]', '')->str : $delimiter;
 
-        return new Collection(explode($delimiter, $str, $limit));
+        return new Collection(explode($delimiter, $str, $limit), static::class);
     }
 
     /**
@@ -177,7 +177,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     {
         $parts = $this->explode('.');
         foreach ($parts as $possibleNumber) {
-            if (false === is_numeric($possibleNumber)) {
+            if (false === is_numeric($possibleNumber->toString())) {
                 return new BooleanType(false);
             }
         }
