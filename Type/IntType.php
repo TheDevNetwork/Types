@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -49,7 +49,7 @@ class IntType extends AbstractNumberType
      *
      * @return IntType
      */
-    public static function valueOf($mixed, int $precision = null) : IntType
+    public static function valueOf($mixed, int $precision = null): IntType
     {
         //Dealing with big integers. Best to use FloatType.
         if (is_numeric($mixed) && ($mixed >= PHP_INT_MAX && !ctype_digit($mixed))) {
@@ -66,7 +66,7 @@ class IntType extends AbstractNumberType
      *
      * @return int
      */
-    private static function asInt($mixed) : int
+    private static function asInt($mixed): int
     {
         return static::asSubType(
             function ($v) {

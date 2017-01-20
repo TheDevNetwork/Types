@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -16,7 +16,7 @@ class DefaultNumberValidator implements NumberValidatorInterface
      *
      * @return bool
      */
-    public function isValid($number) : bool
+    public function isValid($number): bool
     {
         return is_scalar($number) && is_numeric($number);
     }

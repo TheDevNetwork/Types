@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -50,7 +50,7 @@ class FloatType extends AbstractNumberType
      *
      * @return FloatType
      */
-    public static function valueOf($mixed, int $precision = null) : FloatType
+    public static function valueOf($mixed, int $precision = null): FloatType
     {
         return new static(self::asFloat($mixed), $precision);
     }
@@ -62,7 +62,7 @@ class FloatType extends AbstractNumberType
      *
      * @return float
      */
-    private static function asFloat($mixed) : float
+    private static function asFloat($mixed): float
     {
         return static::asSubType('floatval', $mixed);
     }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -24,12 +24,12 @@ interface TypeInterface
      *
      * For examples please view the example.php file.
      *
-     * @param null  &$pointer Anmpty variable to box (the pointer).
-     * @param mixed $value    The primitive value to pass the constructor OR an instance of the type.
+     * @param null  &$pointer Anmpty variable to box (the pointer)
+     * @param mixed $value    the primitive value to pass the constructor OR an instance of the type
      *
-     * @throws \LogicException when the pointer has previously been declared.
-     * @throws \LogicException when the pointer has previously been declared.
-     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer.
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer
      */
     public static function box(&$pointer, $value = null);
 
@@ -38,7 +38,7 @@ interface TypeInterface
      *
      * @param int|null $toType Type to cast to. Default: varies.
      *
-     * @throws InvalidTypeCastException when casted to an unsupported type.
+     * @throws InvalidTypeCastException when casted to an unsupported type
      *
      * @return bool|float|int|string|array|DateTimeType
      */
@@ -47,7 +47,7 @@ interface TypeInterface
     /**
      * Returns an instance of TypeInterface from a mixed scalar/type.
      *
-     * @param $mixed value to transform to TypeInterface instance.
+     * @param $mixed value to transform to TypeInterface instance
      *
      * @return TypeInterface
      */

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -28,7 +28,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Subtract two arbitrary precision numbers.
@@ -39,7 +39,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Multiply two arbitrary precision numbers.
@@ -50,7 +50,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Divide two arbitrary precision numbers.
@@ -61,7 +61,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Compare two arbitrary precision numbers.
@@ -72,7 +72,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Get modulus of an arbitrary precision number.
@@ -83,7 +83,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0) : string;
+    public function modulus(string $operand, string $modulus, int $precision = 0): string;
 
     /**
      * Raise an arbitrary precision number to another.
@@ -94,7 +94,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string;
+    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string;
 
     /**
      * Get the square root of an arbitrary precision number.
@@ -104,7 +104,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0) : string;
+    public function squareRoot(string $operand, int $precision = 0): string;
 
     /**
      * Returns absolute value of operand.
@@ -113,7 +113,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function absolute(string $operand) : string;
+    public function absolute(string $operand): string;
 
     /**
      * Negates a number. Opposite of absolute/abs.
@@ -122,7 +122,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function negate(string $operand) : string;
+    public function negate(string $operand): string;
 
     /**
      * Returns the factorial of operand.
@@ -131,7 +131,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function factorial(string $operand) : string;
+    public function factorial(string $operand): string;
 
     /**
      * Greatest common divisor.
@@ -141,7 +141,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function gcd(string $leftOperand, string $rightOperand) : string;
+    public function gcd(string $leftOperand, string $rightOperand): string;
 
     /**
      * Calculates to the nth root.
@@ -151,7 +151,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function root(string $operand, int $nth) : string;
+    public function root(string $operand, int $nth): string;
 
     /**
      * Gets the next prime after operand.
@@ -160,7 +160,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function nextPrime(string $operand) : string;
+    public function nextPrime(string $operand): string;
 
     /**
      * @param string $operand
@@ -168,7 +168,7 @@ interface MathInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10) : bool;
+    public function isPrime(string $operand, int $reps = 10): bool;
 
     /**
      * Checks if operand is perfect square.
@@ -178,7 +178,7 @@ interface MathInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = null) : bool;
+    public function isPerfectSquare(string $operand, int $precision = null): bool;
 
     /**
      * The gamma function.
@@ -187,7 +187,7 @@ interface MathInterface
      *
      * @return string
      */
-    public function gamma(string $operand) : string;
+    public function gamma(string $operand): string;
 
     /**
      * The log-gamma function.
@@ -196,5 +196,5 @@ interface MathInterface
      *
      * @return string
      */
-    public function logGamma(string $operand) : string;
+    public function logGamma(string $operand): string;
 }

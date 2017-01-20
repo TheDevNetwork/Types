@@ -157,12 +157,12 @@ class StringTypeTest extends AbstractTypeTest
 
         $this->assertEquals(
             new Collection(['this', 'is', 'my', 'list'], StringType::class),
-            StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ')
+            StringType::create('  this, is, my  , list  '.PHP_EOL)->explode(', ')
         );
 
         $this->assertEquals(
-            new Collection(['  this', 'is', 'my  ', 'list  ' . PHP_EOL], StringType::class),
-            StringType::create('  this, is, my  , list  ' . PHP_EOL)->explode(', ', PHP_INT_MAX, false)
+            new Collection(['  this', 'is', 'my  ', 'list  '.PHP_EOL], StringType::class),
+            StringType::create('  this, is, my  , list  '.PHP_EOL)->explode(', ', PHP_INT_MAX, false)
         );
     }
 
@@ -179,8 +179,7 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(StringType::create('false'), StringType::valueOf(new BooleanType(false)));
         $this->assertEquals(StringType::create('11.36'), StringType::valueOf(new FloatType(11.36)));
         $this->assertEquals(new StringType('foo, bar'), StringType::valueOf(new Collection(['foo', 'bar'])));
-        $this->assertEquals('foo', StringType::valueOf(new class(0)
-        {
+        $this->assertEquals('foo', StringType::valueOf(new class(0) {
             public function __toString()
             {
                 return 'foo';

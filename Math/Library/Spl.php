@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
@@ -19,7 +19,7 @@ class Spl implements MathLibraryInterface
     private $roundingStrategy;
 
     /**
-     * @param int $roundingStrategy a PHP_ROUND_HALF_* integer.
+     * @param int $roundingStrategy a PHP_ROUND_HALF_* integer
      */
     public function __construct(int $roundingStrategy)
     {
@@ -35,7 +35,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
             round(floatval($leftOperand) + floatval($rightOperand), $precision, $this->roundingStrategy));
@@ -50,7 +50,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
             round($leftOperand - $rightOperand, $precision, $this->roundingStrategy));
@@ -65,7 +65,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
             round($leftOperand * $rightOperand, ($precision ?? 0), $this->roundingStrategy));
@@ -80,7 +80,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
             round($leftOperand / $rightOperand, $precision, $this->roundingStrategy));
@@ -95,7 +95,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return strval($leftOperand <=> $rightOperand);
     }
@@ -109,7 +109,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0) : string
+    public function modulus(string $operand, string $modulus, int $precision = 0): string
     {
         return (string) round(
             fmod(
@@ -130,7 +130,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return (string) round(
             pow(
@@ -150,7 +150,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0) : string
+    public function squareRoot(string $operand, int $precision = 0): string
     {
         return (string) round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
     }
@@ -162,7 +162,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function absolute(string $operand) : string
+    public function absolute(string $operand): string
     {
         return (string) abs($operand);
     }
@@ -174,7 +174,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function negate(string $operand) : string
+    public function negate(string $operand): string
     {
         return strval($operand * -1);
     }
@@ -186,7 +186,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function factorial(string $operand) : string
+    public function factorial(string $operand): string
     {
         if (StringType::create($operand)->contains('.')) {
             ++$operand;
@@ -213,7 +213,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function gcd(string $leftOperand, string $rightOperand) : string
+    public function gcd(string $leftOperand, string $rightOperand): string
     {
         $gcd = function (string $a, string $b) use (&$gcd) {
             return $b ? $gcd($b, strval($a % $b)) : $a;
@@ -237,7 +237,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function root(string $operand, int $nth) : string
+    public function root(string $operand, int $nth): string
     {
         //Implement something later.
         throw new \RuntimeException('Not a valid library for root^n.');
@@ -250,7 +250,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function nextPrime(string $operand) : string
+    public function nextPrime(string $operand): string
     {
         $operand = (intval($operand) + 1);
         for ($i = $operand;; ++$i) {
@@ -268,7 +268,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10) : bool
+    public function isPrime(string $operand, int $reps = 10): bool
     {
         $x = floor(sqrt(floatval($operand)));
         for ($i = 2; $i <= $x; ++$i) {
@@ -288,7 +288,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0) : bool
+    public function isPerfectSquare(string $operand, int $precision = 0): bool
     {
         $candidate = $this->squareRoot($operand, $precision + 1);
 
@@ -298,7 +298,7 @@ class Spl implements MathLibraryInterface
     /**
      * @return bool
      */
-    public function isEnabled() : bool
+    public function isEnabled(): bool
     {
         return true;
     }
@@ -308,7 +308,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    public function supportsOperationType(string $type) : bool
+    public function supportsOperationType(string $type): bool
     {
         // Supports both float and int.
         return true;
@@ -319,13 +319,13 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function gamma(string $operand) : string
+    public function gamma(string $operand): string
     {
         if ($operand <= 0.0) {
             throw new InvalidNumberException('Operand must be a positive number.');
         }
 
-        # Euler's gamma constant
+        // Euler's gamma constant
         $gamma = 0.577215664901532860606512090;
 
         if ($operand < 0.001) {
@@ -339,7 +339,7 @@ class Spl implements MathLibraryInterface
             if ($lessThanOne) {
                 $y += 1.0;
             } else {
-                # will use n later
+                // will use n later
                 $n = floor($y) - 1;
                 $y -= $n;
             }
@@ -400,7 +400,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function logGamma(string $operand) : string
+    public function logGamma(string $operand): string
     {
         if ($operand <= 0.0) {
             throw new InvalidNumberException('Operand must be a positive number.');
@@ -444,7 +444,7 @@ class Spl implements MathLibraryInterface
      *
      * @return int
      */
-    private function getSmallestDecimalPlaceCount(string $leftOperand, string $rightOperand) : int
+    private function getSmallestDecimalPlaceCount(string $leftOperand, string $rightOperand): int
     {
         $leftPrecision = DefaultMathAdapter::getNumberPrecision($leftOperand);
         $rightPrecision = DefaultMathAdapter::getNumberPrecision($rightOperand);
@@ -459,7 +459,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    private function isIntOperation(int $precision = 0) : bool
+    private function isIntOperation(int $precision = 0): bool
     {
         return $precision === null || $precision === 0;
     }

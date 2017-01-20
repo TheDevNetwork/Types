@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -14,48 +14,48 @@ interface TransmutableTypeInterface extends TypeInterface
      *
      * @return StringType
      */
-    public function toStringType() : StringType;
+    public function toStringType(): StringType;
 
     /**
      * Converts current type to BooleanType.
      *
      * @return BooleanType
      */
-    public function toBoolType() : BooleanType;
+    public function toBoolType(): BooleanType;
 
     /**
      * Converts current type to IntType.
      *
      * @return IntType
      */
-    public function toIntType() : IntType;
+    public function toIntType(): IntType;
 
     /**
      * Converts current type to FloatType.
      *
      * @return FloatType
      */
-    public function toFloatType() : FloatType;
+    public function toFloatType(): FloatType;
 
     /**
      * @return bool
      */
-    public function toBool() : bool;
+    public function toBool(): bool;
 
     /**
      * @return int
      */
-    public function toInt() : int;
+    public function toInt(): int;
 
     /**
      * @return float
      */
-    public function toFloat() : float;
+    public function toFloat(): float;
 
     /**
      * @return string
      */
-    public function toString() : string;
+    public function toString(): string;
 
     /**
      * @return array

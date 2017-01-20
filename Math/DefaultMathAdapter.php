@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -24,7 +24,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
@@ -38,7 +38,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
@@ -52,7 +52,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
@@ -68,7 +68,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @throws \DivisionByZeroError
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         if ($rightOperand == '0') {
             throw new \DivisionByZeroError();
@@ -86,7 +86,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
@@ -100,7 +100,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0) : string
+    public function modulus(string $operand, string $modulus, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand, $modulus, $precision);
     }
@@ -114,7 +114,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
     }
@@ -127,7 +127,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0) : string
+    public function squareRoot(string $operand, int $precision = 0): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand, null, $precision);
     }
@@ -139,7 +139,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function absolute(string $operand) : string
+    public function absolute(string $operand): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand);
     }
@@ -151,7 +151,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function negate(string $operand) : string
+    public function negate(string $operand): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand);
     }
@@ -163,7 +163,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function factorial(string $operand) : string
+    public function factorial(string $operand): string
     {
         $type = $this->getOperationType($operand);
 
@@ -182,7 +182,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function gcd(string $leftOperand, string $rightOperand) : string
+    public function gcd(string $leftOperand, string $rightOperand): string
     {
         $type = $this->getOperationType($leftOperand, $rightOperand);
 
@@ -201,7 +201,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function root(string $operand, int $nth) : string
+    public function root(string $operand, int $nth): string
     {
         $type = $this->getOperationType($operand);
         $exception = null;
@@ -228,7 +228,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function nextPrime(string $operand) : string
+    public function nextPrime(string $operand): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand);
     }
@@ -239,7 +239,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10) : bool
+    public function isPrime(string $operand, int $reps = 10): bool
     {
         $type = $this->getOperationType($operand);
         $exception = null;
@@ -268,12 +268,12 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     /**
      * Checks if operand is perfect square.
      *
-     * @param string   $operand
-     * @param int      $precision
+     * @param string $operand
+     * @param int    $precision
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0) : bool
+    public function isPerfectSquare(string $operand, int $precision = 0): bool
     {
         return $this->getDelegateResult(__FUNCTION__, $operand, null, $precision);
     }
@@ -285,7 +285,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function gamma(string $operand) : string
+    public function gamma(string $operand): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand);
     }
@@ -297,7 +297,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      *
      * @return string
      */
-    public function logGamma(string $operand) : string
+    public function logGamma(string $operand): string
     {
         return $this->getDelegateResult(__FUNCTION__, $operand);
     }
@@ -305,7 +305,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     /**
      * @return MathLibraryInterface[]
      */
-    protected function getDefaultDelegates() : array
+    protected function getDefaultDelegates(): array
     {
         //Array is sorted in order of preference. Override in child class if so desired.
         return [
@@ -318,7 +318,7 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
     /**
      * @return InvalidNumberException
      */
-    private function createNotRealNumberException() : InvalidNumberException
+    private function createNotRealNumberException(): InvalidNumberException
     {
         return new InvalidNumberException('Arguments must be real numbers.');
     }

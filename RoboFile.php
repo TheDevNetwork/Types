@@ -34,7 +34,7 @@ class RoboFile extends \Robo\Tasks
      */
     public function fixCs()
     {
-        $task = 'vendor/bin/php-cs-fixer fix ./%s --level=symfony --fixers=-concat_without_spaces';
+        $task = 'vendor/bin/php-cs-fixer fix ./%s --rules=@Symfony,-space_after_semicolon';
         $dirs = [
             'Tests',
             'Math',

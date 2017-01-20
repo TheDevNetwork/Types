@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -16,5 +16,5 @@ interface NumberValidatorInterface
      *
      * @return bool
      */
-    public function isValid($number) : bool;
+    public function isValid($number): bool;
 }

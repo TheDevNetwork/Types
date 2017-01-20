@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -51,7 +51,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return bool
      */
-    public function isTrue() : bool
+    public function isTrue(): bool
     {
         return $this->value;
     }
@@ -61,7 +61,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return bool
      */
-    public function isFalse() : bool
+    public function isFalse(): bool
     {
         return !$this->value;
     }
@@ -71,7 +71,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return BooleanType
      */
-    public static function valueOf($mixed) : BooleanType
+    public static function valueOf($mixed): BooleanType
     {
         return new static(self::asBool($mixed));
     }
@@ -83,7 +83,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return bool
      */
-    private static function asBool($mixed) : bool
+    private static function asBool($mixed): bool
     {
         if ($mixed instanceof static || $mixed instanceof StringType) {
             $mixed = $mixed->get();
@@ -110,7 +110,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return bool
      */
-    protected static function getFromStringMap($key) : bool
+    protected static function getFromStringMap($key): bool
     {
         $map = [
             'true' => true,

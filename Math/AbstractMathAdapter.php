@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -33,7 +33,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      * @param MathLibraryInterface|null     $delegate
      * @param int                           $roundingStrategy
      *
-     * @throws \OutOfBoundsException when a rounding strategy is passed as argument and not supported.
+     * @throws \OutOfBoundsException when a rounding strategy is passed as argument and not supported
      */
     public function __construct(
         NumberValidatorInterface $validator = null,
@@ -56,7 +56,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return int
      */
-    public static function getNumberPrecision($number) : int
+    public static function getNumberPrecision($number): int
     {
         $string = StringType::valueOf($number);
         if ($string->contains('.')) {
@@ -69,7 +69,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     /**
      * @return int
      */
-    public function getRoundingStrategy() : int
+    public function getRoundingStrategy(): int
     {
         return $this->roundingStrategy;
     }
@@ -81,7 +81,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return int
      */
-    public function getPrecision($number) : int
+    public function getPrecision($number): int
     {
         if ($this->validator->isValid($number)) {
             return static::getNumberPrecision($number);
@@ -93,7 +93,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
     /**
      * @return MathLibraryInterface[]
      */
-    abstract protected function getDefaultDelegates() : array;
+    abstract protected function getDefaultDelegates(): array;
 
     /**
      * Iterates through libraries to operate on.
@@ -102,7 +102,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return \Generator|MathLibraryInterface[]
      */
-    protected function getDelegates(string $type) : \Generator
+    protected function getDelegates(string $type): \Generator
     {
         foreach ($this->delegates as $library) {
             if ($library->isEnabled() && $library->supportsOperationType($type)) {
@@ -129,11 +129,11 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      * @param string      $a
      * @param string|null $b
      *
-     * @throws InvalidNumberException when an operand is not a valid number.
+     * @throws InvalidNumberException when an operand is not a valid number
      *
      * @return string
      */
-    protected function getOperationType(string $a, string $b = null) : string
+    protected function getOperationType(string $a, string $b = null): string
     {
         $getType = function ($v, $previousType = null) {
             $previousType = $previousType ?? self::TYPE_INT;
@@ -205,7 +205,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      *
      * @return array<int>
      */
-    protected static function getSupportedRoundingStrategies() : array
+    protected static function getSupportedRoundingStrategies(): array
     {
         return [
             PHP_ROUND_HALF_UP,

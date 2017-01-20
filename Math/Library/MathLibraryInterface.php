@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
@@ -16,12 +16,12 @@ interface MathLibraryInterface extends MathInterface
      *
      * @return bool
      */
-    public function isEnabled() : bool;
+    public function isEnabled(): bool;
 
     /**
      * @param string $type
      *
      * @return bool
      */
-    public function supportsOperationType(string $type) : bool;
+    public function supportsOperationType(string $type): bool;
 }

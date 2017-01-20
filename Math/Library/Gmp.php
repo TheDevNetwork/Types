@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
@@ -18,7 +18,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_add($leftOperand, $rightOperand));
     }
@@ -32,7 +32,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_sub($leftOperand, $rightOperand));
     }
@@ -46,7 +46,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_mul($leftOperand, $rightOperand));
     }
@@ -60,7 +60,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_div($leftOperand, $rightOperand));
     }
@@ -74,7 +74,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_cmp($leftOperand, $rightOperand));
     }
@@ -88,7 +88,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0) : string
+    public function modulus(string $operand, string $modulus, int $precision = 0): string
     {
         return \gmp_strval(\gmp_mod($operand, $modulus));
     }
@@ -102,7 +102,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_pow($leftOperand, (int) $rightOperand));
     }
@@ -115,7 +115,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0) : string
+    public function squareRoot(string $operand, int $precision = 0): string
     {
         return \gmp_strval(\gmp_sqrt($operand));
     }
@@ -127,7 +127,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function absolute(string $operand) : string
+    public function absolute(string $operand): string
     {
         return \gmp_strval(\gmp_abs($operand));
     }
@@ -139,7 +139,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function negate(string $operand) : string
+    public function negate(string $operand): string
     {
         return \gmp_strval(\gmp_neg($operand));
     }
@@ -151,7 +151,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function factorial(string $operand) : string
+    public function factorial(string $operand): string
     {
         return \gmp_strval(\gmp_fact($operand));
     }
@@ -164,7 +164,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function gcd(string $leftOperand, string $rightOperand) : string
+    public function gcd(string $leftOperand, string $rightOperand): string
     {
         return \gmp_strval(\gmp_gcd($leftOperand, $rightOperand));
     }
@@ -177,7 +177,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function root(string $operand, int $nth) : string
+    public function root(string $operand, int $nth): string
     {
         $operand = \gmp_init($operand, 10);
 
@@ -191,7 +191,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function nextPrime(string $operand) : string
+    public function nextPrime(string $operand): string
     {
         return \gmp_strval(\gmp_nextprime($operand));
     }
@@ -202,7 +202,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10) : bool
+    public function isPrime(string $operand, int $reps = 10): bool
     {
         return 0 < \gmp_prob_prime($operand, $reps);
     }
@@ -215,7 +215,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0) : bool
+    public function isPerfectSquare(string $operand, int $precision = 0): bool
     {
         return \gmp_perfect_square($operand);
     }
@@ -227,7 +227,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function gamma(string $operand) : string
+    public function gamma(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -239,7 +239,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function logGamma(string $operand) : string
+    public function logGamma(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -249,7 +249,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return bool
      */
-    public function supportsOperationType(string $type) : bool
+    public function supportsOperationType(string $type): bool
     {
         //Supports only int.
         return $type !== self::TYPE_FLOAT;
@@ -258,7 +258,7 @@ class Gmp implements MathLibraryInterface
     /**
      * @return bool
      */
-    public function isEnabled() : bool
+    public function isEnabled(): bool
     {
         return extension_loaded('gmp');
     }
@@ -268,7 +268,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return \RuntimeException
      */
-    private function createInvalidLibraryException(string $methodName) : \RuntimeException
+    private function createInvalidLibraryException(string $methodName): \RuntimeException
     {
         return new \RuntimeException(
             sprintf('Not a valid library for %s.', $methodName)

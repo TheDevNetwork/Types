@@ -36,7 +36,7 @@ class InvalidTransformationException extends \RuntimeException
      *
      * @return string
      */
-    private function getWithoutNamespace(string $fullyQualified) : string
+    private function getWithoutNamespace(string $fullyQualified): string
     {
         if (class_exists($fullyQualified)) {
             $c = (new \ReflectionClass($fullyQualified))->getShortName();

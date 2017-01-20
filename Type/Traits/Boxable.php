@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type\Traits;
 
@@ -27,19 +27,19 @@ trait Boxable
      *
      * For examples please view the example.php file.
      *
-     * @param null  &$pointer Anmpty variable to box (the pointer).
-     * @param mixed $value    The primitive value to pass the constructor OR an instance of the type.
+     * @param null  &$pointer Anmpty variable to box (the pointer)
+     * @param mixed $value    the primitive value to pass the constructor OR an instance of the type
      *
-     * @throws \LogicException when the pointer has previously been declared.
-     * @throws \LogicException when the pointer has previously been declared.
-     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer.
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \LogicException when the pointer has previously been declared
+     * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer
      */
     final public static function box(&$pointer, $value = null)
     {
         if ($pointer !== null) {
             throw new \LogicException(
                 sprintf(
-                    'The identifier of type %s is defined more than once. ' .
+                    'The identifier of type %s is defined more than once. '.
                     'First argument of %s() must be null or undefined.',
                     gettype($pointer),
                     __METHOD__
@@ -104,7 +104,7 @@ trait Boxable
      *
      * @return string
      */
-    protected function getTranslatedType(int $type = null) : string
+    protected function getTranslatedType(int $type = null): string
     {
         $supportedTypes = [
             Type::STRING => 'string',

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math\Library;
 
@@ -33,7 +33,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -49,7 +49,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -65,7 +65,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -81,7 +81,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -97,7 +97,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         if ($this->isVersionComparison($leftOperand, $rightOperand)) {
             throw new \RuntimeException('BcMath cannot do version compare.');
@@ -117,7 +117,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0) : string
+    public function modulus(string $operand, string $modulus, int $precision = 0): string
     {
         if ($precision > 0) {
             throw new \RuntimeException('Precision is not supported. Use Spl::modulus, it uses fmod.');
@@ -135,7 +135,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0) : string
+    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -150,7 +150,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0) : string
+    public function squareRoot(string $operand, int $precision = 0): string
     {
         $bcPrecision = $this->getBcPrecision($operand, $precision) + 1;
 
@@ -164,7 +164,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function absolute(string $operand) : string
+    public function absolute(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -176,7 +176,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function negate(string $operand) : string
+    public function negate(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -188,7 +188,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function factorial(string $operand) : string
+    public function factorial(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -201,7 +201,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function gcd(string $leftOperand, string $rightOperand) : string
+    public function gcd(string $leftOperand, string $rightOperand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -214,7 +214,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function root(string $operand, int $nth) : string
+    public function root(string $operand, int $nth): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -226,7 +226,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function nextPrime(string $operand) : string
+    public function nextPrime(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -237,7 +237,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10) : bool
+    public function isPrime(string $operand, int $reps = 10): bool
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -250,7 +250,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0) : bool
+    public function isPerfectSquare(string $operand, int $precision = 0): bool
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -262,7 +262,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function gamma(string $operand) : string
+    public function gamma(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -274,7 +274,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function logGamma(string $operand) : string
+    public function logGamma(string $operand): string
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -284,7 +284,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    public function supportsOperationType(string $type) : bool
+    public function supportsOperationType(string $type): bool
     {
         //Supports both float and int.
         return true;
@@ -293,7 +293,7 @@ class BcMath implements MathLibraryInterface
     /**
      * @return bool
      */
-    public function isEnabled() : bool
+    public function isEnabled(): bool
     {
         return extension_loaded('bcmath');
     }
@@ -309,7 +309,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return int
      */
-    private function getBcPrecision(string $leftOperand, int $precision = 0) : int
+    private function getBcPrecision(string $leftOperand, int $precision = 0): int
     {
         if ($precision > 0) {
             $operand = StringType::create($leftOperand);
@@ -327,7 +327,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    private function isVersionComparison(string $leftOperand, string $rightOperand) : bool
+    private function isVersionComparison(string $leftOperand, string $rightOperand): bool
     {
         return (StringType::create($leftOperand)->isSemVer()->isTrue()) ||
         (StringType::create($rightOperand)->isSemVer()->isTrue());
@@ -338,7 +338,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return \RuntimeException
      */
-    private function createInvalidLibraryException(string $methodName) : \RuntimeException
+    private function createInvalidLibraryException(string $methodName): \RuntimeException
     {
         return new \RuntimeException(
             sprintf('Not a valid library for %s.', $methodName)

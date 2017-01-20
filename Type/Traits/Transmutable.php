@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type\Traits;
 
@@ -21,7 +21,7 @@ trait Transmutable
     /**
      * @return StringType
      */
-    public function toStringType() : StringType
+    public function toStringType(): StringType
     {
         return StringType::valueOf($this);
     }
@@ -29,7 +29,7 @@ trait Transmutable
     /**
      * @return BooleanType
      */
-    public function toBoolType() : BooleanType
+    public function toBoolType(): BooleanType
     {
         return BooleanType::valueOf($this);
     }
@@ -37,7 +37,7 @@ trait Transmutable
     /**
      * @return IntType
      */
-    public function toIntType() : IntType
+    public function toIntType(): IntType
     {
         return IntType::valueOf($this);
     }
@@ -45,7 +45,7 @@ trait Transmutable
     /**
      * @return FloatType
      */
-    public function toFloatType() : FloatType
+    public function toFloatType(): FloatType
     {
         return FloatType::valueOf($this);
     }
@@ -53,7 +53,7 @@ trait Transmutable
     /**
      * @return Collection
      */
-    public function toCollection() : Collection
+    public function toCollection(): Collection
     {
         return Collection::valueOf($this);
     }
@@ -61,7 +61,7 @@ trait Transmutable
     /**
      * @return bool
      */
-    public function toBool() : bool
+    public function toBool(): bool
     {
         if ($this instanceof TransmutableTypeInterface) {
             return $this(Type::BOOL);
@@ -73,7 +73,7 @@ trait Transmutable
     /**
      * @return int
      */
-    public function toInt() : int
+    public function toInt(): int
     {
         if ($this instanceof TransmutableTypeInterface) {
             return $this(Type::INT);
@@ -85,7 +85,7 @@ trait Transmutable
     /**
      * @return float
      */
-    public function toFloat() : float
+    public function toFloat(): float
     {
         if ($this instanceof TransmutableTypeInterface) {
             return $this(Type::FLOAT);
@@ -97,7 +97,7 @@ trait Transmutable
     /**
      * @return string
      */
-    public function toString() : string
+    public function toString(): string
     {
         if ($this instanceof TransmutableTypeInterface) {
             return $this(Type::STRING);
@@ -109,12 +109,8 @@ trait Transmutable
     /**
      * @return array
      */
-    public function toArray() : array
+    public function toArray(): array
     {
-        if ($this instanceof Collection) {
-            return parent::toArray();
-        }
-
         if ($this instanceof TransmutableTypeInterface) {
             return $this(Type::ARRAY);
         }
@@ -125,7 +121,7 @@ trait Transmutable
     /**
      * @return string
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->toString();
     }

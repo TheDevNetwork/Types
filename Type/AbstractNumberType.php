@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -59,7 +59,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function plus($num) : NumberTypeInterface
+    public function plus($num): NumberTypeInterface
     {
         return $this->getAdapterOperation('add', $num);
     }
@@ -71,7 +71,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function minus($num) : NumberTypeInterface
+    public function minus($num): NumberTypeInterface
     {
         return $this->getAdapterOperation('subtract', $num);
     }
@@ -83,7 +83,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function multipliedBy($num) : NumberTypeInterface
+    public function multipliedBy($num): NumberTypeInterface
     {
         return $this->getAdapterOperation('multiply', $num);
     }
@@ -95,7 +95,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function dividedBy($num) : NumberTypeInterface
+    public function dividedBy($num): NumberTypeInterface
     {
         return $this->getAdapterOperation('divide', $num);
     }
@@ -108,7 +108,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function compare($num) : NumberTypeInterface
+    public function compare($num): NumberTypeInterface
     {
         return $this->getAdapterOperation(__FUNCTION__, $num);
     }
@@ -120,7 +120,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function modulus($num) : NumberTypeInterface
+    public function modulus($num): NumberTypeInterface
     {
         return $this->getAdapterOperation(__FUNCTION__, $num);
     }
@@ -132,7 +132,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function power($num) : NumberTypeInterface
+    public function power($num): NumberTypeInterface
     {
         return $this->getAdapterOperation(__FUNCTION__, $num);
     }
@@ -142,7 +142,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function squareRoot() : NumberTypeInterface
+    public function squareRoot(): NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->squareRoot(
@@ -158,7 +158,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function absolute() : NumberTypeInterface
+    public function absolute(): NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->absolute($this->toStringType()->get()),
@@ -171,7 +171,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function negate() : NumberTypeInterface
+    public function negate(): NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->negate($this->toStringType()->get()),
@@ -184,7 +184,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function factorial() : NumberTypeInterface
+    public function factorial(): NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->factorial($this->toStringType()->get()),
@@ -199,7 +199,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function gcd($num) : NumberTypeInterface
+    public function gcd($num): NumberTypeInterface
     {
         return $this->getAdapterOperation(__FUNCTION__, $num);
     }
@@ -211,7 +211,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function root(int $num) : NumberTypeInterface
+    public function root(int $num): NumberTypeInterface
     {
         return static::valueOf(
             $this->getMathAdapter()->root($this->toStringType()->get(), $num),
@@ -224,7 +224,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    public function getNextPrime() : NumberTypeInterface
+    public function getNextPrime(): NumberTypeInterface
     {
         return static::valueOf($this->getMathAdapter()->nextPrime($this->toStringType()->get()));
     }
@@ -234,7 +234,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return BooleanType
      */
-    public function isPrime() : BooleanType
+    public function isPrime(): BooleanType
     {
         return new BooleanType($this->getMathAdapter()->isPrime($this->toStringType()->get()));
     }
@@ -244,7 +244,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return BooleanType
      */
-    public function isPerfectSquare() : BooleanType
+    public function isPerfectSquare(): BooleanType
     {
         return new BooleanType($this->getMathAdapter()->isPerfectSquare($this->toStringType()->get()));
     }
@@ -254,7 +254,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return int
      */
-    public function getPrecision() : int
+    public function getPrecision(): int
     {
         return $this->precision;
     }
@@ -302,7 +302,7 @@ abstract class AbstractNumberType implements NumberTypeInterface
      *
      * @return NumberTypeInterface
      */
-    private function getAdapterOperation(string $operation, $operand) : NumberTypeInterface
+    private function getAdapterOperation(string $operation, $operand): NumberTypeInterface
     {
         if (!is_callable([$this->getMathAdapter(), $operation])) {
             throw new \LogicException(

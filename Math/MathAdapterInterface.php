@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Math;
 
@@ -14,10 +14,10 @@ interface MathAdapterInterface extends MathInterface
      *
      * @return int
      */
-    public function getPrecision($number) : int;
+    public function getPrecision($number): int;
 
     /**
      * @return int
      */
-    public function getRoundingStrategy() : int;
+    public function getRoundingStrategy(): int;
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -35,7 +35,7 @@ class DateTimeType extends Carbon implements TypeInterface
      *
      * @return DateTimeType
      */
-    public static function valueOf($mixed) : DateTimeType
+    public static function valueOf($mixed): DateTimeType
     {
         if ($mixed instanceof StringType || 'string' === $type = strtolower(gettype($mixed))) {
             return new static((string) $mixed);

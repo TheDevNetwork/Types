@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tdn\PhpTypes\Type;
 
@@ -92,7 +92,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return StringType
      */
-    public static function create($str = '', $encoding = 'UTF-8') : StringType
+    public static function create($str = '', $encoding = 'UTF-8'): StringType
     {
         return new static($str, $encoding);
     }
@@ -102,11 +102,11 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @param string $delimiter
      * @param int    $limit     default PHP_INT_MAX
-     * @param bool   $trim      default false, greedely trim the string before exploding.
+     * @param bool   $trim      default false, greedely trim the string before exploding
      *
      * @return Collection|StringType[]
      */
-    public function explode(string $delimiter, int $limit = PHP_INT_MAX, bool $trim = true) : Collection
+    public function explode(string $delimiter, int $limit = PHP_INT_MAX, bool $trim = true): Collection
     {
         $str = ($trim) ? $this->regexReplace('[[:space:]]', '')->str : $this->str;
         $delimiter = ($trim) ? static::create($delimiter)->regexReplace('[[:space:]]', '')->str : $delimiter;
@@ -119,7 +119,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return StringType
      */
-    public function pluralize() : StringType
+    public function pluralize(): StringType
     {
         return static::create($this->getInflector()->pluralize((string) $this->str), $this->encoding);
     }
@@ -129,7 +129,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return StringType
      */
-    public function singularize() : StringType
+    public function singularize(): StringType
     {
         return static::create($this->getInflector()->singularize((string) $this->str), $this->encoding);
     }
@@ -143,7 +143,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return IntType
      */
-    public function strpos(string $subStr, int $offset = 0, bool $caseSensitive = false) : IntType
+    public function strpos(string $subStr, int $offset = 0, bool $caseSensitive = false): IntType
     {
         $res = ($caseSensitive) ?
             mb_strpos($this->str, $subStr, $offset, $this->encoding) :
@@ -161,7 +161,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return IntType
      */
-    public function strrpos(string $subStr, int $offset = 0, bool $caseSensitive = false) : IntType
+    public function strrpos(string $subStr, int $offset = 0, bool $caseSensitive = false): IntType
     {
         $res = ($caseSensitive) ?
             mb_strrpos($this->str, $subStr, $offset, $this->encoding) :
@@ -188,7 +188,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     /**
      * @return string The current value of the $str property
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         return (string) $this->str;
     }
@@ -198,7 +198,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return BooleanType
      */
-    public function toBoolType() : BooleanType
+    public function toBoolType(): BooleanType
     {
         return BooleanType::valueOf($this->regexReplace('[[:space:]]', '')->str);
     }
@@ -206,7 +206,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     /**
      * @return BooleanType
      */
-    public function toBoolean() : BooleanType
+    public function toBoolean(): BooleanType
     {
         return $this->toBoolType();
     }
@@ -214,7 +214,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     /**
      * @return DateTimeType
      */
-    public function toDateTime() : DateTimeType
+    public function toDateTime(): DateTimeType
     {
         return DateTimeType::valueOf($this);
     }
@@ -224,7 +224,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return StringType
      */
-    public static function valueOf($mixed) : StringType
+    public static function valueOf($mixed): StringType
     {
         return new static(self::asString($mixed));
     }
@@ -232,7 +232,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     /**
      * @return Inflector
      */
-    private function getInflector() : Inflector
+    private function getInflector(): Inflector
     {
         return new Inflector();
     }
@@ -244,7 +244,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return string
      */
-    private static function asString($mixed) : string
+    private static function asString($mixed): string
     {
         if ($mixed instanceof ValueTypeInterface) {
             $mixed = $mixed->get();
