@@ -343,17 +343,20 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
         }
 
         if ($orderings = $criteria->getOrderings()) {
+            $next = null;
             foreach (array_reverse($orderings) as $field => $ordering) {
                 $next = ClosureExpressionVisitor::sortByField($field, $ordering == Criteria::DESC ? -1 : 1);
             }
 
-            uasort($filtered, $next);
+            if (null !== $next) {
+                uasort($filtered, $next);
+            }
         }
 
         $offset = $criteria->getFirstResult();
         $length = $criteria->getMaxResults();
 
-        if ($offset || $length) {
+        if (null !== $offset || null !== $length) {
             $filtered = array_slice($filtered, (int) $offset, $length);
         }
 
