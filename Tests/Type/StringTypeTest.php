@@ -59,7 +59,34 @@ class StringTypeTest extends AbstractTypeTest
         $this->assertEquals(5.5, $string(Type::FLOAT));
 
         $string = 'some, arbitrary, list';
-        $this->assertEquals(['some', 'arbitrary', 'list'], $string(Type::ARRAY));
+        $this->assertEquals(
+            [StringType::create('some'), StringType::create('arbitrary'), StringType::create('list')],
+            $string(Type::ARRAY)
+        );
+    }
+
+    public function testSubStrUntil()
+    {
+        $this->assertEquals(
+            'Lorem ipsum dolor sit amet',
+            (string) StringType::create(self::LOREM_IPSUM)->subStrUntil(',')
+        );
+        $this->assertEquals(
+            'Lorem ipsum dolor sit amet,',
+            (string) StringType::create(self::LOREM_IPSUM)->subStrUntil(',', true)
+        );
+    }
+
+    public function testSubStrAfter()
+    {
+        $this->assertEquals(
+            'sed do eiusmod tempor incididunt. Ipsum.',
+            (string) StringType::create(self::LOREM_IPSUM)->subStrAfter('elit, ')
+        );
+        $this->assertEquals(
+            'elit, sed do eiusmod tempor incididunt. Ipsum.',
+            (string) StringType::create(self::LOREM_IPSUM)->subStrAfter('elit, ', true)
+        );
     }
 
     /**

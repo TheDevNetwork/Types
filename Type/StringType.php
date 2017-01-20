@@ -230,6 +230,71 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
     }
 
     /**
+     * Returns substring from beginning until first instance of subsStr.
+     *
+     * @param string $subStr
+     * @param bool $includingSubStr
+     * @param bool $caseSensitive
+     *
+     * @return static
+     */
+    public function subStrUntil($subStr, $includingSubStr = false, $caseSensitive = false)
+    {
+        $fromSubStr = $this->str[0];
+
+        return $this->subStrBetween($fromSubStr, $subStr, false, !$includingSubStr, $caseSensitive);
+    }
+
+    /**
+     * Returns substring from first instance of subStr to end of string.
+     * @param $subStr
+     * @param bool $includingSubStr
+     * @param bool $caseSensitive
+     *
+     * @return static
+     */
+    public function subStrAfter($subStr, $includingSubStr = false, $caseSensitive = false)
+    {
+        return $this->subStrBetween($subStr, null, !$includingSubStr, false, $caseSensitive);
+    }
+
+    /**
+     * Returns substring between fromSubStr to toSubStr. End of string if toSubStr is not set.
+     *
+     * @param string $fromSubStr
+     * @param string $toSubStr
+     * @param bool $excludeFromSubStr
+     * @param bool $excludeToSubStr
+     * @param bool $caseSensitive
+     * @return self
+     */
+    private function subStrBetween(
+        $fromSubStr,
+        $toSubStr = '',
+        $excludeFromSubStr = false,
+        $excludeToSubStr = false,
+        $caseSensitive = false
+    ) {
+        $fromIndex = 0;
+        $toIndex = mb_strlen($this->str);
+        $str = self::create($this->str);
+        if ($str->contains($fromSubStr)) {
+            $fromIndex = $this->strpos($fromSubStr, 0, $caseSensitive)->get();
+            $fromIndex = ($excludeFromSubStr) ? $fromIndex + mb_strlen($fromSubStr, $this->encoding) : $fromIndex;
+            if ($fromIndex < 0) {
+                throw new \LogicException('To cannot be before from.');
+            }
+            if (!empty($toSubStr) && $str->contains($toSubStr)) {
+                $toIndex = $this->strpos($toSubStr, $fromIndex, $caseSensitive)->get();
+                $toIndex = ($excludeToSubStr) ?
+                    $toIndex - $fromIndex :  ($toIndex - $fromIndex) + mb_strlen($toSubStr, $this->encoding);
+            }
+        }
+
+        return ($toSubStr) ? $str->substr($fromIndex, $toIndex) : $str->substr($fromIndex);
+    }
+
+    /**
      * @return Inflector
      */
     private function getInflector(): Inflector
