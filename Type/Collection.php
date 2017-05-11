@@ -266,18 +266,22 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
 
     /**
      * {@inheritdoc}
+     *
+     * @return Collection
      */
     public function map(Closure $func)
     {
-        return new static(array_map($func, $this->elements));
+        return new static(array_map($func, $this->elements), $this->type);
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @return Collection
      */
     public function filter(Closure $p)
     {
-        return new static(array_filter($this->elements, $p));
+        return new static(array_filter($this->elements, $p), $this->type);
     }
 
     /**
@@ -296,6 +300,8 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
 
     /**
      * {@inheritdoc}
+     *
+     * @return Collection
      */
     public function partition(Closure $p)
     {
@@ -309,7 +315,7 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
             }
         }
 
-        return array(new static($matches), new static($noMatches));
+        return array(new static($matches, $this->type), new static($noMatches, $this->type));
     }
 
     /**
@@ -330,6 +336,8 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
 
     /**
      * {@inheritdoc}
+     *
+     * @return Collection
      */
     public function matching(Criteria $criteria)
     {
@@ -360,13 +368,13 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
             $filtered = array_slice($filtered, (int) $offset, $length);
         }
 
-        return new static($filtered);
+        return new static($filtered, $this->type);
     }
 
     /**
      * @throws \LogicException when not collection is untyped or collection type does not contain __toString method
      *
-     * @return static
+     * @return Collection
      */
     public function unique()
     {
@@ -374,7 +382,7 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
             return is_string($value);
         };
 
-        if ($this->forAll($closure) || (null !== $this->type && method_exists($this->type, '__toString'))) {
+        if ((null !== $this->type && method_exists($this->type, '__toString')) || $this->forAll($closure)) {
             $result = new static(array_unique($this->elements, SORT_STRING), $this->type);
 
             return $result;
