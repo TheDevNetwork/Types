@@ -18,7 +18,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function add(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_add($leftOperand, $rightOperand));
     }
@@ -32,7 +32,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function subtract(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_sub($leftOperand, $rightOperand));
     }
@@ -46,7 +46,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function multiply(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_mul($leftOperand, $rightOperand));
     }
@@ -60,7 +60,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function divide(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_div($leftOperand, $rightOperand));
     }
@@ -74,7 +74,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function compare(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_cmp($leftOperand, $rightOperand));
     }
@@ -88,7 +88,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0): string
+    public function modulus(string $operand, string $modulus, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_mod($operand, $modulus));
     }
@@ -102,7 +102,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function power(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_pow($leftOperand, (int) $rightOperand));
     }
@@ -115,7 +115,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0): string
+    public function squareRoot(string $operand, ?int $precision = 0): string
     {
         return \gmp_strval(\gmp_sqrt($operand));
     }
@@ -202,7 +202,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10): bool
+    public function isPrime(string $operand, ?int $reps = 10): bool
     {
         return 0 < \gmp_prob_prime($operand, $reps);
     }
@@ -215,7 +215,7 @@ class Gmp implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0): bool
+    public function isPerfectSquare(string $operand, ?int $precision = 0): bool
     {
         return \gmp_perfect_square($operand);
     }

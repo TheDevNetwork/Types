@@ -35,7 +35,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function add(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) + intval($rightOperand)) :
             round(floatval($leftOperand) + floatval($rightOperand), $precision, $this->roundingStrategy));
@@ -50,7 +50,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function subtract(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) - intval($rightOperand)) :
             round($leftOperand - $rightOperand, $precision, $this->roundingStrategy));
@@ -65,7 +65,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function multiply(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) * intval($rightOperand)) :
             round($leftOperand * $rightOperand, ($precision ?? 0), $this->roundingStrategy));
@@ -80,7 +80,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function divide(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return (string) ($this->isIntOperation($precision) ? (intval($leftOperand) / intval($rightOperand)) :
             round($leftOperand / $rightOperand, $precision, $this->roundingStrategy));
@@ -95,7 +95,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function compare(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return strval($leftOperand <=> $rightOperand);
     }
@@ -109,7 +109,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0): string
+    public function modulus(string $operand, string $modulus, ?int $precision = 0): string
     {
         return (string) round(
             fmod(
@@ -130,7 +130,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function power(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         return (string) round(
             pow(
@@ -150,7 +150,7 @@ class Spl implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0): string
+    public function squareRoot(string $operand, ?int $precision = 0): string
     {
         return (string) round(sqrt(floatval($operand)), ($precision ?? 0), $this->roundingStrategy);
     }
@@ -268,7 +268,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10): bool
+    public function isPrime(string $operand, ?int $reps = 10): bool
     {
         $x = floor(sqrt(floatval($operand)));
         for ($i = 2; $i <= $x; ++$i) {
@@ -288,7 +288,7 @@ class Spl implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0): bool
+    public function isPerfectSquare(string $operand, ?int $precision = 0): bool
     {
         $candidate = $this->squareRoot($operand, $precision + 1);
 
