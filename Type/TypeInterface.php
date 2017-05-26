@@ -31,7 +31,7 @@ interface TypeInterface
      * @throws \LogicException when the pointer has previously been declared
      * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer
      */
-    public static function box(&$pointer, $value = null);
+    public static function box(&$pointer, ?$value = null);
 
     /**
      * Cast object to primitive type. Casts to logical primitive by default. (E.g. BooleanType -> bool).
@@ -42,7 +42,7 @@ interface TypeInterface
      *
      * @return bool|float|int|string|array|DateTimeType
      */
-    public function __invoke(int $toType = null);
+    public function __invoke(?int $toType = null);
 
     /**
      * Returns an instance of TypeInterface from a mixed scalar/type.

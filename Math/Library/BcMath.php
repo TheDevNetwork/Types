@@ -33,7 +33,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function add(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function add(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -49,7 +49,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function subtract(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function subtract(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -65,7 +65,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function multiply(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function multiply(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -81,7 +81,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function divide(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function divide(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -97,7 +97,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function compare(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         if ($this->isVersionComparison($leftOperand, $rightOperand)) {
             throw new \RuntimeException('BcMath cannot do version compare.');
@@ -117,7 +117,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function modulus(string $operand, string $modulus, int $precision = 0): string
+    public function modulus(string $operand, string $modulus, ?int $precision = 0): string
     {
         if ($precision > 0) {
             throw new \RuntimeException('Precision is not supported. Use Spl::modulus, it uses fmod.');
@@ -135,7 +135,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function power(string $leftOperand, string $rightOperand, int $precision = 0): string
+    public function power(string $leftOperand, string $rightOperand, ?int $precision = 0): string
     {
         $precision = $this->getBcPrecision($leftOperand, $precision);
 
@@ -150,7 +150,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return string
      */
-    public function squareRoot(string $operand, int $precision = 0): string
+    public function squareRoot(string $operand, ?int $precision = 0): string
     {
         $bcPrecision = $this->getBcPrecision($operand, $precision) + 1;
 
@@ -237,7 +237,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPrime(string $operand, int $reps = 10): bool
+    public function isPrime(string $operand, ?int $reps = 10): bool
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -250,7 +250,7 @@ class BcMath implements MathLibraryInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = 0): bool
+    public function isPerfectSquare(string $operand, ?int $precision = 0): bool
     {
         throw $this->createInvalidLibraryException(__FUNCTION__);
     }
@@ -312,6 +312,7 @@ class BcMath implements MathLibraryInterface
     private function getBcPrecision(string $leftOperand, int $precision = 0): int
     {
         if ($precision > 0) {
+            /** @var StringType $operand */
             $operand = StringType::create($leftOperand);
             if ($operand->contains('.')) {
                 return $operand->countSubstr('.') + $precision;

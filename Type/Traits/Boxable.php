@@ -34,7 +34,7 @@ trait Boxable
      * @throws \LogicException when the pointer has previously been declared
      * @throws \TypeError      when an invalid argument is passed as value or assigned to pointer
      */
-    final public static function box(&$pointer, $value = null)
+    final public static function box(&$pointer, ?$value = null)
     {
         if ($pointer !== null) {
             throw new \LogicException(

@@ -1,8 +1,7 @@
 language: php
 
 php:
-  - 7
-  - hhvm
+  - 7.1
 
 branches:
   only:
@@ -34,8 +33,6 @@ notifications:
   email: vpassapera@gmail.com
 
 matrix:
-  allow_failures:
-    - php: hhvm
   fast_finish: true
 
 notifications:

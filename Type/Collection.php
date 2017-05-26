@@ -411,7 +411,7 @@ class Collection implements TransmutableTypeInterface, CollectionInterface, Sele
      *
      * @return string|array|int
      */
-    public function __invoke(int $toType = Type::ARRAY)
+    public function __invoke(?int $toType = Type::ARRAY)
     {
         $e = null;
         switch ($toType) {

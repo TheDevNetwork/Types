@@ -30,7 +30,7 @@ class IntType extends AbstractNumberType
      *
      * @return string|float|int
      */
-    public function __invoke(int $toType = Type::INT)
+    public function __invoke(?int $toType = Type::INT)
     {
         switch ($toType) {
             case Type::INT:
