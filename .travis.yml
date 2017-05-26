@@ -1,8 +1,7 @@
 language: php
 
 php:
-  - 7
-  - hhvm
+  - 7.1
 
 branches:
   only:
@@ -32,11 +31,6 @@ after_script:
 notifications:
   irc: "chat.freenode.net#thedevnetwork"
   email: vpassapera@gmail.com
-
-matrix:
-  allow_failures:
-    - php: hhvm
-  fast_finish: true
 
 notifications:
   on_success: never

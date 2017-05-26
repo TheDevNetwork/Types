@@ -113,7 +113,7 @@ class DateTimeTypeTest extends AbstractTypeTest
 
     /**
      * @expectedException \TypeError
-     * @expectedExceptionMessageRegExp /Argument ([0-9]+) passed to (.*) must be of the type string, boolean given.*$/
+     * @expectedExceptionMessageRegExp /Argument ([0-9]+) passed to (.*)$/
      */
     public function testBadBoxCall()
     {

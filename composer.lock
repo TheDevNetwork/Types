@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e7bbf6ea3f37ea74e4bc42f4e207210",
+    "content-hash": "92d1ef0264d4755da64008433620dea0",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -2282,12 +2282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/Sami.git",
-                "reference": "af1155ca95929c72353513fa52c58f6341cb72e0"
+                "reference": "2511ed9293461b2199e0afa7822dbcd5ce3e4a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/af1155ca95929c72353513fa52c58f6341cb72e0",
-                "reference": "af1155ca95929c72353513fa52c58f6341cb72e0",
+                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/2511ed9293461b2199e0afa7822dbcd5ce3e4a32",
+                "reference": "2511ed9293461b2199e0afa7822dbcd5ce3e4a32",
                 "shasum": ""
             },
             "require": {
@@ -2336,7 +2336,7 @@
             "keywords": [
                 "phpdoc"
             ],
-            "time": "2017-03-24T16:25:31+00:00"
+            "time": "2017-05-05T18:46:34+00:00"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -3832,7 +3832,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }

@@ -135,7 +135,7 @@ class StringTypeTest extends AbstractTypeTest
 
     /**
      * @expectedException \TypeError
-     * @expectedExceptionMessageRegExp /Argument ([0-9]+) passed to (.*) must be of the type string, none given.*$/
+     * @expectedExceptionMessageRegExp /Too few arguments to function(.*)$/
      */
     public function testBadBoxCall()
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tdn\PhpTypes\Type;
 
 use Tdn\PhpTypes\Exception\InvalidTypeCastException;
@@ -42,7 +40,7 @@ interface TypeInterface
      *
      * @return bool|float|int|string|array|DateTimeType
      */
-    public function __invoke(int $toType = null);
+    public function __invoke(int $toType = 0);
 
     /**
      * Returns an instance of TypeInterface from a mixed scalar/type.

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tdn\PhpTypes\Math;
 
 /**
@@ -178,7 +176,7 @@ interface MathInterface
      *
      * @return bool
      */
-    public function isPerfectSquare(string $operand, int $precision = null): bool;
+    public function isPerfectSquare(string $operand, int $precision = 0): bool;
 
     /**
      * The gamma function.
