@@ -102,7 +102,7 @@ class BooleanTypeTest extends AbstractTypeTest
 
     /**
      * @expectedException \TypeError
-     * @expectedExceptionMessageRegExp /Argument ([0-9]+) passed to (.*) must be of the type boolean, none given.*$/
+     * @expectedExceptionMessageRegExp /Too few arguments to function (.*)*$/
      */
     public function testBadBoxCall()
     {

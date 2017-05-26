@@ -21,7 +21,7 @@ abstract class AbstractTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \TypeError
-     * @expectedExceptionMessageRegExp /Argument (.*) passed to (.*) must be of the type (.*), none given.*$/
+     * @expectedExceptionMessageRegExp /Too few arguments to function (.*)*$/
      */
     public function testBadBoxImplementation()
     {
