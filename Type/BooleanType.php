@@ -34,7 +34,7 @@ class BooleanType implements TransmutableTypeInterface, ValueTypeInterface
      *
      * @return string|bool
      */
-    public function __invoke(int $toType = Type::BOOL)
+    public function __invoke(?int $toType = Type::BOOL)
     {
         switch ($toType) {
             case Type::STRING:

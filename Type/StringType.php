@@ -44,7 +44,7 @@ class StringType extends Stringy implements TransmutableTypeInterface, ValueType
      *
      * @return string|int|float|bool|array
      */
-    public function __invoke(int $toType = Type::STRING)
+    public function __invoke(?int $toType = Type::STRING)
     {
         switch ($toType) {
             case Type::STRING:

@@ -31,7 +31,7 @@ class FloatType extends AbstractNumberType
      *
      * @return string|int|float
      */
-    public function __invoke(int $toType = Type::FLOAT)
+    public function __invoke(?int $toType = Type::FLOAT)
     {
         switch ($toType) {
             case Type::FLOAT:

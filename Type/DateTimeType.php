@@ -49,7 +49,7 @@ class DateTimeType extends Carbon implements TypeInterface
      *
      * @return string|DateTimeType
      */
-    public function __invoke(int $toType = null)
+    public function __invoke(?int $toType = null)
     {
         if ($toType === Type::STRING) {
             return $this->format('Y-m-d H:i:s');

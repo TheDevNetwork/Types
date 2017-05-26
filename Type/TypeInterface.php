@@ -42,7 +42,7 @@ interface TypeInterface
      *
      * @return bool|float|int|string|array|DateTimeType
      */
-    public function __invoke(int $toType = null);
+    public function __invoke(?int $toType = null);
 
     /**
      * Returns an instance of TypeInterface from a mixed scalar/type.
