@@ -166,6 +166,7 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
      * @param string      $leftOperand
      * @param string|null $rightOperand
      * @param int|null    $precision
+     * @param string|null $overrideType
      *
      * @return mixed
      */
@@ -173,9 +174,10 @@ abstract class AbstractMathAdapter implements MathAdapterInterface
         string $operation,
         string $leftOperand,
         string $rightOperand = null,
-        int $precision = null
+        int $precision = null,
+        string $overrideType = null
     ) {
-        $type = $this->getOperationType($leftOperand, $rightOperand);
+        $type = $overrideType ?? $this->getOperationType($leftOperand, $rightOperand);
         $exception = null;
 
         foreach ($this->getDelegates($type) as $library) {

@@ -86,7 +86,13 @@ class DefaultMathAdapter extends AbstractMathAdapter implements MathAdapterInter
      */
     public function compare(string $leftOperand, string $rightOperand, int $precision = 0): string
     {
-        return $this->getDelegateResult(__FUNCTION__, $leftOperand, $rightOperand, $precision);
+        return $this->getDelegateResult(
+            __FUNCTION__,
+            $leftOperand,
+            $rightOperand,
+            $precision,
+            MathInterface::TYPE_FLOAT
+        );
     }
 
     /**
